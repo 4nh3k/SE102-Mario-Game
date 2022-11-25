@@ -1,0 +1,15 @@
+{ "columns":1,
+ "image":"SuperMarioBros3Map1-1.png",
+ "imageheight":656,
+ "imagewidth":2816,
+ "margin":0,
+ "name":"SuperMarioBros3Map1-1",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.9.2",
+ "tileheight":656,
+ "tilewidth":2816,
+ "transparentcolor":"#04c1aa",
+ "type":"tileset",
+ "version":"1.9"
+}

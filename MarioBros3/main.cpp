@@ -26,12 +26,15 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 #include <d3dx10.h>
 #include <list>
 
+#include "tileson.hpp"
+
 #include "debug.h"
 #include "Game.h"
 #include "GameObject.h"
 #include "Textures.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "Utils.h"
 
 #include "Mario.h"
 #include "Brick.h"
@@ -196,10 +199,23 @@ int WINAPI WinMain(
 
 	SetDebugWindow(hWnd);
 
+	tson::Tileson t;
+	DebugOut(L"%d", fs::exists("./textures/Map/map1_1.json"));
+	std::unique_ptr<tson::Map> map = t.parse(fs::path("./textures/Map/map1_1.json"));
+	if (map->getStatus() == tson::ParseStatus::OK)
+	{
+		DebugOut(L"load json thanh cong");
+	}
+	else
+	{
+		DebugOut(L"load json ko thanh cong %d", (int)map->getStatus());
+
+	}
+
 	LPGAME game = CGame::GetInstance();
 	game->Init(hWnd, hInstance);
 	game->InitKeyboard();
-
+	
 
 	//IMPORTANT: this is the only place where a hardcoded file name is allowed ! 
 	game->Load(L"mario-sample.txt");  

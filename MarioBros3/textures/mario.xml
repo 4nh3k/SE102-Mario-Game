@@ -16,7 +16,7 @@
 </Animation>
 <Animation aniID="small_walk_jump_right" frameTime="100"><Frame name="small_walk_jump_right0000" x="209" y="226" width="18" height="18" />
 </Animation>
-<Animation aniID="big_run_right" frameTime="100"><Frame name="big_run_right0000" x="18" y="59" width="21" height="29" />
+<Animation aniID="big_run_right" frameTime="50"><Frame name="big_run_right0000" x="18" y="59" width="21" height="29" />
 <Frame name="big_run_right0001" x="39" y="59" width="21" height="29" />
 <Frame name="big_run_right0002" x="0" y="175" width="21" height="28" />
 </Animation>
@@ -68,7 +68,7 @@
 </Animation>
 <Animation aniID="big_idle_right" frameTime="100"><Frame name="big_idle_right0000" x="75" y="0" width="16" height="29" />
 </Animation>
-<Animation aniID="big_run_left" frameTime="100"><Frame name="big_run_left0000" x="54" y="0" width="21" height="29" />
+<Animation aniID="big_run_left" frameTime="50"><Frame name="big_run_left0000" x="54" y="0" width="21" height="29" />
 <Frame name="big_run_left0001" x="0" y="30" width="21" height="29" />
 <Frame name="big_run_left0002" x="153" y="146" width="21" height="28" />
 </Animation>

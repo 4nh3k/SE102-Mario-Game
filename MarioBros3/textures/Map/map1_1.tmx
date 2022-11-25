@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="1">
+ <editorsettings>
+  <export target="old/map1_1..tmx" format="tmx"/>
+ </editorsettings>
+ <tileset firstgid="1" source="SuperMarioBros3Map1-1.tsx"/>
+ <tileset firstgid="2" source="tiles.tsx"/>
+ <layer id="1" name="Ref" width="176" height="41" visible="0" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJzt0rERABAUREH6pRCqJpZgBF+wO3P5BS8lAAAAAAAAAAAAAAAAAAAAgL+UuRp9Ag6tvba5HvQFbq296hcAAAAAAAAAAAD2cvQBeDAAAbYE7Q==
+  </data>
+ </layer>
+ <layer id="3" name="Background" width="176" height="41">
+  <data encoding="base64" compression="zlib">
+   eJzt1l1SgzAYheFw58861F7pHrRe2T3089pNqPtQ96Euzo+LzIRMUqlS4ND3mTnTKQOlkENICMA4th4bOMBY6C+U0V8oo79QRn+hjP5CGf2FMvoLZfQXyugvlNFfKKO/UEZ/oYz+Qhn9hTL6C2X0F8roL1Scec6zbfQXKq4896HbYfoLFW1/Hz2rZNuu/p54TrNtz00IL57X5jj7W3qH4fDa+74O+/X3wnOZbXvz3r57Pnr0dyljHa8j3sNV6F7bUq5zrtLu7tvfu9Cdgz+9t1+e71/6Wxpr1XGO66518pnex9K6bKmmGMO4bvhLf9vPfA4uJV1rxHPmYz23cX5qyknlz35+H2vvtdJvLcEUY5j3Nz1/n/7mc3Bt39jz2jnzca515ljM5fr7/o/as3poeZfS89f6286nt8n3XXNw3DftLwBMyYQDmHAAGyDXnpsRj4sBbIA8eDYjHhcDmHAAEw5gwgFMOIAJBzDhACYcwIQDmHAAE85//ADWEtrJ
+  </data>
+ </layer>
+ <layer id="2" name="Platform" width="176" height="41">
+  <data encoding="base64" compression="zlib">
+   eJztmktSGzEURWUSYJJkCxjCHjLE2QCDzPiuAKYQzArCFFJhG5B9BArYB7ADnopWWSXLsfVpd6t9TtUd4Db2k3Seyt0lpQAAAAAAAAAAAAAgF0eS46aLAIjkl+Si6SIgKzuS3Sp7DddSN/jbPS4lV1V+N1xL3eDvYrPdC0+bwN/Foc0exoK/UDL4CyWDv1Ay+Aslg79QCsuSFcmq9Rr+QilsSL5KNq3X8HfEkuRDlY8N1wLj+Pz91nsPKLUm6VdZb7SSdPYlB54cNllUIj5/u4ZZt1nXyT0r0Ffd8PdMMvTk3PPeUvawRfDXrJtvnXycSE6r/FTl+2v3ox3dmyHz0ka67O+D5FHypMbXyT4jau5hTfS9bJf8tfvRjh5bqL/unhy6R+c6m2t6UvdgV3//PkteJK9qfJ3se1TTwyZ6Lswau267z2rajK92uz9D/fV5Mc0V19dczwZMT+oxTHv+UOp59k8yr58lXyR/5O9r65o9xi3JwMp3NTpr6F4z1zU38rm3c8zfwD3FV7s9Pn2OcujMyySMp5P8neSw61Iuf815UD2GgRqtSZ3fGcO8HQlx6Z/kbo659zhSx/zYfeJ+vttDbVofU1tbagrdbwAAACCcH73/Z9b3xf4fQAp1+4W/UCf4CyWDv1AydfgV8zsZIIbcfsXe5wHEkNOvUHfxF1LJ5VeMu/gLqeTwK9Zd/IVUUv1KcRd/IZVU//AXmqSL/r4BDEs6jw==
+  </data>
+ </layer>
+ <layer id="6" name="Brick" width="176" height="41">
+  <data encoding="base64" compression="zlib">
+   eJzt1jEOABAMQFFO4VrufxqDSWOyqHgv6Wz5bZQCAAAAAAAAAAAAAAAAsOp1DvxA6wDnMvwZbr8PP7u9f62uA6+I7cZ+9UxWu3Zjw24yAAAAAAAAAAAAQH4Dt/cEAA==
+  </data>
+ </layer>
+ <layer id="4" name="Shadow" width="176" height="41">
+  <data encoding="base64" compression="zlib">
+   eJzt2EEKwjAQBdAe3Iv0Hur5dCOUQAghQpzvexC66SJ/JlNKjgMAAAAAAIB/cNu9AVhw7t4ATLi/1+Oynnu3AwAAAFCSO20qc6c9ZsZ/l/M7llqjhLlM7c3Vap9Sa5SQKyHDyGrGtBp95jkhV0KGntk+9b7TaTU6m2dFSTPYM9un0XvV/xfbnlfufUKGkW+f3+q1autROU9CBgAAAAAAAAAAAIAULxx0HJc=
+  </data>
+ </layer>
+</map>
