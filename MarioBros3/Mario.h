@@ -33,50 +33,96 @@
 #define MARIO_STATE_SIT				600
 #define MARIO_STATE_SIT_RELEASE		601
 
+//
+//#pragma region ANIMATION_ID
+//
+//#define ID_ANI_MARIO_IDLE_RIGHT "400"
+//#define ID_ANI_MARIO_IDLE_LEFT "401"
+//
+//#define ID_ANI_MARIO_WALKING_RIGHT "500"
+//#define ID_ANI_MARIO_WALKING_LEFT "501"
+//
+//#define ID_ANI_MARIO_RUNNING_RIGHT "600"
+//#define ID_ANI_MARIO_RUNNING_LEFT "601"
+//
+//#define ID_ANI_MARIO_JUMP_WALK_RIGHT "700"
+//#define ID_ANI_MARIO_JUMP_WALK_LEFT "701"
+//
+//#define ID_ANI_MARIO_JUMP_RUN_RIGHT "800"
+//#define ID_ANI_MARIO_JUMP_RUN_LEFT "801"
+//
+//#define ID_ANI_MARIO_SIT_RIGHT "900"
+//#define ID_ANI_MARIO_SIT_LEFT "901"
+//
+//#define ID_ANI_MARIO_BRACE_RIGHT "1000"
+//#define ID_ANI_MARIO_BRACE_LEFT "1001"
+//
+//#define ID_ANI_MARIO_DIE "999"
+//
+//// SMALL MARIO
+//#define ID_ANI_MARIO_SMALL_IDLE_RIGHT "1100"
+//#define ID_ANI_MARIO_SMALL_IDLE_LEFT "1102"
+//
+//#define ID_ANI_MARIO_SMALL_WALKING_RIGHT "1200"
+//#define ID_ANI_MARIO_SMALL_WALKING_LEFT "1201"
+//
+//#define ID_ANI_MARIO_SMALL_RUNNING_RIGHT "1300"
+//#define ID_ANI_MARIO_SMALL_RUNNING_LEFT "1301"
+//
+//#define ID_ANI_MARIO_SMALL_BRACE_RIGHT "1400"
+//#define ID_ANI_MARIO_SMALL_BRACE_LEFT "1401"
+//
+//#define ID_ANI_MARIO_SMALL_JUMP_WALK_RIGHT "1500"
+//#define ID_ANI_MARIO_SMALL_JUMP_WALK_LEFT "1501"
+//
+//#define ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT "1600"
+//#define ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT "1601"
+//
+//#pragma endregion
 
 #pragma region ANIMATION_ID
 
-#define ID_ANI_MARIO_IDLE_RIGHT "400"
-#define ID_ANI_MARIO_IDLE_LEFT "401"
+#define ID_ANI_MARIO_IDLE_RIGHT "big_idle_right"
+#define ID_ANI_MARIO_IDLE_LEFT "big_idle_left"
 
-#define ID_ANI_MARIO_WALKING_RIGHT "500"
-#define ID_ANI_MARIO_WALKING_LEFT "501"
+#define ID_ANI_MARIO_WALKING_RIGHT "big_walk_right"
+#define ID_ANI_MARIO_WALKING_LEFT "big_walk_left"
 
-#define ID_ANI_MARIO_RUNNING_RIGHT "600"
-#define ID_ANI_MARIO_RUNNING_LEFT "601"
+#define ID_ANI_MARIO_RUNNING_RIGHT "big_run_right"
+#define ID_ANI_MARIO_RUNNING_LEFT "big_run_left"
 
-#define ID_ANI_MARIO_JUMP_WALK_RIGHT "700"
-#define ID_ANI_MARIO_JUMP_WALK_LEFT "701"
+#define ID_ANI_MARIO_JUMP_WALK_RIGHT "big_walk_jump_right"
+#define ID_ANI_MARIO_JUMP_WALK_LEFT "big_walk_jump_left"
 
-#define ID_ANI_MARIO_JUMP_RUN_RIGHT "800"
-#define ID_ANI_MARIO_JUMP_RUN_LEFT "801"
+#define ID_ANI_MARIO_JUMP_RUN_RIGHT "big_run_jump_right"
+#define ID_ANI_MARIO_JUMP_RUN_LEFT "big_run_jump_left"
 
-#define ID_ANI_MARIO_SIT_RIGHT "900"
-#define ID_ANI_MARIO_SIT_LEFT "901"
+#define ID_ANI_MARIO_SIT_RIGHT "big_sit_right"
+#define ID_ANI_MARIO_SIT_LEFT "big_sit_left"
 
-#define ID_ANI_MARIO_BRACE_RIGHT "1000"
-#define ID_ANI_MARIO_BRACE_LEFT "1001"
+#define ID_ANI_MARIO_BRACE_RIGHT "big_brace_right"
+#define ID_ANI_MARIO_BRACE_LEFT "big_brace_left"
 
-#define ID_ANI_MARIO_DIE "999"
+#define ID_ANI_MARIO_DIE "small_die"
 
 // SMALL MARIO
-#define ID_ANI_MARIO_SMALL_IDLE_RIGHT "1100"
-#define ID_ANI_MARIO_SMALL_IDLE_LEFT "1102"
+#define ID_ANI_MARIO_SMALL_IDLE_RIGHT "small_idle_right"
+#define ID_ANI_MARIO_SMALL_IDLE_LEFT "small_idle_left"
 
-#define ID_ANI_MARIO_SMALL_WALKING_RIGHT "1200"
-#define ID_ANI_MARIO_SMALL_WALKING_LEFT "1201"
+#define ID_ANI_MARIO_SMALL_WALKING_RIGHT "small_walk_right"
+#define ID_ANI_MARIO_SMALL_WALKING_LEFT "small_walk_left"
 
-#define ID_ANI_MARIO_SMALL_RUNNING_RIGHT "1300"
-#define ID_ANI_MARIO_SMALL_RUNNING_LEFT "1301"
+#define ID_ANI_MARIO_SMALL_RUNNING_RIGHT "small_run_right"
+#define ID_ANI_MARIO_SMALL_RUNNING_LEFT "small_run_left"
 
-#define ID_ANI_MARIO_SMALL_BRACE_RIGHT "1400"
-#define ID_ANI_MARIO_SMALL_BRACE_LEFT "1401"
+#define ID_ANI_MARIO_SMALL_BRACE_RIGHT "small_brace_right"
+#define ID_ANI_MARIO_SMALL_BRACE_LEFT "small_brace_left"
 
-#define ID_ANI_MARIO_SMALL_JUMP_WALK_RIGHT "1500"
-#define ID_ANI_MARIO_SMALL_JUMP_WALK_LEFT "1501"
+#define ID_ANI_MARIO_SMALL_JUMP_WALK_RIGHT "small_walk_jump_right"
+#define ID_ANI_MARIO_SMALL_JUMP_WALK_LEFT "small_walk_jump_left"
 
-#define ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT "1600"
-#define ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT "1601"
+#define ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT "small_run_jump_right"
+#define ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT "small_run_jump_left"
 
 #pragma endregion
 

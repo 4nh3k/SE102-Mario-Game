@@ -62,8 +62,14 @@ void CPlayScene::_ParseSection_ASSETS(string line)
 	if (tokens.size() < 1) return;
 
 	wstring path = ToWSTR(tokens[0]);
-	
-	LoadAssets(path.c_str());
+	if (path == ToWSTR("mario.txt"))
+	{
+		CAnimations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_MARIO);
+	}
+	else
+	{
+		LoadAssets(path.c_str());
+	}
 }
 
 void CPlayScene::_ParseSection_ANIMATIONS(string line)
