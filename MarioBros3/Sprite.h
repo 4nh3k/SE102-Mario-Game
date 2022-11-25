@@ -5,7 +5,7 @@
 
 class CSprite
 {
-	int id;				// Sprite ID in the sprite database
+	string id;				// Sprite ID in the sprite database
 
 	int left;
 	int top;
@@ -16,7 +16,7 @@ class CSprite
 	D3DX10_SPRITE sprite;
 	D3DXMATRIX matScaling;
 public:
-	CSprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex);
+	CSprite(string id, int left, int top, int right, int bottom, LPTEXTURE tex);
 
 	void Draw(float x, float y);
 };

@@ -10,13 +10,13 @@ CSprites* CSprites::GetInstance()
 	return __instance;
 }
 
-void CSprites::Add(int id, int left, int top, int right, int bottom, LPTEXTURE tex)
+void CSprites::Add(string id, int left, int top, int right, int bottom, LPTEXTURE tex)
 {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
 	sprites[id] = s;
 }
 
-LPSPRITE CSprites::Get(int id)
+LPSPRITE CSprites::Get(string id)
 {
 	return sprites[id];
 }

@@ -65,7 +65,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void CGoomba::Render()
 {
-	int aniId = ID_ANI_GOOMBA_WALKING;
+	string aniId = ID_ANI_GOOMBA_WALKING;
 	if (state == GOOMBA_STATE_DIE) 
 	{
 		aniId = ID_ANI_GOOMBA_DIE;

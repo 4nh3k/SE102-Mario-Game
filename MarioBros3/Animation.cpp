@@ -1,7 +1,7 @@
 #include "Animation.h"
 #include "debug.h"
 
-void CAnimation::Add(int spriteId, DWORD time)
+void CAnimation::Add(string spriteId, DWORD time)
 {
 	int t = time;
 	if (time == 0) t = this->defaultTime;

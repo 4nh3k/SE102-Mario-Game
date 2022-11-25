@@ -38,7 +38,7 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 
 	if (tokens.size() < 6) return; // skip invalid lines
 
-	int ID = atoi(tokens[0].c_str());
+	string ID = tokens[0].c_str();
 	int l = atoi(tokens[1].c_str());
 	int t = atoi(tokens[2].c_str());
 	int r = atoi(tokens[3].c_str());
@@ -76,10 +76,10 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 
 	LPANIMATION ani = new CAnimation();
 
-	int ani_id = atoi(tokens[0].c_str());
+	string ani_id = tokens[0].c_str();
 	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
 	{
-		int sprite_id = atoi(tokens[i].c_str());
+		string sprite_id = tokens[i].c_str();
 		int frame_time = atoi(tokens[i+1].c_str());
 		ani->Add(sprite_id, frame_time);
 	}
@@ -126,9 +126,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float cell_width = (float)atof(tokens[3].c_str());
 		float cell_height = (float)atof(tokens[4].c_str());
 		int length = atoi(tokens[5].c_str());
-		int sprite_begin = atoi(tokens[6].c_str());
-		int sprite_middle = atoi(tokens[7].c_str());
-		int sprite_end = atoi(tokens[8].c_str());
+		string sprite_begin = (tokens[6].c_str());
+		string sprite_middle = (tokens[7].c_str());
+		string sprite_end = (tokens[8].c_str());
 
 		obj = new CPlatform(
 			x, y,
@@ -235,7 +235,6 @@ void CPlayScene::Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 1; i < objects.size(); i++)
 	{

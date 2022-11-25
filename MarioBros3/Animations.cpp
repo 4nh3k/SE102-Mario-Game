@@ -9,7 +9,7 @@ CAnimations* CAnimations::GetInstance()
 	return __instance;
 }
 
-void CAnimations::Add(int id, LPANIMATION ani)
+void CAnimations::Add(string id, LPANIMATION ani)
 {
 	if (animations[id] != NULL)
 		DebugOut(L"[WARNING] Animation %d already exists\n", id);
@@ -17,7 +17,7 @@ void CAnimations::Add(int id, LPANIMATION ani)
 	animations[id] = ani;
 }
 
-LPANIMATION CAnimations::Get(int id)
+LPANIMATION CAnimations::Get(string id)
 {
 	LPANIMATION ani = animations[id];
 	if (ani == NULL)
