@@ -10,9 +10,9 @@
 #define TEXTURES_DIR L""
 #define ANIMATIONS_PATH_MARIO "textures\\mario.xml"
 
-class CAnimations
+class Animations
 {
-	static CAnimations* __instance;
+	static Animations* __instance;
 
 	unordered_map<string, LPANIMATION> animations;
 
@@ -21,5 +21,5 @@ public:
 	LPANIMATION Get(string id);
 	void Clear();
 	void LoadAnimation(string path);
-	static CAnimations* GetInstance();
+	static Animations* GetInstance();
 };

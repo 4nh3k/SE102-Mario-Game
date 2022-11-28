@@ -9,7 +9,7 @@
 //#include "Koopas.h"
 
 
-class CPlayScene: public CScene
+class PlayScene: public Scene
 {
 protected: 
 	// A play scene has to have player, right? 
@@ -26,7 +26,7 @@ protected:
 	void LoadAssets(LPCWSTR assetFile);
 	
 public: 
-	CPlayScene(int id, LPCWSTR filePath);
+	PlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();
 	virtual void Update(DWORD dt);
@@ -41,5 +41,5 @@ public:
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 };
 
-typedef CPlayScene* LPPLAYSCENE;
+typedef PlayScene* LPPLAYSCENE;
 

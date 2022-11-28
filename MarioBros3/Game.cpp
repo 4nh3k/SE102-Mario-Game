@@ -8,14 +8,14 @@
 #include "Animations.h"
 #include "PlayScene.h"
 
-CGame * CGame::__instance = NULL;
+Game * Game::__instance = NULL;
 
 /*
 	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
 	rendering 2D images
 	- hWnd: Application window handle
 */
-void CGame::Init(HWND hWnd, HINSTANCE hInstance)
+void Game::Init(HWND hWnd, HINSTANCE hInstance)
 {
 	this->hWnd = hWnd;
 	this->hInstance = hInstance;
@@ -155,7 +155,7 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	return;
 }
 
-void CGame::SetPointSamplerState()
+void Game::SetPointSamplerState()
 {
 	pD3DDevice->VSSetSamplers(0, 1, &pPointSamplerState);
 	pD3DDevice->GSSetSamplers(0, 1, &pPointSamplerState);
@@ -167,7 +167,7 @@ void CGame::SetPointSamplerState()
 	NOTE: This function is very inefficient because it has to convert
 	from texture to sprite every time we need to draw it
 */
-void CGame::Draw(float x, float y, LPTEXTURE tex, RECT* rect, float alpha, int sprite_width, int sprite_height)
+void Game::Draw(float x, float y, LPTEXTURE tex, RECT* rect, float alpha, int sprite_width, int sprite_height)
 {
 	if (tex == NULL) return;
 
@@ -235,7 +235,7 @@ void CGame::Draw(float x, float y, LPTEXTURE tex, RECT* rect, float alpha, int s
 /*
 	Utility function to wrap D3DXCreateTextureFromFileEx
 */
-LPTEXTURE CGame::LoadTexture(LPCWSTR texturePath)
+LPTEXTURE Game::LoadTexture(LPCWSTR texturePath)
 {
 	ID3D10Resource* pD3D10Resource = NULL;
 	ID3D10Texture2D* tex = NULL;
@@ -315,15 +315,15 @@ LPTEXTURE CGame::LoadTexture(LPCWSTR texturePath)
 
 	DebugOut(L"[INFO] Texture loaded Ok from file: %s \n", texturePath);
 
-	return new CTexture(tex, gSpriteTextureRV);
+	return new Texture(tex, gSpriteTextureRV);
 }
 
-int CGame::IsKeyDown(int KeyCode)
+int Game::IsKeyDown(int KeyCode)
 {
 	return (keyStates[KeyCode] & 0x80) > 0;
 }
 
-void CGame::InitKeyboard()
+void Game::InitKeyboard()
 {
 	HRESULT hr = DirectInput8Create(this->hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (VOID**)&di, NULL);
 	if (hr != DI_OK)
@@ -381,7 +381,7 @@ void CGame::InitKeyboard()
 	DebugOut(L"[INFO] Keyboard has been initialized successfully\n");
 }
 
-void CGame::ProcessKeyboard()
+void Game::ProcessKeyboard()
 {
 	HRESULT hr;
 
@@ -438,7 +438,7 @@ void CGame::ProcessKeyboard()
 #define GAME_FILE_SECTION_TEXTURES 3
 
 
-void CGame::_ParseSection_SETTINGS(string line)
+void Game::_ParseSection_SETTINGS(string line)
 {
 	vector<string> tokens = split(line);
 
@@ -449,7 +449,7 @@ void CGame::_ParseSection_SETTINGS(string line)
 		DebugOut(L"[ERROR] Unknown game setting: %s\n", ToWSTR(tokens[0]).c_str());
 }
 
-void CGame::_ParseSection_SCENES(string line)
+void Game::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
 
@@ -457,14 +457,14 @@ void CGame::_ParseSection_SCENES(string line)
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
 
-	LPSCENE scene = new CPlayScene(id, path);
+	LPSCENE scene = new PlayScene(id, path);
 	scenes[id] = scene;
 }
 
 /*
 	Load game campaign file and load/initiate first scene
 */
-void CGame::Load(LPCWSTR gameFile)
+void Game::Load(LPCWSTR gameFile)
 {
 	DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
 
@@ -508,7 +508,7 @@ void CGame::Load(LPCWSTR gameFile)
 	SwitchScene();
 }
 
-void CGame::SwitchScene()
+void Game::SwitchScene()
 {
 	if (next_scene < 0 || next_scene == current_scene) return; 
 
@@ -516,8 +516,8 @@ void CGame::SwitchScene()
 
 	scenes[current_scene]->Unload();
 
-	CSprites::GetInstance()->Clear();
-	CAnimations::GetInstance()->Clear();
+	Sprites::GetInstance()->Clear();
+	Animations::GetInstance()->Clear();
 
 	current_scene = next_scene;
 	LPSCENE s = scenes[next_scene];
@@ -525,13 +525,13 @@ void CGame::SwitchScene()
 	s->Load();
 }
 
-void CGame::InitiateSwitchScene(int scene_id)
+void Game::InitiateSwitchScene(int scene_id)
 {
 	next_scene = scene_id;
 }
 
 
-void CGame::_ParseSection_TEXTURES(string line)
+void Game::_ParseSection_TEXTURES(string line)
 {
 	vector<string> tokens = split(line);
 
@@ -540,11 +540,11 @@ void CGame::_ParseSection_TEXTURES(string line)
 	int texID = atoi(tokens[0].c_str());
 	wstring path = ToWSTR(tokens[1]);
 
-	CTextures::GetInstance()->Add(texID, path.c_str());
+	Textures::GetInstance()->Add(texID, path.c_str());
 }
 
 
-CGame::~CGame()
+Game::~Game()
 {
 	pBlendStateAlpha->Release();
 	spriteObject->Release();
@@ -553,9 +553,9 @@ CGame::~CGame()
 	pD3DDevice->Release();
 }
 
-CGame* CGame::GetInstance()
+Game* Game::GetInstance()
 {
-	if (__instance == NULL) __instance = new CGame();
+	if (__instance == NULL) __instance = new Game();
 	return __instance;
 }
 

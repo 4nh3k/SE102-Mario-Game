@@ -147,7 +147,7 @@
 
 #define MARIO_UNTOUCHABLE_TIME 2500
 
-class CMario : public CGameObject
+class Mario : public GameObject
 {
 	BOOLEAN isSitting;
 	float maxVx;
@@ -168,7 +168,7 @@ class CMario : public CGameObject
 	string GetAniIdSmall();
 
 public:
-	CMario(float x, float y) : CGameObject(x, y)
+	Mario(float x, float y) : GameObject(x, y)
 	{
 		isSitting = false;
 		maxVx = 0.0f;

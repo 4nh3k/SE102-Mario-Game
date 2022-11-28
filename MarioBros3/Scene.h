@@ -5,7 +5,7 @@
 /*
 *  Abstract class for a game scene
 */
-class CScene
+class Scene
 {
 protected:
 	LPKEYEVENTHANDLER key_handler;
@@ -13,7 +13,7 @@ protected:
 	LPCWSTR sceneFilePath;
 
 public: 
-	CScene(int id, LPCWSTR filePath)
+	Scene(int id, LPCWSTR filePath)
 	{
 		this->id = id;
 		this->sceneFilePath = filePath;
@@ -26,19 +26,19 @@ public:
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0; 
 };
-typedef CScene * LPSCENE;
+typedef Scene * LPSCENE;
 
 
-class CSceneKeyHandler : public CKeyEventHandler
+class CSceneKeyHandler : public KeyEventHandler
 {
 protected: 
-	CScene * scence; 
+	Scene * scence; 
 
 public:
 	virtual void KeyState(BYTE *states) = 0;
 	virtual void OnKeyDown(int KeyCode) = 0;
 	virtual void OnKeyUp(int KeyCode) = 0;
-	CSceneKeyHandler(LPSCENE s) :CKeyEventHandler() { scence = s; }
+	CSceneKeyHandler(LPSCENE s) :KeyEventHandler() { scence = s; }
 };
 
 typedef CSceneKeyHandler* LPSCENEKEYHANDLER;

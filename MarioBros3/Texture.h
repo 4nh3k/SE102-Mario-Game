@@ -6,7 +6,7 @@
 //
 // Warpper class to simplify texture manipulation. See also CGame::LoadTexture
 //
-class CTexture
+class Texture
 {
 protected:
 	ID3D10Texture2D* _tex;
@@ -14,7 +14,7 @@ protected:
 	int _width;
 	int _height;
 public:
-	CTexture()
+	Texture()
 	{
 		_tex = NULL;
 		_rsview = NULL;
@@ -22,7 +22,7 @@ public:
 		_height = -1;
 	}
 
-	CTexture(ID3D10Texture2D* tex, ID3D10ShaderResourceView* rsview)
+	Texture(ID3D10Texture2D* tex, ID3D10ShaderResourceView* rsview)
 	{
 		this->_tex = tex;
 		this->_rsview = rsview;
@@ -38,11 +38,11 @@ public:
 	int getWidth() { return this->_width; }
 	int getHeight() { return this->_height; }
 
-	~CTexture()
+	~Texture()
 	{
 		if (_rsview != NULL) this->_rsview->Release();
 		if (_tex != NULL) this->_tex->Release();
 	}
 };
 
-typedef CTexture* LPTEXTURE;
+typedef Texture* LPTEXTURE;

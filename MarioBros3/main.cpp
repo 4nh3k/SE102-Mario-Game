@@ -41,7 +41,7 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 #include "Goomba.h"
 #include "Coin.h"
 #include "Platform.h"
-
+#include "Map.h"
 #include "SampleKeyEventHandler.h"
 
 #include "AssetIDs.h"
@@ -55,6 +55,8 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
+Map* GameMap;
+
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) {
@@ -67,22 +69,20 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	return 0;
 }
-
 /*
 	Update world status for this frame
 	dt: time period between beginning of last frame and beginning of this frame
 */
 void Update(DWORD dt)
 {
-	CGame::GetInstance()->GetCurrentScene()->Update(dt);
+	Game::GetInstance()->GetCurrentScene()->Update(dt);
 }
-
 /*
 	Render a frame 
 */
 void Render()
 {
-	CGame* g = CGame::GetInstance();
+	Game* g = Game::GetInstance();
 
 	ID3D10Device* pD3DDevice = g->GetDirect3DDevice();
 	IDXGISwapChain* pSwapChain = g->GetSwapChain();
@@ -96,7 +96,8 @@ void Render()
 	FLOAT NewBlendFactor[4] = { 0,0,0,0 };
 	pD3DDevice->OMSetBlendState(g->GetAlphaBlending(), NewBlendFactor, 0xffffffff);
 
-	CGame::GetInstance()->GetCurrentScene()->Render();
+	//Game::GetInstance()->GetCurrentScene()->Render();
+	GameMap->Render();
 
 	spriteHandler->End();
 	pSwapChain->Present(0, 0);
@@ -151,11 +152,12 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 
 int Run()
 {
+
+	GameMap = new Map("./textures/Map/testmap.tmj");
 	MSG msg;
 	int done = 0;
 	ULONGLONG frameStart = GetTickCount64();
 	DWORD tickPerFrame = 1000 / MAX_FRAME_RATE;
-
 	while (!done)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -176,11 +178,11 @@ int Run()
 		{
 			frameStart = now;
 
-			CGame::GetInstance()->ProcessKeyboard();			
+			Game::GetInstance()->ProcessKeyboard();			
 			Update(dt);
 			Render();
 
-			CGame::GetInstance()->SwitchScene();
+			Game::GetInstance()->SwitchScene();
 		}
 		else
 			Sleep(tickPerFrame - dt);	
@@ -188,6 +190,8 @@ int Run()
 
 	return 1;
 }
+
+
 
 int WINAPI WinMain(
 	_In_ HINSTANCE hInstance,
@@ -199,20 +203,7 @@ int WINAPI WinMain(
 
 	SetDebugWindow(hWnd);
 
-	tson::Tileson t;
-	DebugOut(L"%d", fs::exists("./textures/Map/map1_1.json"));
-	std::unique_ptr<tson::Map> map = t.parse(fs::path("./textures/Map/map1_1.json"));
-	if (map->getStatus() == tson::ParseStatus::OK)
-	{
-		DebugOut(L"load json thanh cong");
-	}
-	else
-	{
-		DebugOut(L"load json ko thanh cong %d", (int)map->getStatus());
-
-	}
-
-	LPGAME game = CGame::GetInstance();
+	LPGAME game = Game::GetInstance();
 	game->Init(hWnd, hInstance);
 	game->InitKeyboard();
 	

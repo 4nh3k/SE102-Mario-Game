@@ -5,18 +5,18 @@
 
 #define BLOCK_PUSH_FACTOR 0.4f
 
-CCollision* CCollision::__instance = NULL;
+Collision* Collision::__instance = NULL;
 
-CCollision* CCollision::GetInstance()
+Collision* Collision::GetInstance()
 {
-	if (__instance == NULL) __instance = new CCollision();
+	if (__instance == NULL) __instance = new Collision();
 	return __instance;
 }
 
 /*
 	SweptAABB 
 */
-void CCollision::SweptAABB(
+void Collision::SweptAABB(
 	float ml, float mt, float mr, float mb,
 	float dx, float dy,
 	float sl, float st, float sr, float sb,
@@ -117,7 +117,7 @@ void CCollision::SweptAABB(
 /*
 	Extension of original SweptAABB to deal with two moving objects
 */
-LPCOLLISIONEVENT CCollision::SweptAABB(LPGAMEOBJECT objSrc, DWORD dt, LPGAMEOBJECT objDest)
+LPCOLLISIONEVENT Collision::SweptAABB(LPGAMEOBJECT objSrc, DWORD dt, LPGAMEOBJECT objDest)
 {
 	float sl, st, sr, sb;		// static object bbox
 	float ml, mt, mr, mb;		// moving object bbox
@@ -149,7 +149,7 @@ LPCOLLISIONEVENT CCollision::SweptAABB(LPGAMEOBJECT objSrc, DWORD dt, LPGAMEOBJE
 		t, nx, ny
 	);
 
-	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, dx, dy, objDest, objSrc);
+	CollisionEvent* e = new CollisionEvent(t, nx, ny, dx, dy, objDest, objSrc);
 	return e;
 }
 
@@ -159,7 +159,7 @@ LPCOLLISIONEVENT CCollision::SweptAABB(LPGAMEOBJECT objSrc, DWORD dt, LPGAMEOBJE
 	coObjects: the list of colliable objects
 	coEvents: list of potential collisions
 */
-void CCollision::Scan(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* objDests, vector<LPCOLLISIONEVENT>& coEvents)
+void Collision::Scan(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* objDests, vector<LPCOLLISIONEVENT>& coEvents)
 {
 	for (UINT i = 0; i < objDests->size(); i++)
 	{
@@ -174,7 +174,7 @@ void CCollision::Scan(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* objDe
 	//std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CCollision::Filter( LPGAMEOBJECT objSrc,
+void Collision::Filter( LPGAMEOBJECT objSrc,
 	vector<LPCOLLISIONEVENT>& coEvents,
 	LPCOLLISIONEVENT &colX,
 	LPCOLLISIONEVENT &colY,
@@ -218,7 +218,7 @@ void CCollision::Filter( LPGAMEOBJECT objSrc,
 *  Simple/Sample collision framework 
 *  NOTE: Student might need to improve this based on game logic 
 */
-void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Collision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
 	LPCOLLISIONEVENT colX = NULL; 

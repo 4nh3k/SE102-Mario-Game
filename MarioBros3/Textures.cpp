@@ -4,25 +4,25 @@
 #include "Game.h"
 #include "textures.h"
 
-CTextures* CTextures::__instance = NULL;
+Textures* Textures::__instance = NULL;
 
-CTextures::CTextures()
+Textures::Textures()
 {
 
 }
 
-CTextures* CTextures::GetInstance()
+Textures* Textures::GetInstance()
 {
-	if (__instance == NULL) __instance = new CTextures();
+	if (__instance == NULL) __instance = new Textures();
 	return __instance;
 }
 
-void CTextures::Add(int id, LPCWSTR filePath)
+void Textures::Add(int id, LPCWSTR filePath)
 {
-	textures[id] = CGame::GetInstance()->LoadTexture(filePath);
+	textures[id] = Game::GetInstance()->LoadTexture(filePath);
 }
 
-LPTEXTURE CTextures::Get(unsigned int i)
+LPTEXTURE Textures::Get(unsigned int i)
 {
 	LPTEXTURE t = textures[i];
 	if (t == NULL)
@@ -34,7 +34,7 @@ LPTEXTURE CTextures::Get(unsigned int i)
 /*
 	Clear all loaded textures
 */
-void CTextures::Clear()
+void Textures::Clear()
 {
 	for (auto x : textures)
 	{

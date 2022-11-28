@@ -10,7 +10,7 @@
 
 #include "Collision.h"
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
@@ -26,16 +26,16 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	isOnPlatform = false;
 
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+	Collision::GetInstance()->Process(this, dt, coObjects);
 }
 
-void CMario::OnNoCollision(DWORD dt)
+void Mario::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
 }
 
-void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
+void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
@@ -48,17 +48,17 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		vx = 0;
 	}
 
-	if (dynamic_cast<CGoomba*>(e->obj))
+	if (dynamic_cast<Goomba*>(e->obj))
 		OnCollisionWithGoomba(e);
-	else if (dynamic_cast<CCoin*>(e->obj))
+	else if (dynamic_cast<Coin*>(e->obj))
 		OnCollisionWithCoin(e);
-	else if (dynamic_cast<CPortal*>(e->obj))
+	else if (dynamic_cast<Portal*>(e->obj))
 		OnCollisionWithPortal(e);
 }
 
-void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
+void Mario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
-	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+	Goomba* goomba = dynamic_cast<Goomba*>(e->obj);
 
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
@@ -90,22 +90,22 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 }
 
-void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
+void Mario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
 	coin++;
 }
 
-void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
+void Mario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
-	CPortal* p = (CPortal*)e->obj;
-	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
+	Portal* p = (Portal*)e->obj;
+	Game::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
 
 //
 // Get animation ID for small Mario
 //
-string CMario::GetAniIdSmall()
+string Mario::GetAniIdSmall()
 {
 	string aniId = "1";
 	if (!isOnPlatform)
@@ -167,7 +167,7 @@ string CMario::GetAniIdSmall()
 //
 // Get animdation ID for big Mario
 //
-string CMario::GetAniIdBig()
+string Mario::GetAniIdBig()
 {
 	string aniId = "1";
 	if (!isOnPlatform)
@@ -225,9 +225,9 @@ string CMario::GetAniIdBig()
 	return aniId;
 }
 
-void CMario::Render()
+void Mario::Render()
 {
-	CAnimations* animations = CAnimations::GetInstance();
+	Animations* animations = Animations::GetInstance();
 	string aniId = "1";
 
 	if (state == MARIO_STATE_DIE)
@@ -241,10 +241,10 @@ void CMario::Render()
 
 	//RenderBoundingBox();
 	
-	DebugOutTitle(L"Coins: %d", coin);
+	//DebugOutTitle(L"Coins: %d", coin);
 }
 
-void CMario::SetState(int state)
+void Mario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return; 
@@ -321,10 +321,10 @@ void CMario::SetState(int state)
 		break;
 	}
 
-	CGameObject::SetState(state);
+	GameObject::SetState(state);
 }
 
-void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
+void Mario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	if (level==MARIO_LEVEL_BIG)
 	{
@@ -352,7 +352,7 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 	}
 }
 
-void CMario::SetLevel(int l)
+void Mario::SetLevel(int l)
 {
 	// Adjust position to avoid falling off platform
 	if (this->level == MARIO_LEVEL_SMALL)

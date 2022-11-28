@@ -6,10 +6,10 @@
 #include "Mario.h"
 #include "PlayScene.h"
 
-void CSampleKeyHandler::OnKeyDown(int KeyCode)
+void SampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	CMario* mario = (CMario *)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer(); 
+	Mario* mario = (Mario *)((LPPLAYSCENE)Game::GetInstance()->GetCurrentScene())->GetPlayer(); 
 
 	switch (KeyCode)
 	{
@@ -34,11 +34,11 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	}
 }
 
-void CSampleKeyHandler::OnKeyUp(int KeyCode)
+void SampleKeyHandler::OnKeyUp(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	Mario* mario = (Mario*)((LPPLAYSCENE)Game::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_S:
@@ -50,10 +50,10 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 	}
 }
 
-void CSampleKeyHandler::KeyState(BYTE *states)
+void SampleKeyHandler::KeyState(BYTE *states)
 {
-	LPGAME game = CGame::GetInstance();
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	LPGAME game = Game::GetInstance();
+	Mario* mario = (Mario*)((LPPLAYSCENE)Game::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	if (game->IsKeyDown(DIK_RIGHT))
 	{

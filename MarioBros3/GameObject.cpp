@@ -8,7 +8,7 @@
 #include "GameObject.h"
 #include "Sprites.h"
 
-CGameObject::CGameObject()
+GameObject::GameObject()
 {
 	x = y = 0;
 	vx = vy = 0;
@@ -17,12 +17,12 @@ CGameObject::CGameObject()
 	isDeleted = false;
 }
 
-void CGameObject::RenderBoundingBox()
+void GameObject::RenderBoundingBox()
 {
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 
-	LPTEXTURE bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+	LPTEXTURE bbox = Textures::GetInstance()->Get(ID_TEX_BBOX);
 
 	float l,t,r,b; 
 
@@ -33,12 +33,12 @@ void CGameObject::RenderBoundingBox()
 	rect.bottom = (int)b - (int)t;
 
 	float cx, cy; 
-	CGame::GetInstance()->GetCamPos(cx, cy);
+	Game::GetInstance()->GetCamPos(cx, cy);
 
-	CGame::GetInstance()->Draw(x - cx, y - cy, bbox, &rect, BBOX_ALPHA);
+	Game::GetInstance()->Draw(x - cx, y - cy, bbox, &rect, BBOX_ALPHA);
 }
 
-CGameObject::~CGameObject()
+GameObject::~GameObject()
 {
 
 }

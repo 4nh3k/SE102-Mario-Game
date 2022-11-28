@@ -2,15 +2,15 @@
 #include "debug.h"
 #include "Utils.h"
 
-CAnimations* CAnimations::__instance = NULL;
+Animations* Animations::__instance = NULL;
 
-CAnimations* CAnimations::GetInstance()
+Animations* Animations::GetInstance()
 {
-	if (__instance == NULL) __instance = new CAnimations();
+	if (__instance == NULL) __instance = new Animations();
 	return __instance;
 }
 
-void CAnimations::Add(string id, LPANIMATION ani)
+void Animations::Add(string id, LPANIMATION ani)
 {
 	if (animations[id] != NULL)
 		DebugOut(L"[WARNING] Animation %d already exists\n", id);
@@ -18,7 +18,7 @@ void CAnimations::Add(string id, LPANIMATION ani)
 	animations[id] = ani;
 }
 
-LPANIMATION CAnimations::Get(string id)
+LPANIMATION Animations::Get(string id)
 {
 	LPANIMATION ani = animations[id];
 	if (ani == NULL)
@@ -26,7 +26,7 @@ LPANIMATION CAnimations::Get(string id)
 	return ani;
 }
 
-void CAnimations::Clear()
+void Animations::Clear()
 {
 	for (auto x : animations)
 	{
@@ -36,7 +36,7 @@ void CAnimations::Clear()
 
 	animations.clear();
 }
-void CAnimations::LoadAnimation(string path)
+void Animations::LoadAnimation(string path)
 {
 	string xmlPath = path;
 	TiXmlDocument doc(xmlPath.c_str());
@@ -47,11 +47,11 @@ void CAnimations::LoadAnimation(string path)
 	}
 	TiXmlElement* root = doc.RootElement();
 	string texturePath = root->Attribute("imagePath");
-	CTextures* textures = CTextures::GetInstance();
+	Textures* textures = Textures::GetInstance();
 	textures->Add(1, ToLPCWSTR(texturePath));
 	LPTEXTURE texMario = textures->Get(1);
 	TiXmlElement* animation = root->FirstChildElement();
-	CSprites* sprites = CSprites::GetInstance();
+	Sprites* sprites = Sprites::GetInstance();
 	int i = 0;
 
 	while (animation != NULL)
@@ -63,7 +63,7 @@ void CAnimations::LoadAnimation(string path)
 		aniID = animation->Attribute("aniID");
 		TiXmlElement* frame = animation->FirstChildElement();
 		LPANIMATION ani;
-		ani = new CAnimation(100);
+		ani = new Animation(100);
 		while (frame != NULL)
 		{
 			string frameID = frame->Attribute("name");
@@ -72,8 +72,8 @@ void CAnimations::LoadAnimation(string path)
 			frame->QueryIntAttribute("y", &top);
 			frame->QueryIntAttribute("height", &bot);
 			frame->QueryIntAttribute("width", &right);
-			right += left - 1;
-			bot += top - 1;
+			right += left -1 ;
+			bot += top -1;
 			sprites->Add(frameID, left, top, right, bot, texMario);
 			frame = frame->NextSiblingElement();
 			ani->Add(frameID);

@@ -1,6 +1,6 @@
 #include "Goomba.h"
 
-CGoomba::CGoomba(float x, float y):CGameObject(x, y)
+Goomba::Goomba(float x, float y):GameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
@@ -8,7 +8,7 @@ CGoomba::CGoomba(float x, float y):CGameObject(x, y)
 	SetState(GOOMBA_STATE_WALKING);
 }
 
-void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
+void Goomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	if (state == GOOMBA_STATE_DIE)
 	{
@@ -26,16 +26,16 @@ void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &botto
 	}
 }
 
-void CGoomba::OnNoCollision(DWORD dt)
+void Goomba::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
 };
 
-void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
+void Goomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return; 
-	if (dynamic_cast<CGoomba*>(e->obj)) return; 
+	if (dynamic_cast<Goomba*>(e->obj)) return; 
 
 	if (e->ny != 0 )
 	{
@@ -47,7 +47,7 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 }
 
-void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
@@ -58,12 +58,12 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		return;
 	}
 
-	CGameObject::Update(dt, coObjects);
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+	GameObject::Update(dt, coObjects);
+	Collision::GetInstance()->Process(this, dt, coObjects);
 }
 
 
-void CGoomba::Render()
+void Goomba::Render()
 {
 	string aniId = ID_ANI_GOOMBA_WALKING;
 	if (state == GOOMBA_STATE_DIE) 
@@ -71,13 +71,13 @@ void CGoomba::Render()
 		aniId = ID_ANI_GOOMBA_DIE;
 	}
 
-	CAnimations::GetInstance()->Get(aniId)->Render(x,y);
+	Animations::GetInstance()->Get(aniId)->Render(x,y);
 	RenderBoundingBox();
 }
 
-void CGoomba::SetState(int state)
+void Goomba::SetState(int state)
 {
-	CGameObject::SetState(state);
+	GameObject::SetState(state);
 	switch (state)
 	{
 		case GOOMBA_STATE_DIE:

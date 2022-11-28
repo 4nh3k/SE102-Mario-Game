@@ -17,7 +17,7 @@
 #define ID_ANI_GOOMBA_WALKING "5000"
 #define ID_ANI_GOOMBA_DIE "5001"
 
-class CGoomba : public CGameObject
+class Goomba : public GameObject
 {
 protected:
 	float ax;				
@@ -36,6 +36,6 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public: 	
-	CGoomba(float x, float y);
+	Goomba(float x, float y);
 	virtual void SetState(int state);
 };

@@ -2,21 +2,21 @@
 #include "Game.h"
 #include "debug.h"
 
-CSprites* CSprites::__instance = NULL;
+Sprites* Sprites::__instance = NULL;
 
-CSprites* CSprites::GetInstance()
+Sprites* Sprites::GetInstance()
 {
-	if (__instance == NULL) __instance = new CSprites();
+	if (__instance == NULL) __instance = new Sprites();
 	return __instance;
 }
 
-void CSprites::Add(string id, int left, int top, int right, int bottom, LPTEXTURE tex)
+void Sprites::Add(string id, int left, int top, int right, int bottom, LPTEXTURE tex)
 {
-	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
+	LPSPRITE s = new Sprite(id, left, top, right, bottom, tex);
 	sprites[id] = s;
 }
 
-LPSPRITE CSprites::Get(string id)
+LPSPRITE Sprites::Get(string id)
 {
 	return sprites[id];
 }
@@ -24,7 +24,7 @@ LPSPRITE CSprites::Get(string id)
 /*
 	Clear all loaded sprites
 */
-void CSprites::Clear()
+void Sprites::Clear()
 {
 	for (auto x : sprites)
 	{

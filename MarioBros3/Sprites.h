@@ -12,9 +12,9 @@ using namespace std;
 /*
 	Manage sprite database
 */
-class CSprites
+class Sprites
 {
-	static CSprites* __instance;
+	static Sprites* __instance;
 
 	unordered_map<string, LPSPRITE> sprites;
 
@@ -23,6 +23,6 @@ public:
 	LPSPRITE Get(string id);
 	void Clear();
 
-	static CSprites* GetInstance();
+	static Sprites* GetInstance();
 };
 
