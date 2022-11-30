@@ -30,9 +30,42 @@
          "width":10,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":2,
+         "name":"Collison",
+         "objects":[
+                {
+                 "class":"",
+                 "height":14,
+                 "id":2,
+                 "name":"Mario",
+                 "rotation":0,
+                 "visible":true,
+                 "width":14.5,
+                 "x":90.25,
+                 "y":25.75
+                }, 
+                {
+                 "class":"",
+                 "height":15.75,
+                 "id":7,
+                 "name":"Platform",
+                 "rotation":0,
+                 "visible":true,
+                 "width":160,
+                 "x":-0.25,
+                 "y":144.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":2,
- "nextobjectid":1,
+ "nextlayerid":3,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

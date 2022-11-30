@@ -4,7 +4,9 @@
 #include "tileson.hpp"
 #include "debug.h"
 #include "Utils.h"
-
+#include "GameObject.h"
+#include "Game.h"
+#include "Platform.h"
 class Map 
 {
 protected:

@@ -29,6 +29,23 @@ void Map::Load(string mapPath)
 		}
 		for (auto& layer : map->getLayers())
 		{
+			if (layer.getType() == tson::LayerType::ObjectGroup)
+			{
+				for (auto& obj : layer.getObjects())
+				{
+					if (obj.getName() == "Platform")
+					{
+						tson::Vector2i pos = obj.getPosition();
+						tson::Vector2i size = obj.getSize();
+						
+						//Game::GetInstance()->GetCurrentScene()->AddPlat(
+							//pos.x +10, pos.y+10,
+							//size.x, size.y, 1
+							//);
+					}
+					//Just iterate through all the objects
+				}
+			}
 			//For tile flayers, you can get the tiles presented as a 2D map by calling getTileData()
 			//Using x and y positions in tile units.
 			if (layer.getType() == tson::LayerType::TileLayer)

@@ -55,7 +55,7 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
-Map* GameMap;
+//Map* GameMap;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -96,8 +96,8 @@ void Render()
 	FLOAT NewBlendFactor[4] = { 0,0,0,0 };
 	pD3DDevice->OMSetBlendState(g->GetAlphaBlending(), NewBlendFactor, 0xffffffff);
 
-	//Game::GetInstance()->GetCurrentScene()->Render();
-	GameMap->Render();
+	Game::GetInstance()->GetCurrentScene()->Render();
+	//GameMap->Render();
 
 	spriteHandler->End();
 	pSwapChain->Present(0, 0);
@@ -153,7 +153,7 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 int Run()
 {
 
-	GameMap = new Map("./textures/Map/testmap.tmj");
+	//GameMap = new Map("./textures/Map/testmap.tmj");
 	MSG msg;
 	int done = 0;
 	ULONGLONG frameStart = GetTickCount64();

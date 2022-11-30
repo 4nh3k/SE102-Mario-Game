@@ -4,7 +4,7 @@ void Brick::Render()
 {
 	Animations* animations = Animations::GetInstance();
 	animations->Get(ID_ANI_BRICK)->Render(x, y);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void Brick::GetBoundingBox(float &l, float &t, float &r, float &b)

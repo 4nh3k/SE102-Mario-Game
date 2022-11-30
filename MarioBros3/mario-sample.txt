@@ -9,7 +9,7 @@ height	240
 0	intro.txt
 1	scene01.txt
 2	scene02.txt
-5	scene0005.txt
+5	./textures/Map/testmap.tmj
 
 # id	file 
 [TEXTURES]

@@ -6,23 +6,26 @@
 #include "Brick.h"
 #include "Mario.h"
 #include "Goomba.h"
+#include "tileson.hpp"
 //#include "Koopas.h"
 
 
 class PlayScene: public Scene
 {
 protected: 
+	vector<pair<string, pair<float, float>>> drawPos;
+
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;					
-
-	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> gameObjects;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
 
 	void _ParseSection_ASSETS(string line);
 	void _ParseSection_OBJECTS(string line);
-
+	void LoadObjects(vector < tson::Object> objects);
+	void LoadTilesets(vector<tson::Tileset> tileSets);
 	void LoadAssets(LPCWSTR assetFile);
 	
 public: 
