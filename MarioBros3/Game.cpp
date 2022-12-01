@@ -26,6 +26,7 @@ void Game::Init(HWND hWnd, HINSTANCE hInstance)
 
 	backBufferWidth = r.right + 1;
 	backBufferHeight = r.bottom + 1;
+	this->cam = new Camera(0.0f, 0.0f,backBufferWidth,backBufferHeight);
 
 	DebugOut(L"[INFO] Window's client area: width= %d, height= %d\n", r.right - 1, r.bottom - 1);
 

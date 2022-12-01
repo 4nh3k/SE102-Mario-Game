@@ -214,7 +214,7 @@ void PlayScene::LoadTilesets(vector<tson::Tileset> tileSets)
 			Sprites::GetInstance()->Add(
 				to_string(tile.getGid()),
 				drawingRect.x, drawingRect.y,
-				drawingRect.x + drawingRect.width, drawingRect.y + drawingRect.height,
+				drawingRect.x + drawingRect.width , drawingRect.y + drawingRect.height,
 				Textures::GetInstance()->Get(100)
 			);
 		}
@@ -260,6 +260,13 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 
 			gameObj = new Brick(pos.x, pos.y);
 		}
+		if (obj.getName() == "Portal")
+		{
+			tson::Vector2i size = obj.getSize();
+			tson::Property* prop = obj.getProp("scene_id");
+			int scene_id = any_cast<int>(prop->getValue());
+			gameObj = new Portal(pos.x, pos.y, size.x + pos.x, pos.y + size.y,scene_id);
+		}
 		//gameObj->SetPosition(10.0f, 01.0f);
 		gameObjects.push_back(gameObj);
 	}
@@ -291,8 +298,10 @@ void PlayScene::Load()
 					for (auto& [pos, tileObject] : layer.getTileObjects()) //Loops through absolutely all existing tileObjects
 					{
 						tson::Vector2f position = tileObject.getPosition();
-						drawPos.push_back({ to_string(tileObject.getTile()->getGid()), 
-							{position.x + tileSize.x/2 , position.y + tileSize.y/2} });
+						Tile* tile = new Tile(position.x + tileSize.x / 2, position.y + tileSize.y / 2,
+							16,16,
+							to_string(tileObject.getTile()->getGid()));
+						tileMap.push_back(tile);
 					}
 				}
 			}
@@ -390,23 +399,26 @@ void PlayScene::Update(DWORD dt)
 
 	Game *game = Game::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
-	cy -= game->GetBackBufferHeight() / 2;
+	cy -= game->GetBackBufferHeight() - 28;
 
 	if (cx < 0) cx = 0;
 
-	//CGame::GetInstance()->SetCamPos(cx, 200.0f);
+	Game::GetInstance()->GetCamera()->SetCamPos(cx, cy);
 
 	PurgeDeletedObjects();
 }
 
 void PlayScene::Render()
 {
+	for (auto& tile : tileMap)
+	{
+		RECT rect;
+		tile->GetBoundingBox(rect.left, rect.top, rect.right, rect.bottom);
+		if(Game::GetInstance()->GetCamera()->IsContain(rect))
+			tile->Render();
+	}
 	for (int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Render();
-	for (auto& tile : drawPos)
-	{
-		Sprites::GetInstance()->Get(tile.first)->Draw(tile.second.first, tile.second.second);
-	}
 }
 
 /*
@@ -420,7 +432,7 @@ void PlayScene::Clear()
 		delete (*it);
 	}
 	gameObjects.clear();
-	drawPos.clear();
+	tileMap.clear();
 }
 
 /*

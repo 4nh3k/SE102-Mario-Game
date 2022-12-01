@@ -8,7 +8,7 @@ using namespace std;
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
-
+#include "Camera.h"
 #include "Texture.h"
 #include "KeyEventHandler.h"
 #include "Scene.h"
@@ -45,8 +45,7 @@ class Game
 
 	LPKEYEVENTHANDLER keyHandler;
 
-	float cam_x = 0.0f;
-	float cam_y = 0.0f;
+	Camera* cam;
 
 	HINSTANCE hInstance;
 
@@ -103,8 +102,13 @@ public:
 
 	void SetPointSamplerState();
 
-	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
-	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
+	Camera* GetCamera()
+	{
+		return cam;
+	}
+
+	//void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
+	//void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
 
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
 	void Load(LPCWSTR gameFile);

@@ -7,13 +7,14 @@
 #include "Mario.h"
 #include "Goomba.h"
 #include "tileson.hpp"
+#include "Tile.h"
 //#include "Koopas.h"
 
 
 class PlayScene: public Scene
 {
 protected: 
-	vector<pair<string, pair<float, float>>> drawPos;
+	vector<Tile*> tileMap;
 
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;					

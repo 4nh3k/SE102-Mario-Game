@@ -72,8 +72,8 @@ void Animations::LoadAnimation(string path)
 			frame->QueryIntAttribute("y", &top);
 			frame->QueryIntAttribute("height", &bot);
 			frame->QueryIntAttribute("width", &right);
-			right += left -1 ;
-			bot += top -1;
+			right += left;
+			bot += top;
 			sprites->Add(frameID, left, top, right, bot, texMario);
 			frame = frame->NextSiblingElement();
 			ani->Add(frameID);

@@ -38,14 +38,14 @@
          "objects":[
                 {
                  "class":"",
-                 "height":14,
+                 "height":30.25,
                  "id":2,
                  "name":"Mario",
                  "rotation":0,
                  "visible":true,
                  "width":14.5,
-                 "x":90.25,
-                 "y":25.75
+                 "x":19.5,
+                 "y":111.75
                 }, 
                 {
                  "class":"",
@@ -57,6 +57,23 @@
                  "width":160,
                  "x":-0.25,
                  "y":144.5
+                }, 
+                {
+                 "class":"",
+                 "height":19,
+                 "id":9,
+                 "name":"Portal",
+                 "properties":[
+                        {
+                         "name":"scene_id",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":22.25,
+                 "x":104.75,
+                 "y":81.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -65,7 +82,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":9,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
