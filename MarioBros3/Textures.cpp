@@ -17,12 +17,12 @@ Textures* Textures::GetInstance()
 	return __instance;
 }
 
-void Textures::Add(int id, LPCWSTR filePath)
+void Textures::Add(string id, LPCWSTR filePath)
 {
 	textures[id] = Game::GetInstance()->LoadTexture(filePath);
 }
 
-LPTEXTURE Textures::Get(unsigned int i)
+LPTEXTURE Textures::Get(string i)
 {
 	LPTEXTURE t = textures[i];
 	if (t == NULL)

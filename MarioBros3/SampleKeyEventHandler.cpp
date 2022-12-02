@@ -32,6 +32,7 @@ void SampleKeyHandler::OnKeyDown(int KeyCode)
 		//Reload();
 		break;
 	}
+
 }
 
 void SampleKeyHandler::OnKeyUp(int KeyCode)

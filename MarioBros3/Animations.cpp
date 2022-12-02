@@ -38,21 +38,20 @@ void Animations::Clear()
 }
 void Animations::LoadAnimation(string path)
 {
-	string xmlPath = path;
-	TiXmlDocument doc(xmlPath.c_str());
+	TiXmlDocument doc(path.c_str());
 	if (!doc.LoadFile())
 	{
-		DebugOut(L"load file=[%s] failed\n", xmlPath);
+		DebugOut(L"load file=[%s] failed\n", path);
 		return;
 	}
 	TiXmlElement* root = doc.RootElement();
 	string texturePath = root->Attribute("imagePath");
+
 	Textures* textures = Textures::GetInstance();
-	textures->Add(1, ToLPCWSTR(texturePath));
-	LPTEXTURE texMario = textures->Get(1);
+	textures->Add(texturePath, ToLPCWSTR(texturePath));
+	LPTEXTURE aniTex = textures->Get(texturePath);
 	TiXmlElement* animation = root->FirstChildElement();
 	Sprites* sprites = Sprites::GetInstance();
-	int i = 0;
 
 	while (animation != NULL)
 	{
@@ -74,7 +73,7 @@ void Animations::LoadAnimation(string path)
 			frame->QueryIntAttribute("width", &right);
 			right += left;
 			bot += top;
-			sprites->Add(frameID, left, top, right, bot, texMario);
+			sprites->Add(frameID, left, top, right, bot, aniTex);
 			frame = frame->NextSiblingElement();
 			ani->Add(frameID);
 		}

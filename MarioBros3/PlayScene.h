@@ -15,16 +15,12 @@ class PlayScene: public Scene
 {
 protected: 
 	vector<Tile*> tileMap;
-
+	float camY;
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;					
 	vector<LPGAMEOBJECT> gameObjects;
 
-	void _ParseSection_SPRITES(string line);
-	void _ParseSection_ANIMATIONS(string line);
-
-	void _ParseSection_ASSETS(string line);
-	void _ParseSection_OBJECTS(string line);
+	void LoadObjectAni(int objectType);
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadTilesets(vector<tson::Tileset> tileSets);
 	void LoadAssets(LPCWSTR assetFile);

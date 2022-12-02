@@ -13,12 +13,12 @@ class Textures
 {
 	static Textures* __instance;
 
-	unordered_map<int, LPTEXTURE> textures;
+	unordered_map<string, LPTEXTURE> textures;
 
 public:
 	Textures();
-	void Add(int id, LPCWSTR filePath);
-	LPTEXTURE Get(unsigned int i);
+	void Add(string id, LPCWSTR filePath);
+	LPTEXTURE Get(string i);
 	void Clear();
 
 	static Textures* GetInstance();

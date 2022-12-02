@@ -23,203 +23,50 @@ PlayScene::PlayScene(int id, LPCWSTR filePath):
 
 
 #define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_ASSETS	1
-#define SCENE_SECTION_OBJECTS	2
 
-#define ASSETS_SECTION_UNKNOWN -1
-#define ASSETS_SECTION_SPRITES 1
-#define ASSETS_SECTION_ANIMATIONS 2
-
-#define MAX_SCENE_LINE 1024
-
-void PlayScene::_ParseSection_SPRITES(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 6) return; // skip invalid lines
-
-	string ID = tokens[0].c_str();
-	int l = atoi(tokens[1].c_str());
-	int t = atoi(tokens[2].c_str());
-	int r = atoi(tokens[3].c_str());
-	int b = atoi(tokens[4].c_str());
-	int texID = atoi(tokens[5].c_str());
-
-	LPTEXTURE tex = Textures::GetInstance()->Get(texID);
-	if (tex == NULL)
-	{
-		DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
-		return; 
-	}
-
-	Sprites::GetInstance()->Add(ID, l, t, r, b, tex);
-}
-
-void PlayScene::_ParseSection_ASSETS(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 1) return;
-
-	wstring path = ToWSTR(tokens[0]);
-	if (path == ToWSTR("mario.txt"))
-	{
-		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_MARIO);
-	}
-	else
-	{
-		LoadAssets(path.c_str());
-	}
-}
-
-void PlayScene::_ParseSection_ANIMATIONS(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 3) return; // skip invalid lines - an animation must at least has 1 frame and 1 frame time
-
-	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
-
-	LPANIMATION ani = new Animation();
-
-	string ani_id = tokens[0].c_str();
-	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
-	{
-		string sprite_id = tokens[i].c_str();
-		int frame_time = atoi(tokens[i+1].c_str());
-		ani->Add(sprite_id, frame_time);
-	}
-
-	Animations::GetInstance()->Add(ani_id, ani);
-}
-
-/*
-	Parse a line in section [OBJECTS] 
-*/
-void PlayScene::_ParseSection_OBJECTS(string line)
-{
-	vector<string> tokens = split(line);
-
-	// skip invalid lines - an object set must have at least id, x, y
-	if (tokens.size() < 2) return;
-
-	int object_type = atoi(tokens[0].c_str());
-	float x = (float)atof(tokens[1].c_str());
-	float y = (float)atof(tokens[2].c_str());
-
-	GameObject *obj = NULL;
-
-	switch (object_type)
-	{
-	case OBJECT_TYPE_MARIO:
-		if (player!=NULL) 
-		{
-			DebugOut(L"[ERROR] MARIO object was created before!\n");
-			return;
-		}
-		obj = new Mario(x,y); 
-		player = (Mario*)obj;  
-
-		DebugOut(L"[INFO] Player object has been created!\n");
-		break;
-	case OBJECT_TYPE_GOOMBA: obj = new Goomba(x,y); break;
-	case OBJECT_TYPE_BRICK: obj = new Brick(x,y); break;
-	case OBJECT_TYPE_COIN: obj = new Coin(x, y); break;
-
-	case OBJECT_TYPE_PLATFORM:
-	{
-
-		float cell_width = (float)atof(tokens[3].c_str());
-		float cell_height = (float)atof(tokens[4].c_str());
-		int length = atoi(tokens[5].c_str());
-		string sprite_begin = (tokens[6].c_str());
-		string sprite_middle = (tokens[7].c_str());
-		string sprite_end = (tokens[8].c_str());
-
-		obj = new Platform(
-			x, y,
-			cell_width, cell_height
-		);
-
-		break;
-	}
-
-	case OBJECT_TYPE_PORTAL:
-	{
-		float r = (float)atof(tokens[3].c_str());
-		float b = (float)atof(tokens[4].c_str());
-		int scene_id = atoi(tokens[5].c_str());
-		obj = new Portal(x, y, r, b, scene_id);
-	}
-	break;
-
-
-	default:
-		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
-		return;
-	}
-
-	// General object setup
-	obj->SetPosition(x, y);
-
-
-	gameObjects.push_back(obj);
-}
-
-
-void PlayScene::LoadAssets(LPCWSTR assetFile)
-{
-	DebugOut(L"[INFO] Start loading assets from : %s \n", assetFile);
-
-	ifstream f;
-	f.open(assetFile);
-
-	int section = ASSETS_SECTION_UNKNOWN;
-
-	char str[MAX_SCENE_LINE];
-	while (f.getline(str, MAX_SCENE_LINE))
-	{
-		string line(str);
-
-		if (line[0] == '#') continue;	// skip comment lines	
-
-		if (line == "[SPRITES]") { section = ASSETS_SECTION_SPRITES; continue; };
-		if (line == "[ANIMATIONS]") { section = ASSETS_SECTION_ANIMATIONS; continue; };
-		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
-
-		//
-		// data section
-		//
-		switch (section)
-		{
-		case ASSETS_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
-		case ASSETS_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
-		}
-	}
-
-	f.close();
-
-	DebugOut(L"[INFO] Done loading assets from %s\n", assetFile);
-}
 void PlayScene::LoadTilesets(vector<tson::Tileset> tileSets)
 {
 	for (auto& tileSet : tileSets)
 	{
 		string image = tileSet.getImagePath().u8string();
-		Textures::GetInstance()->Add(100, ToLPCWSTR("./textures/Map/" + image));
 
+		filesystem::path path = sceneFilePath;
+		// Get directory then append image file name
+		path = path.parent_path() / image;
+		Textures::GetInstance()->Add(image, path.c_str());
 		for (auto& tile : tileSet.getTiles())
 		{
 			tson::Rect drawingRect = tile.getDrawingRect();
 			Sprites::GetInstance()->Add(
 				to_string(tile.getGid()),
 				drawingRect.x, drawingRect.y,
-				drawingRect.x + drawingRect.width , drawingRect.y + drawingRect.height,
-				Textures::GetInstance()->Get(100)
+				drawingRect.x + drawingRect.width, drawingRect.y + drawingRect.height,
+				Textures::GetInstance()->Get(image)
 			);
 		}
 	}
 }
+
+void PlayScene::LoadObjectAni(int objectType)
+{
+	LPANIMATION ani = new Animation();
+	LPTEXTURE tex = Textures::GetInstance()->Get("20");
+	switch (objectType)
+	{
+	case OBJECT_TYPE_MARIO:
+		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_MARIO);
+		break;
+	case OBJECT_TYPE_BRICK:
+		Sprites::GetInstance()->Add("20001", 372, 153, 387, 168, tex);
+		ani->Add("20001", 1000);
+		Animations::GetInstance()->Add("10000", ani);
+		break;
+	default:
+		break;
+	}
+}
+
+
 void PlayScene::LoadObjects(vector<tson::Object> objects)
 {
 	for (auto& obj : objects)
@@ -242,7 +89,6 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 				DebugOut(L"[ERROR] MARIO object was created before!\n");
 				return;
 			}
-			Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_MARIO);
 			gameObj = new Mario(pos.x +10, pos.y+10);
 			player = (Mario*)gameObj;
 
@@ -250,14 +96,6 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		}
 		if (obj.getName() == "Brick")
 		{
-			//20001	372	153	387	168	20
-			//10000	20001	1000
-			LPANIMATION ani = new Animation();
-			LPTEXTURE tex = Textures::GetInstance()->Get(20);
-			Sprites::GetInstance()->Add("20001", 372, 153, 387, 168,tex);
-			ani->Add("20001", 1000);
-			Animations::GetInstance()->Add("10000", ani);
-
 			gameObj = new Brick(pos.x, pos.y);
 		}
 		if (obj.getName() == "Portal")
@@ -271,104 +109,58 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		gameObjects.push_back(gameObj);
 	}
 }
+
 void PlayScene::Load()
 {
+	DebugOutTitle(L"Start load");
+
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 	unique_ptr<tson::Map> map;
 	tson::Tileson t;
 	map = t.parse(fs::path(sceneFilePath));
+	camY = any_cast<int>(map->getProp("cam_y")->getValue());
+	camY -= Game::GetInstance()->GetBackBufferHeight();
 	if (map->getStatus() == tson::ParseStatus::OK)
 	{
-		DebugOut(L"[INFO] Load map successfully from file: %s", sceneFilePath);
+		DebugOut(L"[INFO] Load map successfully from file: %s \n", sceneFilePath);
+
 		LoadTilesets(map->getTilesets());
 		for (auto& layer : map->getLayers())
 		{
+
 			if (layer.getType() == tson::LayerType::ObjectGroup)
 			{
+				tson::Property* prop = layer.getProp("object_type");
+				int object_type = any_cast<int>(prop->getValue());
+				LoadObjectAni(object_type);
 				LoadObjects(layer.getObjects());
 			}
-			//For tile flayers, you can get the tiles presented as a 2D map by calling getTileData()
-			//Using x and y positions in tile units.
 			if (layer.getType() == tson::LayerType::TileLayer)
 			{
-				//When the map is of a fixed size, you can get the tiles like this
 				if (!map->isInfinite())
 				{
 					tson::Vector2i tileSize = map->getTileSize();
-					for (auto& [pos, tileObject] : layer.getTileObjects()) //Loops through absolutely all existing tileObjects
+					for (auto& [pos, tileObject] : layer.getTileObjects())
 					{
 						tson::Vector2f position = tileObject.getPosition();
+						string tileId = to_string(tileObject.getTile()->getGid());
+						// position + tileSize/2 because the difference between tiled map x, y and this game x,y
 						Tile* tile = new Tile(position.x + tileSize.x / 2, position.y + tileSize.y / 2,
-							16,16,
-							to_string(tileObject.getTile()->getGid()));
+							tileSize.x,tileSize.y, tileId);
 						tileMap.push_back(tile);
 					}
 				}
 			}
 
 		}
+		DebugOutTitle(L"Done load");
+
 	}
 	else
 	{
 		DebugOut(L"[ERROR] Load map failed from file: %s", sceneFilePath);
 
 	}
-	/*
-	* 	ifstream f;
-	f.open(sceneFilePath);
-
-	// current resource section flag
-	int section = SCENE_SECTION_UNKNOWN;					
-
-	char str[MAX_SCENE_LINE];
-	while (f.getline(str, MAX_SCENE_LINE))
-	{
-		string line(str);
-
-		if (line[0] == '#') continue;	// skip comment lines	
-		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
-		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
-		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
-
-		//
-		// data section
-		//
-		switch (section)
-		{ 
-			case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
-			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
-		}
-	}
-
-	f.close();	ifstream f;
-	f.open(sceneFilePath);
-
-	// current resource section flag
-	int section = SCENE_SECTION_UNKNOWN;					
-
-	char str[MAX_SCENE_LINE];
-	while (f.getline(str, MAX_SCENE_LINE))
-	{
-		string line(str);
-
-		if (line[0] == '#') continue;	// skip comment lines	
-		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
-		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
-		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
-
-		//
-		// data section
-		//
-		switch (section)
-		{ 
-			case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
-			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
-		}
-	}
-
-	f.close();
-	*/
-
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
@@ -399,11 +191,10 @@ void PlayScene::Update(DWORD dt)
 
 	Game *game = Game::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
-	cy -= game->GetBackBufferHeight() - 28;
 
 	if (cx < 0) cx = 0;
 
-	Game::GetInstance()->GetCamera()->SetCamPos(cx, cy);
+	Game::GetInstance()->GetCamera()->SetCamPos(cx, camY);
 
 	PurgeDeletedObjects();
 }
@@ -447,6 +238,7 @@ void PlayScene::Unload()
 		delete gameObjects[i];
 
 	gameObjects.clear();
+
 	//Sprites::GetInstance()->Clear();
 	//Animations::GetInstance()->Clear();
 	//Textures::GetInstance()->Clear();

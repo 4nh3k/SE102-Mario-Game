@@ -265,7 +265,7 @@
         {
          "draworder":"topdown",
          "id":7,
-         "name":"Object Layer 1",
+         "name":"Player",
          "objects":[
                 {
                  "class":"",
@@ -279,6 +279,12 @@
                  "y":387.090909090909
                 }],
          "opacity":1,
+         "properties":[
+                {
+                 "name":"object_type",
+                 "type":"int",
+                 "value":0
+                }],
          "type":"objectgroup",
          "visible":true,
          "x":0,
@@ -499,14 +505,26 @@
                  "y":416.363636363636
                 }],
          "opacity":1,
+         "properties":[
+                {
+                 "name":"object_type",
+                 "type":"int",
+                 "value":1
+                }],
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":25,
+ "nextobjectid":26,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"cam_y",
+         "type":"int",
+         "value":432
+        }],
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
  "tileheight":16,
