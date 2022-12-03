@@ -9,6 +9,7 @@
 #include "Portal.h"
 #include "Coin.h"
 #include "Platform.h"
+#include "SpecialPlatform.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -61,6 +62,9 @@ void PlayScene::LoadObjectAni(int objectType)
 		ani->Add("20001", 1000);
 		Animations::GetInstance()->Add("10000", ani);
 		break;
+	case OBJECT_TYPE_GOOMBA:
+		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_GOOMBA);
+		break;
 	default:
 		break;
 	}
@@ -78,7 +82,16 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			tson::Vector2i size = obj.getSize();
 			gameObj = new Platform
 			(
-				pos.x+size.x/2, pos.y+size.y/2,
+				pos.x + size.x / 2, pos.y + size.y / 2,
+				size.x, size.y
+			);
+		}
+		if (obj.getName() == "Special_Platform")
+		{
+			tson::Vector2i size = obj.getSize();
+			gameObj = new SpecialPlatform
+			(
+				pos.x + size.x / 2, pos.y + size.y / 2,
 				size.x, size.y
 			);
 		}
@@ -105,6 +118,10 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			int scene_id = any_cast<int>(prop->getValue());
 			gameObj = new Portal(pos.x, pos.y, size.x + pos.x, pos.y + size.y,scene_id);
 		}
+		if (obj.getName() == "Goomba")
+		{
+			gameObj = new Goomba(pos.x, pos.y);
+		}
 		//gameObj->SetPosition(10.0f, 01.0f);
 		gameObjects.push_back(gameObj);
 	}
@@ -127,7 +144,6 @@ void PlayScene::Load()
 		LoadTilesets(map->getTilesets());
 		for (auto& layer : map->getLayers())
 		{
-
 			if (layer.getType() == tson::LayerType::ObjectGroup)
 			{
 				tson::Property* prop = layer.getProp("object_type");
@@ -201,6 +217,7 @@ void PlayScene::Update(DWORD dt)
 
 void PlayScene::Render()
 {
+	// Draw background first
 	for (auto& tile : tileMap)
 	{
 		RECT rect;

@@ -37,13 +37,13 @@ void Mario::OnNoCollision(DWORD dt)
 
 void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (e->ny != 0 && e->obj->IsBlocking())
+	if (e->ny != 0 && e->obj->IsBlocking(e->nx, e->ny))
 	{
 		vy = 0;
 		if (e->ny < 0) isOnPlatform = true;
 	}
 	else 
-	if (e->nx != 0 && e->obj->IsBlocking())
+	if (e->nx != 0 && e->obj->IsBlocking(e->nx, e->ny))
 	{
 		vx = 0;
 	}

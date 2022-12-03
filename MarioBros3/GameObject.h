@@ -25,7 +25,6 @@ protected:
 	float vy;
 
 	int nx;	 
-
 	int state;
 
 	bool isDeleted; 
@@ -63,7 +62,7 @@ public:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e) {};
 	
 	// Is this object blocking other object? If YES, collision framework will automatically push the other object
-	virtual int IsBlocking() { return 1; }
+	virtual int IsBlocking(float nx, float ny) { return 1; }
 
 	~GameObject();
 

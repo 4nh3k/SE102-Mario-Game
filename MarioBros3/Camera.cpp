@@ -4,8 +4,9 @@ RECT Camera::GetBound()
 	RECT rect;
 	rect.left = cam_x;
 	rect.top = cam_y;
-	rect.bottom = heigh;
-	rect.right = width;
+    // draw some tile outside of camera
+	rect.bottom = heigh + 32;
+	rect.right = width + 32;
 	return rect;
 }
 bool Camera::IsContain(RECT objectBBox)

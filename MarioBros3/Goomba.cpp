@@ -34,7 +34,7 @@ void Goomba::OnNoCollision(DWORD dt)
 
 void Goomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return; 
+	if (!e->obj->IsBlocking(e->nx,e->ny)) return; 
 	if (dynamic_cast<Goomba*>(e->obj)) return; 
 
 	if (e->ny != 0 )
@@ -72,7 +72,7 @@ void Goomba::Render()
 	}
 
 	Animations::GetInstance()->Get(aniId)->Render(x,y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void Goomba::SetState(int state)

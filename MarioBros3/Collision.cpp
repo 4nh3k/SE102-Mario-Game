@@ -194,9 +194,8 @@ void Collision::Filter( LPGAMEOBJECT objSrc,
 		LPCOLLISIONEVENT c = coEvents[i];
 		if (c->isDeleted) continue;
 		if (c->obj->IsDeleted()) continue; 
-
 		// ignore collision event with object having IsBlocking = 0 (like coin, mushroom, etc)
-		if (filterBlock == 1 && !c->obj->IsBlocking()) 
+		if (filterBlock == 1 && !c->obj->IsBlocking(c->nx, c->ny)) 
 		{
 			continue;
 		}
@@ -345,7 +344,7 @@ void Collision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* coO
 	{
 		LPCOLLISIONEVENT e = coEvents[i];
 		if (e->isDeleted) continue;
-		if (e->obj->IsBlocking()) continue;  // blocking collisions were handled already, skip them
+		if (e->obj->IsBlocking(e->nx, e->ny)) continue;  // blocking collisions were handled already, skip them
 
 		objSrc->OnCollisionWith(e);			
 	}
