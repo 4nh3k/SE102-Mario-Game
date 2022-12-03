@@ -74,17 +74,6 @@
                  "width":22.25,
                  "x":104.75,
                  "y":81.5
-                }, 
-                {
-                 "class":"",
-                 "height":21.75,
-                 "id":12,
-                 "name":"Brick",
-                 "rotation":0,
-                 "visible":true,
-                 "width":20.5,
-                 "x":76,
-                 "y":59
                 }],
          "opacity":1,
          "properties":[
@@ -92,6 +81,35 @@
                  "name":"object_type",
                  "type":"int",
                  "value":1
+                }],
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":4,
+         "name":"QBlocks",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":17,
+                 "name":"Question Block",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":48,
+                 "y":64
+                }],
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"object_type",
+                 "type":"int",
+                 "value":6
                 }],
          "type":"objectgroup",
          "visible":true,
@@ -115,8 +133,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":17,
+ "nextlayerid":5,
+ "nextobjectid":18,
  "orientation":"orthogonal",
  "properties":[
         {

@@ -10,6 +10,8 @@
 #define TEXTURES_DIR L""
 #define ANIMATIONS_PATH_MARIO "textures\\mario.xml"
 #define ANIMATIONS_PATH_GOOMBA "textures\\goomba.xml"
+#define ANIMATIONS_PATH_QUESTION_BLOCK "textures\\questionblock.xml"
+
 
 
 class Animations

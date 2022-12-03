@@ -10,7 +10,7 @@
 #include "Coin.h"
 #include "Platform.h"
 #include "SpecialPlatform.h"
-
+#include "QuestionBlock.h"
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
@@ -62,6 +62,8 @@ void PlayScene::LoadObjectAni(int objectType)
 		ani->Add("20001", 1000);
 		Animations::GetInstance()->Add("10000", ani);
 		break;
+	case OBJECT_TYPE_QUESTION_BLOCK:
+		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_QUESTION_BLOCK);
 	case OBJECT_TYPE_GOOMBA:
 		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_GOOMBA);
 		break;
@@ -110,6 +112,10 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		if (obj.getName() == "Brick")
 		{
 			gameObj = new Brick(pos.x, pos.y);
+		}
+		if (obj.getName() == "Question Block")
+		{
+			gameObj = new QuestionBlock(pos.x, pos.y);
 		}
 		if (obj.getName() == "Portal")
 		{

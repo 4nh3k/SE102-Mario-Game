@@ -54,6 +54,20 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<Portal*>(e->obj))
 		OnCollisionWithPortal(e);
+	else if (dynamic_cast<QuestionBlock*>(e->obj))
+		OnCollisionWithQuestionBlock(e);
+}
+
+void Mario::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)
+{
+	QuestionBlock* qblock = dynamic_cast<QuestionBlock*>(e->obj);
+	if (e->ny > 0)
+	{
+		if (qblock->GetState() != QUESTION_BLOCK_STATE_HIT)
+		{
+			qblock->SetState(QUESTION_BLOCK_STATE_HIT);
+		}
+	}
 }
 
 void Mario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -241,7 +255,7 @@ void Mario::Render()
 
 	//RenderBoundingBox();
 	
-	//DebugOutTitle(L"Coins: %d", coin);
+	DebugOutTitle(L"Coins: %d", coin);
 }
 
 void Mario::SetState(int state)
