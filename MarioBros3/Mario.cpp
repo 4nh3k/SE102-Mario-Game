@@ -7,7 +7,7 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
-
+#include "Mushroom.h"
 #include "Collision.h"
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -56,6 +56,18 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<QuestionBlock*>(e->obj))
 		OnCollisionWithQuestionBlock(e);
+	else if (dynamic_cast<Mushroom*>(e->obj))
+		OnCollisionWithMushroom(e);
+}
+
+void Mario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
+{
+	Mushroom* mushroom = dynamic_cast<Mushroom*>(e->obj);
+	if (level == MARIO_LEVEL_SMALL)
+	{
+		mushroom->Delete();
+		level = MARIO_LEVEL_BIG;
+	}
 }
 
 void Mario::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)

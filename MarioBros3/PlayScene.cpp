@@ -11,6 +11,8 @@
 #include "Platform.h"
 #include "SpecialPlatform.h"
 #include "QuestionBlock.h"
+#include "RewardCoin.h"
+#include "Mushroom.h"
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
@@ -115,7 +117,9 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		}
 		if (obj.getName() == "Question Block")
 		{
-			gameObj = new QuestionBlock(pos.x, pos.y);
+			LPGAMEOBJECT reward = new Mushroom(pos.x, pos.y);
+			gameObjects.push_back(reward);
+			gameObj = new QuestionBlock(pos.x, pos.y, reward);
 		}
 		if (obj.getName() == "Portal")
 		{

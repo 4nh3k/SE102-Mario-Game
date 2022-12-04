@@ -15,7 +15,23 @@ void QuestionBlock::Render()
 	}
 	RenderBoundingBox();
 }
-
+void QuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	x += vx * dt;
+	y += vy * dt;
+	if (y < oldY - RISE_UP_HEIGH)
+	{
+		vy = -vy;
+	}
+	else
+	{
+		if (y >= oldY)
+		{
+			//y = oldY;
+			vy = 0;
+		}
+	}
+}
 void QuestionBlock::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x - QUESTION_BLOCK_BBOX_WIDTH / 2;

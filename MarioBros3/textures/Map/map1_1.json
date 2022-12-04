@@ -49,7 +49,7 @@
          "name":"Ref",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":176,
          "x":0,
          "y":0
@@ -101,7 +101,7 @@
          "name":"Background",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":176,
          "x":0,
          "y":0
@@ -153,7 +153,7 @@
          "name":"Platform",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":176,
          "x":0,
          "y":0
@@ -205,7 +205,7 @@
          "name":"Brick",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":176,
          "x":0,
          "y":0
@@ -257,7 +257,7 @@
          "name":"Shadow",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":176,
          "x":0,
          "y":0
@@ -286,7 +286,36 @@
                  "value":0
                 }],
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":11,
+         "name":"QBlocks",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":114,
+                 "name":"Question Block",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":411.5,
+                 "y":358
+                }],
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"object_type",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"objectgroup",
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -781,8 +810,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":11,
- "nextobjectid":113,
+ "nextlayerid":12,
+ "nextobjectid":115,
  "orientation":"orthogonal",
  "properties":[
         {
