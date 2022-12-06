@@ -6,15 +6,14 @@ height	240
 #id	type	file
 # type: 0: intro, 1: play scene 
 [SCENES]
-0	./textures/Map/map1_1.json
+0	./Map/map1_1.json
 1	scene01.txt
 2	scene02.txt
-5	./textures/Map/testmap.tmj
+5	./Map/testmap.tmj
 
 # id	file 
 [TEXTURES]
 -100	textures\bbox.png
-tiles.png	textures\Map\tiles.png
 0	textures\mario.png
 10	textures\enemies.png
 20	textures\misc.png

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Texture imagePath="textures\mario_xml.png">
+<Texture imagePath="mario_xml.png">
 <Animation aniID="big_run_jump_right" frameTime="100"><Frame name="big_run_jump_right0000" x="84" y="175" width="21" height="28" />
 </Animation>
 <Animation aniID="big_walk_jump_right" frameTime="100"><Frame name="big_walk_jump_right0000" x="123" y="175" width="18" height="28" />

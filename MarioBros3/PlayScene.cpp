@@ -13,6 +13,7 @@
 #include "QuestionBlock.h"
 #include "RewardCoin.h"
 #include "Mushroom.h"
+#include "Koopa.h"
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
@@ -69,6 +70,9 @@ void PlayScene::LoadObjectAni(int objectType)
 	case OBJECT_TYPE_GOOMBA:
 		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_GOOMBA);
 		break;
+	case OBJECT_TYPE_KOOPAS:
+		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_KOOPA);
+		break;
 	default:
 		break;
 	}
@@ -98,6 +102,10 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 				pos.x + size.x / 2, pos.y + size.y / 2,
 				size.x, size.y
 			);
+		}
+		if (obj.getName() == "Koopa")
+		{
+			gameObj = new Koopa(pos.x, pos.y);
 		}
 		if (obj.getName() == "Mario")
 		{

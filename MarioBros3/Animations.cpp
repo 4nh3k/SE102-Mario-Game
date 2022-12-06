@@ -1,6 +1,7 @@
 #include "Animations.h"
 #include "debug.h"
 #include "Utils.h"
+#include <filesystem>
 
 Animations* Animations::__instance = NULL;
 
@@ -45,7 +46,9 @@ void Animations::LoadAnimation(string path)
 		return;
 	}
 	TiXmlElement* root = doc.RootElement();
-	string texturePath = root->Attribute("imagePath");
+	filesystem::path parentPath = path;
+	parentPath = parentPath.parent_path() / root->Attribute("imagePath");
+	string texturePath = parentPath.string();
 
 	Textures* textures = Textures::GetInstance();
 	textures->Add(texturePath, ToLPCWSTR(texturePath));

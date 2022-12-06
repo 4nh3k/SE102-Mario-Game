@@ -264,6 +264,35 @@
         }, 
         {
          "draworder":"topdown",
+         "id":12,
+         "name":"Koopa",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":115,
+                 "name":"Koopa",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":584,
+                 "y":396.666666666667
+                }],
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"object_type",
+                 "type":"int",
+                 "value":3
+                }],
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":7,
          "name":"Player",
          "objects":[
@@ -775,28 +804,6 @@
                  "width":16.5652173913044,
                  "x":527.913043478261,
                  "y":400.086956521739
-                }, 
-                {
-                 "class":"",
-                 "height":15.4347826086957,
-                 "id":28,
-                 "name":"Goomba",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16.1304347826086,
-                 "x":831.652173913043,
-                 "y":384.260869565217
-                }, 
-                {
-                 "class":"",
-                 "height":16,
-                 "id":29,
-                 "name":"Goomba",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":880,
-                 "y":384
                 }],
          "opacity":1,
          "properties":[
@@ -806,12 +813,12 @@
                  "value":2
                 }],
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
- "nextlayerid":12,
- "nextobjectid":115,
+ "nextlayerid":13,
+ "nextobjectid":116,
  "orientation":"orthogonal",
  "properties":[
         {

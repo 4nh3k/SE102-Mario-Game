@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Texture imagePath="textures\Goomba.png">
+<Texture imagePath="Goomba.png">
 <Animation aniID="goomba_walk" frameTime="100"><Frame name="goomba_walk0000" x="0" y="0" width="16" height="16" />
 <Frame name="goomba_walk0001" x="16" y="0" width="16" height="16" />
 </Animation>

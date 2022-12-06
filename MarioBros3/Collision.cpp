@@ -345,7 +345,6 @@ void Collision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* coO
 		LPCOLLISIONEVENT e = coEvents[i];
 		if (e->isDeleted) continue;
 		if (e->obj->IsBlocking(e->nx, e->ny)) continue;  // blocking collisions were handled already, skip them
-
 		objSrc->OnCollisionWith(e);			
 	}
 

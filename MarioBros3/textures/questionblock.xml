@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Texture imagePath="textures\questionblock.png">
+<Texture imagePath="questionblock.png">
 <Animation aniID="coin_rotate" frameTime="100"><Frame name="coin_rotate0000" x="0" y="0" width="10" height="16" />
 <Frame name="coin_rotate0001" x="10" y="0" width="8" height="16" />
 <Frame name="coin_rotate0002" x="18" y="0" width="6" height="16" />

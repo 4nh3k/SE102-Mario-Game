@@ -33,6 +33,35 @@
         }, 
         {
          "draworder":"topdown",
+         "id":5,
+         "name":"Koopa",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":18,
+                 "name":"Koopa",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":83.6270815607147,
+                 "y":105.214537498481
+                }],
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"object_type",
+                 "type":"int",
+                 "value":3
+                }],
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":2,
          "name":"Plaform",
          "objects":[
@@ -133,8 +162,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":5,
- "nextobjectid":18,
+ "nextlayerid":6,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "properties":[
         {

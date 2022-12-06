@@ -5,6 +5,7 @@
 #include "Game.h"
 
 #include "Goomba.h"
+#include "Koopa.h"
 #include "Coin.h"
 #include "Portal.h"
 #include "Mushroom.h"
@@ -27,6 +28,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	isOnPlatform = false;
 
 	Collision::GetInstance()->Process(this, dt, coObjects);
+	DebugOutTitle(L"Mario level: %d, state: %d, x: %f, y: %f", level, state, x, y);
 }
 
 void Mario::OnNoCollision(DWORD dt)
@@ -58,15 +60,53 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithQuestionBlock(e);
 	else if (dynamic_cast<Mushroom*>(e->obj))
 		OnCollisionWithMushroom(e);
+	else if (dynamic_cast<Koopa*>(e->obj))
+		OnCollisionWithKoopa(e);
+}
+
+void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
+{
+	Koopa* koopa = dynamic_cast<Koopa*>(e->obj);
+
+	// jump on top >> kill Goomba and deflect a bit 
+	if (e->ny < 0)
+	{
+		if (koopa->GetState() != KOOPA_STATE_HIDE)
+		{
+			koopa->SetState(KOOPA_STATE_HIDE);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+	}
+	else // hit by Goomba
+	{
+		if (untouchable == 0)
+		{
+			if (koopa->GetState() != KOOPA_STATE_HIDE)
+			{
+				if (level > MARIO_LEVEL_SMALL)
+				{
+					level = MARIO_LEVEL_SMALL;
+					StartUntouchable();
+				}
+				else
+				{
+					DebugOut(L">>> Mario DIE >>> \n");
+					SetState(MARIO_STATE_DIE);
+				}
+			}
+		}
+	}
 }
 
 void Mario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
 	Mushroom* mushroom = dynamic_cast<Mushroom*>(e->obj);
-	if (level == MARIO_LEVEL_SMALL)
+	if (level == MARIO_LEVEL_SMALL && mushroom->IsCollidable())
 	{
 		mushroom->Delete();
 		level = MARIO_LEVEL_BIG;
+		// lift mario up a bit so it dont grow big inside platform and drop out of the world
+		y -= 16;
 	}
 }
 
@@ -267,7 +307,7 @@ void Mario::Render()
 
 	//RenderBoundingBox();
 	
-	DebugOutTitle(L"Coins: %d", coin);
+	//DebugOutTitle(L"Coins: %d", coin);
 }
 
 void Mario::SetState(int state)

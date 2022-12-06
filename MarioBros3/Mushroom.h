@@ -19,7 +19,7 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual int IsCollidable() {
-		return 1; 
+		return (startMoving == true);
 	};
 	virtual int IsBlocking(float nx, float ny) { return 0; }
 	void OnNoCollision(DWORD dt);
