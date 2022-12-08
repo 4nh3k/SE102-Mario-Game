@@ -6,10 +6,10 @@ height	240
 #id	type	file
 # type: 0: intro, 1: play scene 
 [SCENES]
-0	./Map/map1_1.json
+5	./Map/map1_1.json
 1	scene01.txt
 2	scene02.txt
-5	./Map/testmap.tmj
+0	./Map/testmap.tmj
 
 # id	file 
 [TEXTURES]

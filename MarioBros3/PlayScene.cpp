@@ -213,7 +213,13 @@ void PlayScene::Update(DWORD dt)
 
 	for (size_t i = 0; i < gameObjects.size(); i++)
 	{
-		gameObjects[i]->Update(dt, &coObjects);
+		//only update object when it inside camera
+		float l,t,r,b;
+		RECT rect;
+		gameObjects[i]->GetBoundingBox(l, t, r, b);
+		rect.left = l; rect.top = t; rect.right = r; rect.bottom = b;
+		if (Game::GetInstance()->GetCamera()->IsContain(rect))
+			gameObjects[i]->Update(dt, &coObjects);
 	}
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)

@@ -28,7 +28,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	isOnPlatform = false;
 
 	Collision::GetInstance()->Process(this, dt, coObjects);
-	DebugOutTitle(L"Mario level: %d, state: %d, x: %f, y: %f", level, state, x, y);
+	//DebugOutTitle(L"Mario level: %d, state: %d, x: %f, y: %f", level, state, x, y);
 }
 
 void Mario::OnNoCollision(DWORD dt)
@@ -49,7 +49,6 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		vx = 0;
 	}
-
 	if (dynamic_cast<Goomba*>(e->obj))
 		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<Coin*>(e->obj))
@@ -67,7 +66,31 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 {
 	Koopa* koopa = dynamic_cast<Koopa*>(e->obj);
+	if (koopa->GetState() == KOOPA_STATE_HIDE || koopa->GetState() == KOOPA_STATE_PICKED_UP)
+	{
+		float koopaX, koopaY;
+		koopa->GetPosition(koopaX,koopaY);
+		if (state == MARIO_STATE_RUNNING_LEFT || state == MARIO_STATE_RUNNING_RIGHT)
+		{
+			this->SetState(state + 1);
+			koopa->SetState(KOOPA_STATE_PICKED_UP);
+		}
+		else
+		{
+			if (this->x > koopaX)
+			{
+				koopa->SetSpeed(-KOOPA_KICKED_SPEED, 0);
+			}
+			else
+			{
+				koopa->SetSpeed(KOOPA_KICKED_SPEED, 0);
+			}
+			koopa->SetState(KOOPA_STATE_KICKED);
+		}
 
+		
+		return;
+	}
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
@@ -104,9 +127,7 @@ void Mario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 	if (level == MARIO_LEVEL_SMALL && mushroom->IsCollidable())
 	{
 		mushroom->Delete();
-		level = MARIO_LEVEL_BIG;
-		// lift mario up a bit so it dont grow big inside platform and drop out of the world
-		y -= 16;
+		SetLevel(MARIO_LEVEL_BIG);
 	}
 }
 
