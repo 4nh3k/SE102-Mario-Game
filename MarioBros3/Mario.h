@@ -21,72 +21,40 @@
 
 #define MARIO_STATE_DIE				-10
 #define MARIO_STATE_IDLE			0
+#define MARIO_STATE_KICK			1
+#define MARIO_STATE_IDLE_HOLD		2
+
 #define MARIO_STATE_WALKING_RIGHT	100
+#define MARIO_STATE_WALKING_HOLD_RIGHT 101
 #define MARIO_STATE_WALKING_LEFT	200
+#define MARIO_STATE_WALKING_HOLD_LEFT 201
 
 #define MARIO_STATE_JUMP			300
 #define MARIO_STATE_RELEASE_JUMP    301
 
 #define MARIO_STATE_RUNNING_RIGHT	400
-#define MARIO_STATE_HOLDING_RUN_RIGHT 401
+#define MARIO_STATE_RUNNING_HOLD_RIGHT 401
 #define MARIO_STATE_RUNNING_LEFT	500
-#define MARIO_STATE_HOLDING_RUN_LEFT 501
+#define MARIO_STATE_RUNNING_HOLD_LEFT 501
+
 
 #define MARIO_STATE_SIT				600
 #define MARIO_STATE_SIT_RELEASE		601
 
 
-//
-//#pragma region ANIMATION_ID
-//
-//#define ID_ANI_MARIO_IDLE_RIGHT "400"
-//#define ID_ANI_MARIO_IDLE_LEFT "401"
-//
-//#define ID_ANI_MARIO_WALKING_RIGHT "500"
-//#define ID_ANI_MARIO_WALKING_LEFT "501"
-//
-//#define ID_ANI_MARIO_RUNNING_RIGHT "600"
-//#define ID_ANI_MARIO_RUNNING_LEFT "601"
-//
-//#define ID_ANI_MARIO_JUMP_WALK_RIGHT "700"
-//#define ID_ANI_MARIO_JUMP_WALK_LEFT "701"
-//
-//#define ID_ANI_MARIO_JUMP_RUN_RIGHT "800"
-//#define ID_ANI_MARIO_JUMP_RUN_LEFT "801"
-//
-//#define ID_ANI_MARIO_SIT_RIGHT "900"
-//#define ID_ANI_MARIO_SIT_LEFT "901"
-//
-//#define ID_ANI_MARIO_BRACE_RIGHT "1000"
-//#define ID_ANI_MARIO_BRACE_LEFT "1001"
-//
-//#define ID_ANI_MARIO_DIE "999"
-//
-//// SMALL MARIO
-//#define ID_ANI_MARIO_SMALL_IDLE_RIGHT "1100"
-//#define ID_ANI_MARIO_SMALL_IDLE_LEFT "1102"
-//
-//#define ID_ANI_MARIO_SMALL_WALKING_RIGHT "1200"
-//#define ID_ANI_MARIO_SMALL_WALKING_LEFT "1201"
-//
-//#define ID_ANI_MARIO_SMALL_RUNNING_RIGHT "1300"
-//#define ID_ANI_MARIO_SMALL_RUNNING_LEFT "1301"
-//
-//#define ID_ANI_MARIO_SMALL_BRACE_RIGHT "1400"
-//#define ID_ANI_MARIO_SMALL_BRACE_LEFT "1401"
-//
-//#define ID_ANI_MARIO_SMALL_JUMP_WALK_RIGHT "1500"
-//#define ID_ANI_MARIO_SMALL_JUMP_WALK_LEFT "1501"
-//
-//#define ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT "1600"
-//#define ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT "1601"
-//
-//#pragma endregion
-
 #pragma region ANIMATION_ID
 
 #define ID_ANI_MARIO_IDLE_RIGHT "big_idle_right"
 #define ID_ANI_MARIO_IDLE_LEFT "big_idle_left"
+
+#define ID_ANI_MARIO_IDLE_HOLD_RIGHT "big_idle_hold_right"
+#define ID_ANI_MARIO_IDLE_HOLD_LEFT "big_idle_hold_left"
+
+#define ID_ANI_MARIO_RUN_HOLD_RIGHT "big_run_hold_right"
+#define ID_ANI_MARIO_RUN_HOLD_LEFT "big_run_hold_left"
+
+#define ID_ANI_MARIO_JUMP_HOLD_RIGHT "big_jump_hold_right"
+#define ID_ANI_MARIO_JUMP_HOLD_LEFT "big_jump_hold_left"
 
 #define ID_ANI_MARIO_WALKING_RIGHT "big_walk_right"
 #define ID_ANI_MARIO_WALKING_LEFT "big_walk_left"
@@ -100,6 +68,9 @@
 #define ID_ANI_MARIO_JUMP_RUN_RIGHT "big_run_jump_right"
 #define ID_ANI_MARIO_JUMP_RUN_LEFT "big_run_jump_left"
 
+#define ID_ANI_MARIO_KICK_RIGHT "big_kick_right"
+#define ID_ANI_MARIO_KICK_LEFT "big_kick_left"
+
 #define ID_ANI_MARIO_SIT_RIGHT "big_sit_right"
 #define ID_ANI_MARIO_SIT_LEFT "big_sit_left"
 
@@ -111,6 +82,15 @@
 // SMALL MARIO
 #define ID_ANI_MARIO_SMALL_IDLE_RIGHT "small_idle_right"
 #define ID_ANI_MARIO_SMALL_IDLE_LEFT "small_idle_left"
+
+#define ID_ANI_MARIO_SMALL_IDLE_HOLD_RIGHT "small_idle_hold_right"
+#define ID_ANI_MARIO_SMALL_IDLE_HOLD_LEFT "small_idle_hold_left"
+
+#define ID_ANI_MARIO_SMALL_RUN_HOLD_RIGHT "small_run_hold_right"
+#define ID_ANI_MARIO_SMALL_RUN_HOLD_LEFT "small_run_hold_left"
+
+#define ID_ANI_MARIO_SMALL_JUMP_HOLD_RIGHT "small_jump_hold_right"
+#define ID_ANI_MARIO_SMALL_JUMP_HOLD_LEFT "small_jump_hold_left"
 
 #define ID_ANI_MARIO_SMALL_WALKING_RIGHT "small_walk_right"
 #define ID_ANI_MARIO_SMALL_WALKING_LEFT "small_walk_left"
@@ -127,12 +107,15 @@
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT "small_run_jump_right"
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT "small_run_jump_left"
 
+#define ID_ANI_MARIO_SMALL_KICK_RIGHT "small_kick_right"
+#define ID_ANI_MARIO_SMALL_KICK_LEFT "small_kick_left"
+
 #pragma endregion
 
 #define GROUND_Y 160.0f
 
 
-
+#define MARIO_KICK_TIMEOUT 100
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
@@ -156,11 +139,14 @@ class Mario : public GameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
+	int timer;
 
 	int level; 
 	int untouchable; 
 	ULONGLONG untouchable_start;
 	BOOLEAN isOnPlatform;
+	BOOLEAN isHolding;
+	GameObject* holdingObj;
 	int coin; 
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
@@ -181,6 +167,9 @@ public:
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
 
+		holdingObj = NULL;
+		isHolding = false;
+		timer = 0;
 		level = MARIO_LEVEL_BIG;
 		untouchable = 0;
 		untouchable_start = -1;
@@ -190,10 +179,15 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
-
+	
 	int IsCollidable()
 	{ 
 		return (state != MARIO_STATE_DIE); 
+	}
+
+	BOOLEAN IsHolding()
+	{
+		return isHolding;
 	}
 
 	int IsBlocking(float nx, float ny) { return (state != MARIO_STATE_DIE && untouchable==0); }

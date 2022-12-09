@@ -18,6 +18,14 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
+	if (isHolding)
+	{
+		if(nx > 0)
+			holdingObj->SetPosition(x + 10, y);
+		else
+			holdingObj->SetPosition(x - 10, y);
+	}
+
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
@@ -70,25 +78,26 @@ void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	{
 		float koopaX, koopaY;
 		koopa->GetPosition(koopaX,koopaY);
-		if (state == MARIO_STATE_RUNNING_LEFT || state == MARIO_STATE_RUNNING_RIGHT)
+		if ((state == MARIO_STATE_RUNNING_LEFT || state == MARIO_STATE_RUNNING_RIGHT) && !isHolding)
 		{
-			this->SetState(state + 1);
+			isHolding = true;
+			holdingObj = koopa;
 			koopa->SetState(KOOPA_STATE_PICKED_UP);
 		}
 		else
 		{
 			if (this->x > koopaX)
 			{
-				koopa->SetSpeed(-KOOPA_KICKED_SPEED, 0);
+				koopa->SetDirection(-1);
 			}
 			else
 			{
-				koopa->SetSpeed(KOOPA_KICKED_SPEED, 0);
+				koopa->SetDirection(1);
 			}
+			if(isOnPlatform)
+				this->SetState(MARIO_STATE_KICK);
 			koopa->SetState(KOOPA_STATE_KICKED);
 		}
-
-		
 		return;
 	}
 	// jump on top >> kill Goomba and deflect a bit 
@@ -100,7 +109,7 @@ void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
 	}
-	else // hit by Goomba
+	else 
 	{
 		if (untouchable == 0)
 		{
@@ -197,7 +206,14 @@ string Mario::GetAniIdSmall()
 	string aniId = "1";
 	if (!isOnPlatform)
 	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		if (isHolding)
+		{
+			if (nx >= 0)
+				aniId = ID_ANI_MARIO_SMALL_JUMP_HOLD_RIGHT;
+			else
+				aniId = ID_ANI_MARIO_SMALL_JUMP_HOLD_LEFT;
+		}
+		else if (abs(ax) == MARIO_ACCEL_RUN_X)
 		{
 			if (nx >= 0)
 				aniId = ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT;
@@ -223,12 +239,18 @@ string Mario::GetAniIdSmall()
 		else
 			if (vx == 0)
 			{
-				if (nx > 0) aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
-				else aniId = ID_ANI_MARIO_SMALL_IDLE_LEFT;
+				if (nx > 0)
+					if (isHolding) aniId = ID_ANI_MARIO_SMALL_IDLE_HOLD_RIGHT;
+					else aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
+				else 
+					if (isHolding) aniId = ID_ANI_MARIO_SMALL_IDLE_HOLD_LEFT;
+					else aniId = ID_ANI_MARIO_SMALL_IDLE_LEFT;
 			}
 			else if (vx > 0)
 			{
-				if (ax < 0)
+				if (isHolding)
+					aniId = ID_ANI_MARIO_SMALL_RUN_HOLD_RIGHT;
+				else if (ax < 0)
 					aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
 				else if (ax == MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
@@ -237,14 +259,20 @@ string Mario::GetAniIdSmall()
 			}
 			else // vx < 0
 			{
-				if (ax > 0)
+				if (isHolding)
+					aniId = ID_ANI_MARIO_SMALL_RUN_HOLD_LEFT;
+				else if (ax > 0)
 					aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
 				else if (ax == -MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
 				else if (ax == -MARIO_ACCEL_WALK_X)
 					aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
 			}
-
+	if (state == MARIO_STATE_KICK)
+	{
+		if (nx > 0) aniId = ID_ANI_MARIO_SMALL_KICK_RIGHT;
+		else aniId = ID_ANI_MARIO_SMALL_KICK_LEFT;
+	}
 	if (aniId == "1") aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
 
 	return aniId;
@@ -259,7 +287,14 @@ string Mario::GetAniIdBig()
 	string aniId = "1";
 	if (!isOnPlatform)
 	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		if (isHolding)
+		{
+			if (nx >= 0)
+				aniId = ID_ANI_MARIO_JUMP_HOLD_RIGHT;
+			else
+				aniId = ID_ANI_MARIO_JUMP_HOLD_LEFT;
+		}
+		else if (abs(ax) == MARIO_ACCEL_RUN_X)
 		{
 			if (nx >= 0)
 				aniId = ID_ANI_MARIO_JUMP_RUN_RIGHT;
@@ -274,7 +309,7 @@ string Mario::GetAniIdBig()
 				aniId = ID_ANI_MARIO_JUMP_WALK_LEFT;
 		}
 	}
-	else
+	else 
 		if (isSitting)
 		{
 			if (nx > 0)
@@ -285,12 +320,22 @@ string Mario::GetAniIdBig()
 		else
 			if (vx == 0)
 			{
-				if (nx > 0) aniId = ID_ANI_MARIO_IDLE_RIGHT;
-				else aniId = ID_ANI_MARIO_IDLE_LEFT;
+				if (nx > 0)
+				{
+					if (isHolding) aniId = ID_ANI_MARIO_IDLE_HOLD_RIGHT;
+					else aniId = ID_ANI_MARIO_IDLE_RIGHT;
+				}
+				else
+				{
+					if (isHolding) aniId = ID_ANI_MARIO_IDLE_HOLD_LEFT;
+					else aniId = ID_ANI_MARIO_IDLE_LEFT;
+				}
 			}
 			else if (vx > 0)
 			{
-				if (ax < 0)
+				if (isHolding)
+					aniId = ID_ANI_MARIO_RUN_HOLD_RIGHT;
+				else if (ax < 0)
 					aniId = ID_ANI_MARIO_BRACE_RIGHT;
 				else if (ax == MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
@@ -299,14 +344,20 @@ string Mario::GetAniIdBig()
 			}
 			else // vx < 0
 			{
-				if (ax > 0)
+				if (isHolding)
+					aniId = ID_ANI_MARIO_RUN_HOLD_LEFT;
+				else if (ax > 0)
 					aniId = ID_ANI_MARIO_BRACE_LEFT;
 				else if (ax == -MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RUNNING_LEFT;
 				else if (ax == -MARIO_ACCEL_WALK_X)
 					aniId = ID_ANI_MARIO_WALKING_LEFT;
 			}
-
+	if (state == MARIO_STATE_KICK)
+	{
+		if (nx > 0) aniId = ID_ANI_MARIO_KICK_RIGHT;
+		else aniId = ID_ANI_MARIO_KICK_LEFT;
+	}
 	if (aniId == "1") aniId = ID_ANI_MARIO_IDLE_RIGHT;
 
 	return aniId;
@@ -335,6 +386,8 @@ void Mario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return; 
+	// some animation cannot be cut off 
+	if (this->state == MARIO_STATE_KICK && GetTickCount64() - timer <= MARIO_KICK_TIMEOUT) return;
 
 	switch (state)
 	{
@@ -344,7 +397,18 @@ void Mario::SetState(int state)
 		ax = MARIO_ACCEL_RUN_X;
 		nx = 1;
 		break;
+	case MARIO_STATE_RUNNING_HOLD_RIGHT:
+		maxVx = MARIO_RUNNING_SPEED;
+		ax = MARIO_ACCEL_RUN_X;
+		nx = 1;
+		break;
 	case MARIO_STATE_RUNNING_LEFT:
+		if (isSitting) break;
+		maxVx = -MARIO_RUNNING_SPEED;
+		ax = -MARIO_ACCEL_RUN_X;
+		nx = -1;
+		break;
+	case MARIO_STATE_RUNNING_HOLD_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_RUNNING_SPEED;
 		ax = -MARIO_ACCEL_RUN_X;
@@ -356,11 +420,33 @@ void Mario::SetState(int state)
 		ax = MARIO_ACCEL_WALK_X;
 		nx = 1;
 		break;
+	case MARIO_STATE_WALKING_HOLD_RIGHT:
+		if (isSitting) break;
+		maxVx = MARIO_WALKING_SPEED;
+		ax = MARIO_ACCEL_WALK_X;
+		nx = 1;
+		break;
 	case MARIO_STATE_WALKING_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_WALKING_SPEED;
 		ax = -MARIO_ACCEL_WALK_X;
 		nx = -1;
+		break;
+	case MARIO_STATE_WALKING_HOLD_LEFT:
+		if (isSitting) break;
+		maxVx = -MARIO_WALKING_SPEED;
+		ax = -MARIO_ACCEL_WALK_X;
+		nx = -1;
+		break;
+	case MARIO_STATE_KICK:
+		if (holdingObj != NULL)
+		{
+			Koopa* koopa = dynamic_cast<Koopa*>(holdingObj);
+			koopa->SetDirection(nx);
+			koopa->SetState(KOOPA_STATE_KICKED);
+		}
+		isHolding = false;
+		timer = GetTickCount64();
 		break;
 	case MARIO_STATE_JUMP:
 		if (isSitting) break;
@@ -378,7 +464,7 @@ void Mario::SetState(int state)
 		break;
 
 	case MARIO_STATE_SIT:
-		if (isOnPlatform && level != MARIO_LEVEL_SMALL)
+		if (isOnPlatform && level != MARIO_LEVEL_SMALL && GetState() == MARIO_STATE_IDLE && !isHolding)
 		{
 			state = MARIO_STATE_IDLE;
 			isSitting = true;
@@ -400,14 +486,12 @@ void Mario::SetState(int state)
 		ax = 0.0f;
 		vx = 0.0f;
 		break;
-
 	case MARIO_STATE_DIE:
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;
 		ax = 0;
 		break;
 	}
-
 	GameObject::SetState(state);
 }
 

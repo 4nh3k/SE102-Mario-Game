@@ -1,10 +1,12 @@
 #include "Koopa.h"
 #include "Goomba.h"
+#include "QuestionBlock.h"
 
 Koopa::Koopa(float x, float y) :GameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = KOOPA_GRAVITY;
+	nx = 1;
 	hide_start = -1;
 	wakeup_start = -1 ;
 	SetState(KOOPA_STATE_WALKING);
@@ -52,7 +54,19 @@ void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		if (dynamic_cast<Koopa*>(e->obj)) OnCollisionWithKoopa(e);
 		else if (dynamic_cast<Goomba*>(e->obj)) OnCollisionWithGoomba(e);
+		else if (dynamic_cast<QuestionBlock*>(e->obj)) OnCollisionWithQuestionBlock(e);
 		DebugOutTitle(L"nx: %f, ny: %f", e->nx, e->ny);
+	}
+}
+void Koopa::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)
+{
+	QuestionBlock* qblock = dynamic_cast<QuestionBlock*>(e->obj);
+	if (e->nx != 0)
+	{
+		if (qblock->GetState() != QUESTION_BLOCK_STATE_HIT)
+		{
+			qblock->SetState(QUESTION_BLOCK_STATE_HIT);
+		}
 	}
 }
 
@@ -74,7 +88,7 @@ void Koopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if ((state == KOOPA_STATE_HIDE) && (GetTickCount64() - hide_start > KOOPA_HIDE_TIMEOUT))
+	if ((state == KOOPA_STATE_HIDE || state == KOOPA_STATE_PICKED_UP) && (GetTickCount64() - hide_start > KOOPA_HIDE_TIMEOUT))
 	{
 		SetState(KOOPA_STATE_WAKE_UP);
 	}
@@ -125,10 +139,15 @@ void Koopa::SetState(int state)
 		wakeup_start = GetTickCount64();
 		break;
 	case KOOPA_STATE_KICKED:
+		vx = KOOPA_KICKED_SPEED * nx;
 		ay = KOOPA_GRAVITY;
 		break;
 	case KOOPA_STATE_PICKED_UP:
-		y -= 10;
+		wakeup_start = GetTickCount64();
+		vx = 0;
+		vy = 0;
+		ax = 0;
 		ay = 0;
+		break;
 	}
 }

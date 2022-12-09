@@ -32,6 +32,8 @@ protected:
 	float ax;
 	float ay;
 
+	int nx;
+
 	ULONGLONG hide_start;
 	ULONGLONG wakeup_start;
 
@@ -47,8 +49,11 @@ protected:
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
+	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
+
 
 public:
 	Koopa(float x, float y);
 	virtual void SetState(int state);
+	void SetDirection(int nx) { this->nx = nx; }
 };
