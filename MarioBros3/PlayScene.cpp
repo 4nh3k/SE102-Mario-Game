@@ -11,8 +11,6 @@
 #include "Platform.h"
 #include "SpecialPlatform.h"
 #include "QuestionBlock.h"
-#include "RewardCoin.h"
-#include "Mushroom.h"
 #include "Koopa.h"
 #include "SampleKeyEventHandler.h"
 
@@ -67,11 +65,8 @@ void PlayScene::LoadObjectAni(int objectType)
 		break;
 	case OBJECT_TYPE_QUESTION_BLOCK:
 		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_QUESTION_BLOCK);
-	case OBJECT_TYPE_GOOMBA:
-		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_GOOMBA);
-		break;
-	case OBJECT_TYPE_KOOPAS:
-		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_KOOPA);
+	case OBJECT_TYPE_ENEMIES:
+		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_ENEMIES);
 		break;
 	default:
 		break;
@@ -125,9 +120,14 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		}
 		if (obj.getName() == "Question Block")
 		{
-			LPGAMEOBJECT reward = new Mushroom(pos.x, pos.y);
+			tson::Property* prop = obj.getProp("reward_id");
+			int reward_id = any_cast<int>(prop->getValue());
+			// calculate in-game x, y because this object is represented by a point in tiled map
+			int x = ((pos.x / 16) * 16 + 8);
+			int y = ((pos.y / 16) * 16 + 8);
+			LPGAMEOBJECT reward = QuestionBlock::GetReward(reward_id, x, y);
 			gameObjects.push_back(reward);
-			gameObj = new QuestionBlock(pos.x, pos.y, reward);
+			gameObj = new QuestionBlock(x, y, reward);
 		}
 		if (obj.getName() == "Portal")
 		{

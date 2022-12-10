@@ -1,7 +1,8 @@
 #pragma once
 #include "Coin.h"
-#define REWARD_COIN_ANI_ID "coin_rotate"
-#define RISE_UP_HEIGH 48
+#define REWARD_COIN_ANI_ID "reward_coin"
+#define COIN_RISE_UP_HEIGH 48
+#define COIN_RISE_UP_SPEED -0.2f
 class RewardCoin :
     public Coin
 {

@@ -5,11 +5,14 @@
 #define ID_ANI_QUESTION_BLOCK_HIT "question_block_hit"
 #define QUESTION_BLOCK_BBOX_WIDTH 16
 #define QUESTION_BLOCK_BBOX_HEIGHT 16
-#define RISE_UP_HEIGH 5
-#define RISE_UP_SPEED -0.1f
+#define RISE_UP_HEIGH 3
+#define RISE_UP_SPEED -0.08f
 
-#define QUESTION_BLOCK_STATE_IDLE 1
-#define QUESTION_BLOCK_STATE_HIT 2
+#define ID_REWARD_COIN 0
+#define ID_REWARD_MUSHROOM 1
+
+#define QUESTION_BLOCK_STATE_IDLE 10
+#define QUESTION_BLOCK_STATE_HIT 20
 
 class QuestionBlock : public GameObject
 {
@@ -17,20 +20,15 @@ class QuestionBlock : public GameObject
 	LPGAMEOBJECT reward;
 public:
 	QuestionBlock(float x, float y, LPGAMEOBJECT reward) : GameObject(x, y) {
+		oldY = y;
 		this->reward = reward;
 		state = QUESTION_BLOCK_STATE_IDLE;
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
-	void SetState(int state) {
-		if (state == QUESTION_BLOCK_STATE_HIT)
-		{
-			reward->SetSpeed(0.05f, RISE_UP_SPEED/2);
-			oldY = y;
-			vy = RISE_UP_SPEED;
-		}
-		GameObject::SetState(state);
-	}
+	static LPGAMEOBJECT GetReward(int rewardId, int x, int y);
+
+	void SetState(int state);
 };
 

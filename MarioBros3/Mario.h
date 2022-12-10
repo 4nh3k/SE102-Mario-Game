@@ -15,6 +15,7 @@
 #define MARIO_JUMP_SPEED_Y		0.5f
 #define MARIO_JUMP_RUN_SPEED_Y	0.6f
 
+#define MARIO_FRICTION			0.0003f
 #define MARIO_GRAVITY			0.002f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.4f
@@ -111,8 +112,6 @@
 #define ID_ANI_MARIO_SMALL_KICK_LEFT "small_kick_left"
 
 #pragma endregion
-
-#define GROUND_Y 160.0f
 
 
 #define MARIO_KICK_TIMEOUT 100

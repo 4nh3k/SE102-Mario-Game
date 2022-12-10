@@ -3,11 +3,7 @@
 void Mushroom::Render()
 {
 	Animations* animations = Animations::GetInstance();
-	switch (state)
-	{
-		animations->Get(REWARD_COIN_ANI_ID)->Render(x, y);
-	}
-	animations->Get(REWARD_COIN_ANI_ID)->Render(x, y);
+	animations->Get(ID_ANI_LEVEL_UP_MUSHROOM)->Render(x, y);
 
 	//RenderBoundingBox();
 }
@@ -39,8 +35,9 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (y < oldY - MUSHROOM_HEIGHT)
 	{
 		//this->ay = MUSHROOM_GRAVITY;
-
 		startMoving = true;
+
+		vx = MUSHROOM_SPEED;
 		vy = 0;
 	}
 	else

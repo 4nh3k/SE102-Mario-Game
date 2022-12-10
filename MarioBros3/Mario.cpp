@@ -16,14 +16,24 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if (abs(vx) > abs(maxVx)) vx = maxVx;
+	if (abs(vx) > abs(maxVx) && !isSitting)
+		vx = maxVx;
+
+	if (isSitting)
+	{
+		if ((vx <= 0 && nx>0) || (vx >= 0 && nx < 0))
+		{
+			vx = 0;
+			ax = 0;
+		}
+	}
 
 	if (isHolding)
 	{
 		if(nx > 0)
-			holdingObj->SetPosition(x + 10, y);
+			holdingObj->SetPosition(x + 10, y- 3);
 		else
-			holdingObj->SetPosition(x - 10, y);
+			holdingObj->SetPosition(x - 10, y -3);
 	}
 
 	// reset untouchable timer if untouchable time has passed
@@ -379,7 +389,7 @@ void Mario::Render()
 
 	//RenderBoundingBox();
 	
-	//DebugOutTitle(L"Coins: %d", coin);
+	//DebugOutTitle(L"Coins: %f, %f, %d", vx, ax, nx);
 }
 
 void Mario::SetState(int state)
@@ -464,11 +474,12 @@ void Mario::SetState(int state)
 		break;
 
 	case MARIO_STATE_SIT:
-		if (isOnPlatform && level != MARIO_LEVEL_SMALL && GetState() == MARIO_STATE_IDLE && !isHolding)
+		if (isOnPlatform && level != MARIO_LEVEL_SMALL && !isHolding)
 		{
 			state = MARIO_STATE_IDLE;
 			isSitting = true;
-			vx = 0; vy = 0.0f;
+			ax = (-nx) * MARIO_FRICTION;
+			vy = 0.0f;
 			y +=MARIO_SIT_HEIGHT_ADJUST;
 		}
 		break;

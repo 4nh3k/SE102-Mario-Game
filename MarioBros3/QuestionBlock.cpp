@@ -1,4 +1,6 @@
 #include "QuestionBlock.h"
+#include "RewardCoin.h"
+#include "Mushroom.h"
 void QuestionBlock::Render()
 {
 	Animations* animations = Animations::GetInstance();
@@ -19,15 +21,16 @@ void QuestionBlock::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	x += vx * dt;
 	y += vy * dt;
-	if (y < oldY - RISE_UP_HEIGH)
+
+	if (y <= oldY - RISE_UP_HEIGH)
 	{
-		vy = -vy;
+		vy = -RISE_UP_SPEED;
 	}
 	else
 	{
-		if (y >= oldY)
+		if (y > oldY)
 		{
-			//y = oldY;
+			y = oldY;
 			vy = 0;
 		}
 	}
@@ -38,4 +41,33 @@ void QuestionBlock::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y - QUESTION_BLOCK_BBOX_HEIGHT / 2;
 	r = l + QUESTION_BLOCK_BBOX_WIDTH;
 	b = t + QUESTION_BLOCK_BBOX_HEIGHT;
+}
+void QuestionBlock::SetState(int state)
+{
+	if (state == QUESTION_BLOCK_STATE_HIT)
+	{
+		if(dynamic_cast<RewardCoin*>(reward))
+			reward->SetSpeed(0.0f, COIN_RISE_UP_SPEED*3);
+		else
+		{
+			reward->SetSpeed(0.0f, MUSHROOM_RAISE_UP_SPEED);
+		}
+		vy = RISE_UP_SPEED;
+	}
+	GameObject::SetState(state);
+}
+LPGAMEOBJECT QuestionBlock::GetReward(int rewardId, int x, int y)
+{
+	switch (rewardId)
+	{
+	case ID_REWARD_COIN:
+		return new RewardCoin(x, y);
+		break;
+	case ID_REWARD_MUSHROOM:
+		return new Mushroom(x, y);
+		break;
+	default:
+		break;
+	}
+	return new RewardCoin(x, y);;
 }

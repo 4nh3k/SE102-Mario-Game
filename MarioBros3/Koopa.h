@@ -21,7 +21,9 @@
 #define KOOPA_STATE_KICKED 400
 #define KOOPA_STATE_PICKED_UP 500
 
-#define ID_ANI_KOOPA_WALKING "koopa_walk"
+#define ID_ANI_KOOPA_WALK_RIGHT "koopa_walk_right"
+#define ID_ANI_KOOPA_WALK_LEFT "koopa_walk_left"
+#define ID_ANI_KOOPA_KICKED "koopa_kicked"
 #define ID_ANI_KOOPA_HIDE "koopa_hide"
 #define ID_ANI_KOOPA_WAKE_UP "koopa_wake_up"
 

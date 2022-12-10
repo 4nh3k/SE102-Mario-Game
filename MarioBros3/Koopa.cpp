@@ -107,16 +107,20 @@ void Koopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Koopa::Render()
 {
-	string aniId = ID_ANI_KOOPA_WALKING;
-	if (state == KOOPA_STATE_HIDE || state == KOOPA_STATE_KICKED || state == KOOPA_STATE_PICKED_UP)
+	string aniId = ID_ANI_KOOPA_WALK_RIGHT;
+	if (state == KOOPA_STATE_WALKING)
 	{
+		if (vx < 0)
+			aniId = ID_ANI_KOOPA_WALK_LEFT;
+		else
+			aniId = ID_ANI_KOOPA_WALK_RIGHT;
+	}
+	else if (state == KOOPA_STATE_HIDE || state == KOOPA_STATE_PICKED_UP)
 		aniId = ID_ANI_KOOPA_HIDE;
-	}
+	else if (state == KOOPA_STATE_KICKED)
+		aniId = ID_ANI_KOOPA_KICKED;
 	else if (state == KOOPA_STATE_WAKE_UP)
-	{
 		aniId = ID_ANI_KOOPA_WAKE_UP;
-	}
-
 	Animations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
 }

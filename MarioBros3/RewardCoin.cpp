@@ -13,11 +13,10 @@ void RewardCoin::Render()
 }
 void RewardCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	x += vx * dt;
 	y += vy * dt;
-	if (y < oldY - RISE_UP_HEIGH)
+	if (y <= oldY - COIN_RISE_UP_HEIGH)
 	{
-		vy = -vy;
+		vy = -COIN_RISE_UP_SPEED;
 	}
 	else
 	{

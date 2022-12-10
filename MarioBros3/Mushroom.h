@@ -1,9 +1,12 @@
 #pragma once
 #include "GameObject.h" 
-#define REWARD_COIN_ANI_ID "coin_rotate"
+#define ID_ANI_LEVEL_UP_MUSHROOM "level_up_mushroom"
 #define MUSHROOM_WIDTH 16
 #define MUSHROOM_HEIGHT 16
 #define MUSHROOM_GRAVITY 0.002f
+#define MUSHROOM_RAISE_UP_SPEED -0.02f
+#define MUSHROOM_SPEED 0.06f
+
 class Mushroom : public GameObject
 {
 	bool startMoving = false;
