@@ -1,6 +1,9 @@
 #include "QuestionBlock.h"
 #include "RewardCoin.h"
 #include "Mushroom.h"
+#include "SuperLeaf.h"
+#include "Mario.h"
+
 void QuestionBlock::Render()
 {
 	Animations* animations = Animations::GetInstance();
@@ -46,28 +49,37 @@ void QuestionBlock::SetState(int state)
 {
 	if (state == QUESTION_BLOCK_STATE_HIT)
 	{
-		if(dynamic_cast<RewardCoin*>(reward))
-			reward->SetSpeed(0.0f, COIN_RISE_UP_SPEED*3);
-		else
+		//GetReward();
+		Scene* current_scene = Game::GetInstance()->GetCurrentScene();
+		Mario* mario = dynamic_cast<Mario*>(current_scene->GetPlayer());
+		if (mario->GetLevel() == MARIO_LEVEL_BIG && rewardId == ID_REWARD_MUSHROOM)
 		{
-			reward->SetSpeed(0.0f, MUSHROOM_RAISE_UP_SPEED);
+			rewardId = ID_REWARD_SUPER_LEAF;
+			/*this->reward->Delete();
+			this->reward = new SuperLeaf(x, y);
+			current_scene->AddObject(this->reward);*/
 		}
+		GetReward();
 		vy = RISE_UP_SPEED;
 	}
 	GameObject::SetState(state);
 }
-LPGAMEOBJECT QuestionBlock::GetReward(int rewardId, int x, int y)
+LPGAMEOBJECT QuestionBlock::GetReward()
 {
 	switch (rewardId)
 	{
 	case ID_REWARD_COIN:
-		return new RewardCoin(x, y);
+ 		this->reward = new RewardCoin(x, y);
 		break;
 	case ID_REWARD_MUSHROOM:
-		return new Mushroom(x, y);
+		this->reward = new Mushroom(x, y);
+		break;
+	case ID_REWARD_SUPER_LEAF:
+		this->reward = new SuperLeaf(x, y);
 		break;
 	default:
 		break;
 	}
-	return new RewardCoin(x, y);;
+	Game::GetInstance()->GetCurrentScene()->AddObject(this->reward);
+	return this->reward;
 }

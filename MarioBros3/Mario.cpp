@@ -27,8 +27,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			ax = 0;
 		}
 	}
-
-	if (isHolding)
+	else if (isHolding)
 	{
 		if(nx > 0)
 			holdingObj->SetPosition(x + 10, y- 3);
@@ -46,21 +45,27 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	isOnPlatform = false;
 
 	Collision::GetInstance()->Process(this, dt, coObjects);
-	//DebugOutTitle(L"Mario level: %d, state: %d, x: %f, y: %f", level, state, x, y);
+
 }
 
 void Mario::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
+
 }
 
 void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (e->ny != 0 && e->obj->IsBlocking(e->nx, e->ny))
 	{
-		vy = 0;
-		if (e->ny < 0) isOnPlatform = true;
+		vy = 0.0f;
+		if (e->ny < 0)
+		{
+			// pull mario down, because to low gravity make it fail broad-phase test in collision 
+			vy = 0.015f;
+			isOnPlatform = true;
+		}
 	}
 	else 
 	if (e->nx != 0 && e->obj->IsBlocking(e->nx, e->ny))
@@ -156,7 +161,7 @@ void Mario::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)
 	if (e->ny > 0)
 	{
 		if (qblock->GetState() != QUESTION_BLOCK_STATE_HIT)
-		{
+		{ 
 			qblock->SetState(QUESTION_BLOCK_STATE_HIT);
 		}
 	}

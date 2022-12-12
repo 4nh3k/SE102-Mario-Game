@@ -1,8 +1,6 @@
 #pragma once
 
 #include <Windows.h>
-#include <unordered_map>
-
 #include "Sprites.h"
 #include "AnimationFrame.h"
 

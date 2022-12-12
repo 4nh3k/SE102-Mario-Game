@@ -23,6 +23,7 @@ void Mushroom::OnCollisionWith(LPCOLLISIONEVENT e)
 }
 void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
 	if (startMoving)
 	{
 		vy += ay * dt;

@@ -10,6 +10,7 @@ class RewardCoin :
 
 public:
 	RewardCoin(float x, float y) : Coin(x, y) {
+		vy = COIN_RISE_UP_SPEED;
 		oldY = y;
 	}
 	void Render();

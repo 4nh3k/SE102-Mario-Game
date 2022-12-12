@@ -3,9 +3,9 @@
 #include "Game.h"
 #include "debug.h"
 #include "Utils.h"
-
-#include "Texture.h"
-#include "Animations.h"
+//
+//#include "Texture.h"
+//#include "Animations.h"
 #include "PlayScene.h"
 
 Game * Game::__instance = NULL;
