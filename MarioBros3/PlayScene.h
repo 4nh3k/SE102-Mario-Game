@@ -1,14 +1,8 @@
 #pragma once
 #include "Game.h"
-#include "Textures.h"
 #include "Scene.h"
-#include "GameObject.h"
-#include "Brick.h"
-#include "Mario.h"
-#include "Goomba.h"
 #include "tileson.hpp"
 #include "Tile.h"
-//#include "Koopas.h"
 
 
 class PlayScene: public Scene
@@ -16,9 +10,6 @@ class PlayScene: public Scene
 protected: 
 	vector<Tile*> tileMap;
 	float camY;
-	// A play scene has to have player, right? 
-	LPGAMEOBJECT player;					
-	vector<LPGAMEOBJECT> gameObjects;
 
 	void LoadObjectAni(int objectType);
 	void LoadObjects(vector < tson::Object> objects);

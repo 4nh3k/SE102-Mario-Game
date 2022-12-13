@@ -12,13 +12,14 @@
 #define MARIO_ACCEL_WALK_X	0.0005f
 #define MARIO_ACCEL_RUN_X	0.0007f
 
-#define MARIO_JUMP_SPEED_Y		0.5f
-#define MARIO_JUMP_RUN_SPEED_Y	0.6f
+#define MARIO_JUMP_SPEED_Y		0.35f
+#define MARIO_JUMP_RUN_SPEED_Y	0.37f
 
 #define MARIO_FRICTION			0.0003f
-#define MARIO_GRAVITY			0.002f
+#define MARIO_GRAVITY			0.0008f
+#define MARIO_FLY_SPEED_Y		0.005f
 
-#define MARIO_JUMP_DEFLECT_SPEED  0.4f
+#define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
 #define MARIO_STATE_DIE				-10
 #define MARIO_STATE_IDLE			0
@@ -111,6 +112,42 @@
 #define ID_ANI_MARIO_SMALL_KICK_RIGHT "small_kick_right"
 #define ID_ANI_MARIO_SMALL_KICK_LEFT "small_kick_left"
 
+// TANOOKI MARIO
+#define ID_ANI_MARIO_TANOOKI_IDLE_RIGHT "tanooki_idle_right"
+#define ID_ANI_MARIO_TANOOKI_IDLE_LEFT "tanooki_idle_left"
+
+#define ID_ANI_MARIO_TANOOKI_IDLE_HOLD_RIGHT "tanooki_idle_hold_right"
+#define ID_ANI_MARIO_TANOOKI_IDLE_HOLD_LEFT "tanooki_idle_hold_left"
+
+#define ID_ANI_MARIO_TANOOKI_RUN_HOLD_RIGHT "tanooki_run_hold_right"
+#define ID_ANI_MARIO_TANOOKI_RUN_HOLD_LEFT "tanooki_run_hold_left"
+
+#define ID_ANI_MARIO_TANOOKI_JUMP_HOLD_RIGHT "tanooki_jump_hold_right"
+#define ID_ANI_MARIO_TANOOKI_JUMP_HOLD_LEFT "tanooki_jump_hold_left"
+
+#define ID_ANI_MARIO_TANOOKI_WALKING_RIGHT "tanooki_walk_right"
+#define ID_ANI_MARIO_TANOOKI_WALKING_LEFT "tanooki_walk_left"
+
+#define ID_ANI_MARIO_TANOOKI_RUNNING_RIGHT "tanooki_run_right"
+#define ID_ANI_MARIO_TANOOKI_RUNNING_LEFT "tanooki_run_left"
+
+#define ID_ANI_MARIO_TANOOKI_BRACE_RIGHT "tanooki_brace_right"
+#define ID_ANI_MARIO_TANOOKI_BRACE_LEFT "tanooki_brace_left"
+
+#define ID_ANI_MARIO_TANOOKI_JUMP_WALK_RIGHT "tanooki_walk_jump_right"
+#define ID_ANI_MARIO_TANOOKI_JUMP_WALK_LEFT "tanooki_walk_jump_left"
+
+#define ID_ANI_MARIO_TANOOKI_JUMP_RUN_RIGHT "tanooki_run_jump_right"
+#define ID_ANI_MARIO_TANOOKI_JUMP_RUN_LEFT "tanooki_run_jump_left"
+
+#define ID_ANI_MARIO_TANOOKI_KICK_RIGHT "tanooki_kick_right"
+#define ID_ANI_MARIO_TANOOKI_KICK_LEFT "tanooki_kick_left"
+
+#define ID_ANI_MARIO_TANOOKI_SIT_RIGHT "tanooki_sit_right"
+#define ID_ANI_MARIO_TANOOKI_SIT_LEFT "tanooki_sit_left"
+
+#define ID_ANI_MARIO_TANOOKI_FLY_RIGHT "tanooki_fly_right"
+#define ID_ANI_MARIO_TANOOKI_FLY_LEFT "tanooki_fly_left"
 #pragma endregion
 
 
@@ -118,6 +155,7 @@
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
+#define MARIO_LEVEL_TANOOKI	3
 
 #define MARIO_BIG_BBOX_WIDTH  14
 #define MARIO_BIG_BBOX_HEIGHT 24
@@ -145,8 +183,10 @@ class Mario : public GameObject
 	ULONGLONG untouchable_start;
 	BOOLEAN isOnPlatform;
 	BOOLEAN isHolding;
+	BOOLEAN isFlying;
 	GameObject* holdingObj;
 	int coin; 
+	float minAy;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
@@ -157,7 +197,7 @@ class Mario : public GameObject
 
 	string GetAniIdBig();
 	string GetAniIdSmall();
-
+	string GetAniIdTanooki();
 public:
 	Mario(float x, float y) : GameObject(x, y)
 	{
@@ -165,7 +205,6 @@ public:
 		maxVx = 0.0f;
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
-
 		holdingObj = NULL;
 		isHolding = false;
 		timer = 0;
@@ -193,7 +232,7 @@ public:
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
-
+	int GetLevel() { return level; };
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 

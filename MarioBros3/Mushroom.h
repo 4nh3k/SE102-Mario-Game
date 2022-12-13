@@ -9,20 +9,21 @@
 
 class Mushroom : public GameObject
 {
-	bool startMoving = false;
+	bool startMoving;
 	float oldY;
 	float ay;
 public:
 	Mushroom(float x, float y) : GameObject(x, y) {
+		startMoving = false;
+		vy = MUSHROOM_RAISE_UP_SPEED;
 		this->ay = MUSHROOM_GRAVITY;
-
 		oldY =y;
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual int IsCollidable() {
-		return (startMoving == true);
+		return 1;
 	};
 	virtual int IsBlocking(float nx, float ny) { return 0; }
 	void OnNoCollision(DWORD dt);

@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include "Mario.h"
+#include "Brick.h"
 #include "AssetIDs.h"
-
 #include "PlayScene.h"
 #include "Utils.h"
 #include "Textures.h"
@@ -11,7 +12,9 @@
 #include "Platform.h"
 #include "SpecialPlatform.h"
 #include "QuestionBlock.h"
+#include "RewardCoin.h"
 #include "Koopa.h"
+#include "Goomba.h"
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
@@ -125,9 +128,9 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			// calculate in-game x, y because this object is represented by a point in tiled map
 			int x = ((pos.x / 16) * 16 + 8);
 			int y = ((pos.y / 16) * 16 + 8);
-			LPGAMEOBJECT reward = QuestionBlock::GetReward(reward_id, x, y);
-			gameObjects.push_back(reward);
-			gameObj = new QuestionBlock(x, y, reward);
+			QuestionBlock* qblock = new QuestionBlock(x, y, reward_id);
+			//qblock->GetReward();
+			gameObj = qblock;
 		}
 		if (obj.getName() == "Portal")
 		{
@@ -213,13 +216,7 @@ void PlayScene::Update(DWORD dt)
 
 	for (size_t i = 0; i < gameObjects.size(); i++)
 	{
-		//only update object when it inside camera
-		float l,t,r,b;
-		RECT rect;
-		gameObjects[i]->GetBoundingBox(l, t, r, b);
-		rect.left = l; rect.top = t; rect.right = r; rect.bottom = b;
-		if (Game::GetInstance()->GetCamera()->IsContain(rect))
-			gameObjects[i]->Update(dt, &coObjects);
+		gameObjects[i]->Update(dt, &coObjects);
 	}
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
@@ -258,8 +255,7 @@ void PlayScene::Render()
 */
 void PlayScene::Clear()
 {
-	vector<LPGAMEOBJECT>::iterator it;
-	for (it = gameObjects.begin(); it != gameObjects.end(); it++)
+	for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
 	{
 		delete (*it);
 	}
@@ -292,8 +288,7 @@ bool PlayScene::IsGameObjectDeleted(const LPGAMEOBJECT& o) { return o == NULL; }
 
 void PlayScene::PurgeDeletedObjects()
 {
-	vector<LPGAMEOBJECT>::iterator it;
-	for (it = gameObjects.begin(); it != gameObjects.end(); it++)
+	for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
 	{
 		LPGAMEOBJECT o = *it;
 		if (o->IsDeleted())
