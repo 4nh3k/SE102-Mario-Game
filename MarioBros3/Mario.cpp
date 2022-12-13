@@ -13,6 +13,16 @@
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	if (ay < MARIO_GRAVITY)
+	{
+		ay += MARIO_GRAVITY;
+	}
+	else if (ay > MARIO_GRAVITY)
+	{
+		ay = MARIO_GRAVITY;
+		isFlying = false;
+	}
+
 	vy += ay * dt;
 	vx += ax * dt;
 
@@ -41,9 +51,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-
 	isOnPlatform = false;
-
 	Collision::GetInstance()->Process(this, dt, coObjects);
 
 }
@@ -378,6 +386,94 @@ string Mario::GetAniIdBig()
 	return aniId;
 }
 
+//
+// Get animdation ID for tanooki Mario
+//
+string Mario::GetAniIdTanooki()
+{
+	string aniId = "1";
+	if (!isOnPlatform)
+	{
+		if (isHolding)
+		{
+			if (nx >= 0)
+				aniId = ID_ANI_MARIO_TANOOKI_JUMP_HOLD_RIGHT;
+			else
+				aniId = ID_ANI_MARIO_TANOOKI_JUMP_HOLD_LEFT;
+		}
+		else if (abs(ax) == MARIO_ACCEL_RUN_X)
+		{
+			if (isFlying)
+				if (nx >= 0)
+					aniId = ID_ANI_MARIO_TANOOKI_FLY_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_TANOOKI_FLY_LEFT;
+			else
+			{
+				if (nx >= 0)
+					aniId = ID_ANI_MARIO_TANOOKI_JUMP_RUN_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_TANOOKI_JUMP_RUN_LEFT;
+			}
+		}
+		else
+		{
+			if (nx >= 0)
+				aniId = ID_ANI_MARIO_TANOOKI_JUMP_WALK_RIGHT;
+			else
+				aniId = ID_ANI_MARIO_TANOOKI_JUMP_WALK_LEFT;
+		}
+	}
+	else
+		if (isSitting)
+		{
+			if (nx > 0)
+				aniId = ID_ANI_MARIO_TANOOKI_SIT_RIGHT;
+			else
+				aniId = ID_ANI_MARIO_TANOOKI_SIT_LEFT;
+		}
+		else
+			if (vx == 0)
+			{
+				if (nx > 0)
+					if (isHolding) aniId = ID_ANI_MARIO_TANOOKI_IDLE_HOLD_RIGHT;
+					else aniId = ID_ANI_MARIO_TANOOKI_IDLE_RIGHT;
+				else
+					if (isHolding) aniId = ID_ANI_MARIO_TANOOKI_IDLE_HOLD_LEFT;
+					else aniId = ID_ANI_MARIO_TANOOKI_IDLE_LEFT;
+			}
+			else if (vx > 0)
+			{
+				if (isHolding)
+					aniId = ID_ANI_MARIO_TANOOKI_RUN_HOLD_RIGHT;
+				else if (ax < 0)
+					aniId = ID_ANI_MARIO_TANOOKI_BRACE_RIGHT;
+				else if (ax == MARIO_ACCEL_RUN_X)
+					aniId = ID_ANI_MARIO_TANOOKI_RUNNING_RIGHT;
+				else if (ax == MARIO_ACCEL_WALK_X)
+					aniId = ID_ANI_MARIO_TANOOKI_WALKING_RIGHT;
+			}
+			else // vx < 0
+			{
+				if (isHolding)
+					aniId = ID_ANI_MARIO_TANOOKI_RUN_HOLD_LEFT;
+				else if (ax > 0)
+					aniId = ID_ANI_MARIO_TANOOKI_BRACE_LEFT;
+				else if (ax == -MARIO_ACCEL_RUN_X)
+					aniId = ID_ANI_MARIO_TANOOKI_RUNNING_LEFT;
+				else if (ax == -MARIO_ACCEL_WALK_X)
+					aniId = ID_ANI_MARIO_TANOOKI_WALKING_LEFT;
+			}
+	if (state == MARIO_STATE_KICK)
+	{
+		if (nx > 0) aniId = ID_ANI_MARIO_TANOOKI_KICK_RIGHT;
+		else aniId = ID_ANI_MARIO_TANOOKI_KICK_LEFT;
+	}
+	if (aniId == "1") aniId = ID_ANI_MARIO_TANOOKI_IDLE_RIGHT;
+
+	return aniId;
+}
+
 void Mario::Render()
 {
 	Animations* animations = Animations::GetInstance();
@@ -389,6 +485,8 @@ void Mario::Render()
 		aniId = GetAniIdBig();
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
+	else if (level == MARIO_LEVEL_TANOOKI)
+		aniId = GetAniIdTanooki();
 
 	animations->Get(aniId)->Render(x, y);
 
@@ -465,6 +563,11 @@ void Mario::SetState(int state)
 		break;
 	case MARIO_STATE_JUMP:
 		if (isSitting) break;
+		if (level == MARIO_LEVEL_TANOOKI && !isOnPlatform)
+		{
+			isFlying = true;	
+			ay = -MARIO_FLY_SPEED_Y;
+		}
 		if (isOnPlatform)
 		{
 			if (abs(this->vx) == MARIO_RUNNING_SPEED)
@@ -475,6 +578,8 @@ void Mario::SetState(int state)
 		break;
 
 	case MARIO_STATE_RELEASE_JUMP:
+		ay = MARIO_GRAVITY;
+
 		if (vy < 0) vy += MARIO_JUMP_SPEED_Y / 2;
 		break;
 
@@ -513,7 +618,7 @@ void Mario::SetState(int state)
 
 void Mario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (level==MARIO_LEVEL_BIG)
+	if (level==MARIO_LEVEL_BIG || level == MARIO_LEVEL_TANOOKI)
 	{
 		if (isSitting)
 		{
@@ -524,7 +629,7 @@ void Mario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 		}
 		else 
 		{
-			left = x - MARIO_BIG_BBOX_WIDTH/2;
+			left = x - MARIO_BIG_BBOX_WIDTH/2;	
 			top = y - MARIO_BIG_BBOX_HEIGHT/2;
 			right = left + MARIO_BIG_BBOX_WIDTH;
 			bottom = top + MARIO_BIG_BBOX_HEIGHT;
