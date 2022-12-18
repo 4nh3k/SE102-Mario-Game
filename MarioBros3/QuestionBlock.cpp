@@ -52,7 +52,7 @@ void QuestionBlock::SetState(int state)
 		//GetReward();
 		Scene* current_scene = Game::GetInstance()->GetCurrentScene();
 		Mario* mario = dynamic_cast<Mario*>(current_scene->GetPlayer());
-		if (mario->GetLevel() == MARIO_LEVEL_BIG && rewardId == ID_REWARD_MUSHROOM)
+		if (mario->GetLevel() != MARIO_LEVEL_SMALL && rewardId == ID_REWARD_MUSHROOM)
 		{
 			rewardId = ID_REWARD_SUPER_LEAF;
 			/*this->reward->Delete();

@@ -15,6 +15,7 @@
 #include "RewardCoin.h"
 #include "Koopa.h"
 #include "Goomba.h"
+#include "RedKoopa.h"
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
@@ -68,6 +69,7 @@ void PlayScene::LoadObjectAni(int objectType)
 		break;
 	case OBJECT_TYPE_QUESTION_BLOCK:
 		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_QUESTION_BLOCK);
+		break;
 	case OBJECT_TYPE_ENEMIES:
 		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_ENEMIES);
 		break;
@@ -83,6 +85,9 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 	{
 		LPGAMEOBJECT gameObj = NULL;
 		tson::Vector2i pos = obj.getPosition();
+		// calculate in-game x, y because this object is represented by a point in tiled map
+		int x = ((pos.x / 16) * 16 + 8);
+		int y = ((pos.y / 16) * 16 + 8);
 		if (obj.getName() == "Platform")
 		{
 			tson::Vector2i size = obj.getSize();
@@ -103,7 +108,7 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		}
 		if (obj.getName() == "Koopa")
 		{
-			gameObj = new Koopa(pos.x, pos.y);
+			gameObj = new RedKoopa(pos.x, pos.y);
 		}
 		if (obj.getName() == "Mario")
 		{
@@ -125,9 +130,6 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		{
 			tson::Property* prop = obj.getProp("reward_id");
 			int reward_id = any_cast<int>(prop->getValue());
-			// calculate in-game x, y because this object is represented by a point in tiled map
-			int x = ((pos.x / 16) * 16 + 8);
-			int y = ((pos.y / 16) * 16 + 8);
 			QuestionBlock* qblock = new QuestionBlock(x, y, reward_id);
 			//qblock->GetReward();
 			gameObj = qblock;
@@ -142,6 +144,10 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		if (obj.getName() == "Goomba")
 		{
 			gameObj = new Goomba(pos.x, pos.y);
+		}
+		if (obj.getName() == "Coin")
+		{
+			gameObj = new Coin(x, y);
 		}
 		//gameObj->SetPosition(10.0f, 01.0f);
 		gameObjects.push_back(gameObj);
@@ -225,18 +231,23 @@ void PlayScene::Update(DWORD dt)
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
+	Mario* mario = dynamic_cast<Mario*>(player);
 
 	Game *game = Game::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
 
-	if (cx < 0) cx = 0;
 
-	if (cy > camY - game->GetBackBufferHeight() / 2)
+	if (cx < 0) cx = 0;
+	// move camY follow mario when flying up
+	if (cy > camY - game->GetBackBufferHeight()/8 || !mario->CamYMove())
 	{
 		cy = camY;
 	}
-
+	else
+	{
+		cy += game->GetBackBufferHeight() / 8;
+	}
 	Game::GetInstance()->GetCamera()->SetCamPos(cx, cy);
 
 	PurgeDeletedObjects();

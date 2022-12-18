@@ -200,6 +200,7 @@ class Mario : public GameObject
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
 	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
 	void OnCollisionWithMushroom(LPCOLLISIONEVENT e);
+	void OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e);
 
 	string GetAniIdBig();
 	string GetAniIdSmall();
@@ -235,6 +236,8 @@ public:
 	}
 
 	int IsBlocking(float nx, float ny) { return (state != MARIO_STATE_DIE && untouchable==0); }
+
+	int CamYMove() { return (level == MARIO_LEVEL_TANOOKI); }
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);

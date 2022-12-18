@@ -12,6 +12,7 @@ void SuperLeaf::Render()
 }
 void SuperLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
 	x += vx * dt;
 	y += vy * dt;
 	DebugOutTitle(L"x: %f, y: %f, vx: %f, vy: %f", x, y, vx, vy);
@@ -30,7 +31,13 @@ void SuperLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		vx = SUPER_LEAF_FALL_DOWN_SIDE_SPEED;
 	}
+	//Collision::GetInstance()->Process(this, dt, coObjects);
 }
+
+void SuperLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
+{
+}
+
 void SuperLeaf::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x - SUPER_LEAF_BBOX_WIDTH / 2;

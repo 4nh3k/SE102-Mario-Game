@@ -10,6 +10,7 @@
 #include "Portal.h"
 #include "Mushroom.h"
 #include "Collision.h"
+#include "SuperLeaf.h"
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -41,7 +42,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
-	DebugOutTitle(L"x: %f, y: %f, vx: %f, vy: %f, ax:%f, ay: %f", x, y, vx, vy, ax, ay);
+	//DebugOutTitle(L"x: %f, y: %f, vx: %f, vy: %f, ax:%f, ay: %f", x, y, vx, vy, ax, ay);
 
 	//ay = MARIO_GRAVITY;
 	isOnPlatform = false;
@@ -92,6 +93,21 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMushroom(e);
 	else if (dynamic_cast<Koopa*>(e->obj))
 		OnCollisionWithKoopa(e);
+	else if (dynamic_cast<SuperLeaf*>(e->obj))
+		OnCollisionWithSuperLeaf(e);
+}
+
+void Mario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
+{
+	SuperLeaf* superLeaf = dynamic_cast<SuperLeaf*>(e->obj);
+	if (level == MARIO_LEVEL_SMALL)
+	{
+		SetLevel(MARIO_LEVEL_BIG);
+	}
+	else if (level == MARIO_LEVEL_BIG) {
+		SetLevel(MARIO_LEVEL_TANOOKI);
+	}
+	superLeaf->Delete();
 }
 
 void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)

@@ -26,7 +26,11 @@ public:
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
-	void Delete() { isDeleted = true; }
 	int IsBlocking(float nx, float ny) { return 0; }
+	int IsGoThrough() { return 1; }
+	virtual int IsCollidable() {
+		return 1;
+	};
+	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 };
 

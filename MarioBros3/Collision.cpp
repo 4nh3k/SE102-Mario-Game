@@ -250,7 +250,9 @@ void Collision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* coO
 			if (colY->t < colX->t)	// was collision on Y first ?
 			{
 				y += colY->t * dy + colY->ny * BLOCK_PUSH_FACTOR;
-				objSrc->SetPosition(x, y);
+				// stop leaf sliding on platform
+				if(!objSrc->IsGoThrough())
+					objSrc->SetPosition(x, y);
 
 				objSrc->OnCollisionWith(colY);
 
@@ -283,7 +285,9 @@ void Collision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* coO
 			else // collision on X first
 			{
 				x += colX->t * dx + colX->nx * BLOCK_PUSH_FACTOR;
-				objSrc->SetPosition(x, y);
+
+				if (!objSrc->IsGoThrough())
+					objSrc->SetPosition(x, y);
 
 				objSrc->OnCollisionWith(colX);
 
@@ -333,8 +337,8 @@ void Collision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* coO
 				x += dx;
 				y += dy;
 			}
-
-		objSrc->SetPosition(x, y);
+		if (!objSrc->IsGoThrough())
+			objSrc->SetPosition(x, y);
 	}
 
 	//

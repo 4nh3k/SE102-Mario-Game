@@ -108,6 +108,12 @@
     <ClCompile Include="SuperLeaf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RedKoopa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GhostBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -209,5 +215,19 @@
     <ClInclude Include="SuperLeaf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RedKoopa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GhostBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MarioBros3.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
