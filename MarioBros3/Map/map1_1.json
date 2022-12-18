@@ -708,6 +708,28 @@
                  "width":29.965909090909,
                  "x":2256.94318181818,
                  "y":112.363636363636
+                }, 
+                {
+                 "class":"",
+                 "height":16.125,
+                 "id":124,
+                 "name":"Platform",
+                 "rotation":0,
+                 "visible":true,
+                 "width":63.75,
+                 "x":1408.125,
+                 "y":191.875
+                }, 
+                {
+                 "class":"",
+                 "height":16.25,
+                 "id":125,
+                 "name":"Platform",
+                 "rotation":0,
+                 "visible":true,
+                 "width":208.25,
+                 "x":1488.25,
+                 "y":176
                 }],
          "opacity":1,
          "properties":[
@@ -866,12 +888,12 @@
                  "value":10
                 }],
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":124,
+ "nextobjectid":126,
  "orientation":"orthogonal",
  "properties":[
         {

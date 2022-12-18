@@ -228,10 +228,16 @@ void PlayScene::Update(DWORD dt)
 
 	Game *game = Game::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
+	cy -= game->GetBackBufferHeight() / 2;
 
 	if (cx < 0) cx = 0;
 
-	Game::GetInstance()->GetCamera()->SetCamPos(cx, camY);
+	if (cy > camY - game->GetBackBufferHeight() / 2)
+	{
+		cy = camY;
+	}
+
+	Game::GetInstance()->GetCamera()->SetCamPos(cx, cy);
 
 	PurgeDeletedObjects();
 }
