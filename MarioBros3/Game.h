@@ -45,7 +45,7 @@ class Game
 
 	LPKEYEVENTHANDLER keyHandler;
 
-	Camera* cam;
+	Camera* cam = NULL;
 
 	HINSTANCE hInstance;
 

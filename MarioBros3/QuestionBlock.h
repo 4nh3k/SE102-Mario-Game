@@ -23,6 +23,7 @@ class QuestionBlock : public GameObject
 public:
 	QuestionBlock(float x, float y, int rewardId) : GameObject(x, y) {
 		oldY = y;
+		this->reward = NULL;
 		this->rewardId = rewardId;
 		state = QUESTION_BLOCK_STATE_IDLE;
 		//GetReward();

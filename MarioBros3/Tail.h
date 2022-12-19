@@ -1,24 +1,22 @@
 #pragma once
 #include "GameObject.h"
-#include "Koopa.h"
 
-#define GHOSTBLOCK_WIDTH 10
+#define TAIL_WIDTH 10
+#define TAIL_HEIGHT 4
+#define TAIL_WHOOP_SPEED 0.1f
 
-class GhostBlock :
+class Tail :
     public GameObject
 {
-	bool onPlatform;
 public:
-	GhostBlock(float x, float y) : GameObject(x, y) { onPlatform = false; vy = 0.1f; vx = -KOOPA_WALKING_SPEED;  };
+	Tail(float x, float y) : GameObject(x, y) {vy = 0.1f; vx = TAIL_WHOOP_SPEED; };
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
-	virtual int IsCollidable() {	
+	virtual int IsCollidable() {
 		return 1;
 	};
-	int IsOnPlatform() { return onPlatform;  }
 	virtual int IsBlocking(float nx, float ny) { return 0; }
-	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 };
 

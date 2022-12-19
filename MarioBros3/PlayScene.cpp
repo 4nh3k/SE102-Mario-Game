@@ -23,6 +23,7 @@ using namespace std;
 PlayScene::PlayScene(int id, LPCWSTR filePath):
 	Scene(id, filePath)
 {
+	camY = 0.0f;
 	player = NULL;
 	key_handler = new SampleKeyHandler(this);
 }
@@ -53,104 +54,102 @@ void PlayScene::LoadTilesets(vector<tson::Tileset> tileSets)
 	}
 }
 
-void PlayScene::LoadObjectAni(int objectType)
-{
-	LPANIMATION ani = new Animation();
-	LPTEXTURE tex = Textures::GetInstance()->Get("20");
-	switch (objectType)
-	{
-	case OBJECT_TYPE_MARIO:
-		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_MARIO);
-		break;
-	case OBJECT_TYPE_BRICK:
-		Sprites::GetInstance()->Add("20001", 372, 153, 387, 168, tex);
-		ani->Add("20001", 1000);
-		Animations::GetInstance()->Add("10000", ani);
-		break;
-	case OBJECT_TYPE_QUESTION_BLOCK:
-		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_QUESTION_BLOCK);
-		break;
-	case OBJECT_TYPE_ENEMIES:
-		Animations::GetInstance()->LoadAnimation(ANIMATIONS_PATH_ENEMIES);
-		break;
-	default:
-		break;
-	}
-}
-
-
 void PlayScene::LoadObjects(vector<tson::Object> objects)
 {
 	for (auto& obj : objects)
 	{
 		LPGAMEOBJECT gameObj = NULL;
-		tson::Vector2i pos = obj.getPosition();
-		// calculate in-game x, y because this object is represented by a point in tiled map
-		int x = ((pos.x / 16) * 16 + 8);
-		int y = ((pos.y / 16) * 16 + 8);
+
+		tson::Vector2f pos = ToInGamePos(obj);
+		tson::Vector2i size = obj.getSize();
+
 		if (obj.getName() == "Platform")
 		{
-			tson::Vector2i size = obj.getSize();
-			gameObj = new Platform
-			(
-				pos.x + size.x / 2, pos.y + size.y / 2,
-				size.x, size.y
-			);
+			gameObj = new Platform(pos.x, pos.y, size.x, size.y);
 		}
-		if (obj.getName() == "Special_Platform")
+		else if (obj.getName() == "Special_Platform")
 		{
-			tson::Vector2i size = obj.getSize();
-			gameObj = new SpecialPlatform
-			(
-				pos.x + size.x / 2, pos.y + size.y / 2,
-				size.x, size.y
-			);
+			gameObj = new SpecialPlatform(pos.x, pos.y, size.x, size.y);
 		}
-		if (obj.getName() == "Koopa")
+		else if (obj.getName() == "Koopa")
 		{
 			gameObj = new RedKoopa(pos.x, pos.y);
 		}
-		if (obj.getName() == "Mario")
+		else if (obj.getName() == "Mario")
 		{
 			if (player != NULL)
 			{
 				DebugOut(L"[ERROR] MARIO object was created before!\n");
 				return;
 			}
-			gameObj = new Mario(pos.x +10, pos.y+10);
+			gameObj = new Mario(pos.x, pos.y);
 			player = (Mario*)gameObj;
 
 			DebugOut(L"[INFO] Player object has been created!\n");
 		}
-		if (obj.getName() == "Brick")
+		else if (obj.getName() == "Brick")
 		{
 			gameObj = new Brick(pos.x, pos.y);
 		}
-		if (obj.getName() == "Question Block")
+		else if (obj.getName() == "Question Block")
 		{
-			tson::Property* prop = obj.getProp("reward_id");
-			int reward_id = any_cast<int>(prop->getValue());
-			QuestionBlock* qblock = new QuestionBlock(x, y, reward_id);
-			//qblock->GetReward();
+			int reward_id = GetProperty(obj, PROP_ID_REWARD);
+			QuestionBlock* qblock = new QuestionBlock(pos.x, pos.y, reward_id);
 			gameObj = qblock;
 		}
-		if (obj.getName() == "Portal")
+		else if (obj.getName() == "Portal")
 		{
-			tson::Vector2i size = obj.getSize();
-			tson::Property* prop = obj.getProp("scene_id");
-			int scene_id = any_cast<int>(prop->getValue());
+			int scene_id = GetProperty(obj, PROP_ID_SCENE);
 			gameObj = new Portal(pos.x, pos.y, size.x + pos.x, pos.y + size.y,scene_id);
 		}
-		if (obj.getName() == "Goomba")
+		else if (obj.getName() == "Goomba")
 		{
 			gameObj = new Goomba(pos.x, pos.y);
 		}
-		if (obj.getName() == "Coin")
+		else if (obj.getName() == "Coin")
 		{
-			gameObj = new Coin(x, y);
+			gameObj = new Coin(pos.x, pos.y);
 		}
 		//gameObj->SetPosition(10.0f, 01.0f);
 		gameObjects.push_back(gameObj);
+	}
+}
+
+void PlayScene::LoadTileObjects(map<tuple<int, int>, tson::TileObject> tileObjects, tson::Vector2i tileSize)
+{
+	for (auto& [pos, tileObject] : tileObjects)
+	{
+		tson::Vector2f position = tileObject.getPosition();
+		string tileId = to_string(tileObject.getTile()->getGid());
+		// position + tileSize/2 because the difference between tiled map x, y and this game x,y
+		Tile* tile = new Tile(position.x + tileSize.x / 2, position.y + tileSize.y / 2,
+			tileSize.x, tileSize.y, tileId);
+		tileMap.push_back(tile);
+	}
+}
+
+void PlayScene::LoadLayer(tson::Layer layer, tson::Vector2i tileSize)
+{
+	string aniPath;
+	switch (layer.getType())
+	{
+	case tson::LayerType::Group:
+		aniPath = GetProperty(layer, PROP_ID_ANI_PATH);
+		if (!aniPath.empty())
+			Animations::GetInstance()->LoadAnimation(aniPath);
+		for (auto& objLayer : layer.getLayers())
+		{
+			LoadLayer(objLayer, tileSize);
+		}
+		break;
+	case tson::LayerType::TileLayer:
+		LoadTileObjects(layer.getTileObjects(), tileSize);
+		break;
+	case tson::LayerType::ObjectGroup:
+		LoadObjects(layer.getObjects());
+		break;
+	default:
+		break;
 	}
 }
 
@@ -159,42 +158,22 @@ void PlayScene::Load()
 	DebugOutTitle(L"Start load");
 
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
+
 	unique_ptr<tson::Map> map;
 	tson::Tileson t;
 	map = t.parse(fs::path(sceneFilePath));
+
 	camY = any_cast<int>(map->getProp("cam_y")->getValue());
 	camY -= Game::GetInstance()->GetBackBufferHeight();
+
 	if (map->getStatus() == tson::ParseStatus::OK)
 	{
 		DebugOut(L"[INFO] Load map successfully from file: %s \n", sceneFilePath);
-
 		LoadTilesets(map->getTilesets());
+
 		for (auto& layer : map->getLayers())
 		{
-			if (layer.getType() == tson::LayerType::ObjectGroup)
-			{
-				tson::Property* prop = layer.getProp("object_type");
-				int object_type = any_cast<int>(prop->getValue());
-				LoadObjectAni(object_type);
-				LoadObjects(layer.getObjects());
-			}
-			if (layer.getType() == tson::LayerType::TileLayer)
-			{
-				if (!map->isInfinite())
-				{
-					tson::Vector2i tileSize = map->getTileSize();
-					for (auto& [pos, tileObject] : layer.getTileObjects())
-					{
-						tson::Vector2f position = tileObject.getPosition();
-						string tileId = to_string(tileObject.getTile()->getGid());
-						// position + tileSize/2 because the difference between tiled map x, y and this game x,y
-						Tile* tile = new Tile(position.x + tileSize.x / 2, position.y + tileSize.y / 2,
-							tileSize.x,tileSize.y, tileId);
-						tileMap.push_back(tile);
-					}
-				}
-			}
-
+			LoadLayer(layer, map->getTileSize());
 		}
 		DebugOutTitle(L"Done load");
 

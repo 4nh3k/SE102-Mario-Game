@@ -4,10 +4,10 @@ class Camera
 {
 	float cam_x = 0.0f;
 	float cam_y = 0.0f;
-	float width;
-	float heigh;
+	int width;
+	int heigh;
 public: 
-	Camera(float x, float y, float width, float heigh)
+	Camera(float x, float y, int width, int heigh)
 	{
 		cam_x = x; cam_y = y;
 		this->width = width;

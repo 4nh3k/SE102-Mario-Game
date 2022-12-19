@@ -51,3 +51,52 @@ LPCWSTR ToLPCWSTR(string st)
 	// delete wcstring   // << can I ? 
 	return w->c_str();
 }
+
+/*
+	Get int property of tiled object
+*/
+int GetProperty(tson::Object obj, string propName)
+{
+	if (obj.getProperties().hasProperty(propName))
+	{
+		tson::Property* prop = obj.getProp(propName);
+		return any_cast<int>(prop->getValue());
+	}
+	return NO_PROP;
+}
+
+string GetProperty(tson::Layer layer, string propName)
+{
+	if (layer.getProperties().hasProperty(propName))
+	{
+		tson::Property* prop = layer.getProp(propName);
+		return any_cast<string>(prop->getValue());
+	}
+	return "";
+}
+
+/*
+	Get in game position of tiled object
+*/
+tson::Vector2f ToInGamePos(tson::Object obj)
+{
+	tson::Vector2f inGamePos = tson::Vector2f(0.0f,0.0f);
+	tson::Vector2i pos = obj.getPosition();
+	tson::Vector2i size = obj.getSize();
+	switch (obj.getObjectType())
+	{
+	case tson::ObjectType::Point:
+		inGamePos.x = ((pos.x / 16) * 16 + 8);
+		inGamePos.y = ((pos.y / 16) * 16 + 8);
+		break;
+	case tson::ObjectType::Rectangle:
+		inGamePos.x = pos.x + size.x / 2;
+		inGamePos.y = pos.y + size.y / 2;
+		break;
+	default:
+		inGamePos.x = pos.x;
+		inGamePos.y = pos.y;
+		break;
+	}
+	return inGamePos;
+}

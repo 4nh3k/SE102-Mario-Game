@@ -5,6 +5,7 @@
 #include "Animations.h"
 #include "QuestionBlock.h"
 #include "debug.h"
+#include "Tail.h"
 
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.2f
@@ -192,7 +193,6 @@ class Mario : public GameObject
 	BOOLEAN isFlying;
 	GameObject* holdingObj;
 	int coin; 
-	float minAy;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
@@ -215,6 +215,7 @@ public:
 		holdingObj = NULL;
 		isHolding = false;
 		isFlying = false;
+		flyTimer = 0;
 		kickTimer = 0;
 		level = MARIO_LEVEL_BIG;
 		untouchable = 0;
