@@ -8,7 +8,6 @@ void GhostBlock::Render()
 void GhostBlock::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
-	DebugOutTitle(L"nx: %f, ny: %f", e->nx, e->ny);
 	if (e->ny != 0)
 	{
 		onPlatform = true;

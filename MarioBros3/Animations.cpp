@@ -65,7 +65,7 @@ void Animations::LoadAnimation(string path)
 		aniID = animation->Attribute("aniID");
 		TiXmlElement* frame = animation->FirstChildElement();
 		LPANIMATION ani;
-		ani = new Animation(100);
+		ani = new Animation(frameTime);
 		while (frame != NULL)
 		{
 			string frameID = frame->Attribute("name");

@@ -227,6 +227,9 @@
     <ClInclude Include="Tail.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MarioConst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MarioBros3.rc">

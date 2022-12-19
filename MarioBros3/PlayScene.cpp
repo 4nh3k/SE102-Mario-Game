@@ -219,7 +219,7 @@ void PlayScene::Update(DWORD dt)
 
 	if (cx < 0) cx = 0;
 	// move camY follow mario when flying up
-	if (cy > camY - game->GetBackBufferHeight()/8 || !mario->CamYMove())
+	if (cy > camY - game->GetBackBufferHeight()/8 || !mario->IsTanooki())
 	{
 		cy = camY;
 	}

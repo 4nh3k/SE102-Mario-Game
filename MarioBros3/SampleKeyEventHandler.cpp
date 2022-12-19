@@ -33,6 +33,9 @@ void SampleKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_R: // reset
 		//Reload();
+	case DIK_A:
+		if (mario->IsTanooki())
+			mario->SetState(MARIO_STATE_TAIL_WHACK);
 		break;
 	}
 

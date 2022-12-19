@@ -15,8 +15,7 @@ void SuperLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	x += vx * dt;
 	y += vy * dt;
-	DebugOutTitle(L"x: %f, y: %f, vx: %f, vy: %f", x, y, vx, vy);
-	if (y < oldY - SUPER_LEAF_RISE_UP_HEIGHT)
+		if (y < oldY - SUPER_LEAF_RISE_UP_HEIGHT)
 	{
 		//ay = -SUPER_LEAF_GRAVITY;
 		vy = SUPER_LEAF_FALL_DOWN_SPEED;

@@ -51,9 +51,9 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (isHolding)
 	{
 		if (nx > 0)
-			holdingObj->SetPosition(x + 10, y - 3);
+			holdingObj->SetPosition(x + MARIO_HOLDING_OFFSET_X, y );
 		else
-			holdingObj->SetPosition(x - 10, y - 3);
+			holdingObj->SetPosition(x - MARIO_HOLDING_OFFSET_X, y );
 	}
 }
 
@@ -342,10 +342,16 @@ string Mario::GetAniIdBig()
 		}
 		else
 		{
-			if (nx >= 0)
-				aniId = ID_ANI_MARIO_JUMP_WALK_RIGHT;
-			else
-				aniId = ID_ANI_MARIO_JUMP_WALK_LEFT;
+			if(vy < 0)
+				if (nx >= 0)
+					aniId = ID_ANI_MARIO_JUMP_WALK_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_JUMP_WALK_LEFT;
+			else 
+				if (nx >= 0)
+					aniId = ID_ANI_MARIO_FALL_DOWN_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_FALL_DOWN_LEFT;
 		}
 	}
 	else 
@@ -436,6 +442,11 @@ string Mario::GetAniIdTanooki()
 		{
 			if (isFlying)
 				if (nx >= 0)
+					aniId = ID_ANI_MARIO_TANOOKI_WALK_FLY_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_TANOOKI_WALK_FLY_LEFT;
+			else if (vy > 0)
+				if (nx >= 0)
 					aniId = ID_ANI_MARIO_TANOOKI_FALL_DOWN_RIGHT;
 				else
 					aniId = ID_ANI_MARIO_TANOOKI_FALL_DOWN_LEFT;
@@ -491,6 +502,11 @@ string Mario::GetAniIdTanooki()
 		if (nx > 0) aniId = ID_ANI_MARIO_TANOOKI_KICK_RIGHT;
 		else aniId = ID_ANI_MARIO_TANOOKI_KICK_LEFT;
 	}
+	else if (state == MARIO_STATE_TAIL_WHACK)
+	{
+		if (nx > 0) aniId = ID_ANI_MARIO_TANOOKI_TAIL_WHACK_RIGHT;
+		else aniId = ID_ANI_MARIO_TANOOKI_TAIL_WHACK_LEFT;
+	}
 	if (aniId == "1") aniId = ID_ANI_MARIO_TANOOKI_IDLE_RIGHT;
 
 	return aniId;
@@ -512,7 +528,7 @@ void Mario::Render()
 
 	animations->Get(aniId)->Render(x, y);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 	
 	//DebugOutTitle(L"Coins: %f, %f, %d", vx, ax, nx);
 }
@@ -523,6 +539,13 @@ void Mario::SetState(int state)
 	if (this->state == MARIO_STATE_DIE) return; 
 	// some animation cannot be cut off 
 	if (this->state == MARIO_STATE_KICK && GetTickCount64() - kickTimer <= MARIO_KICK_TIMEOUT) return;
+
+	if (this->state == MARIO_STATE_TAIL_WHACK && GetTickCount64() - tailTimer <= MARIO_TAIL_WHACK_TIMEOUT) return;
+	else
+	{
+		// end tail whack delete tail
+		
+	}
 
 	switch (state)
 	{
@@ -579,6 +602,8 @@ void Mario::SetState(int state)
 			Koopa* koopa = dynamic_cast<Koopa*>(holdingObj);
 			koopa->SetDirection(nx);
 			koopa->SetState(KOOPA_STATE_KICKED);
+			// null holding obj or else koopa will be kicked when u kick another koopa!!
+			holdingObj = NULL;
 		}
 		isHolding = false;
 		kickTimer = GetTickCount64();
@@ -629,7 +654,11 @@ void Mario::SetState(int state)
 			y -= MARIO_SIT_HEIGHT_ADJUST;
 		}
 		break;
-
+	case MARIO_STATE_TAIL_WHACK:
+		tail = new Tail(x + MARIO_TAIL_OFFSET_X * nx,y + MARIO_TAIL_OFFSET_Y);
+		Game::GetInstance()->GetCurrentScene()->AddObject(tail);
+		tailTimer = GetTickCount64();
+		break;
 	case MARIO_STATE_IDLE:
 		ax = 0.0f;
 		vx = 0.0f;
@@ -656,7 +685,9 @@ void Mario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 		}
 		else 
 		{
-			left = x - MARIO_BIG_BBOX_WIDTH/2;	
+			// correct bounding box for tanooki
+			float xOffset = (level == MARIO_LEVEL_TANOOKI) ? 3 * nx : 0;
+			left =(x + xOffset) - MARIO_BIG_BBOX_WIDTH/2 ;
 			top = y - MARIO_BIG_BBOX_HEIGHT/2;
 			right = left + MARIO_BIG_BBOX_WIDTH;
 			bottom = top + MARIO_BIG_BBOX_HEIGHT;
@@ -669,6 +700,29 @@ void Mario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 		right = left + MARIO_SMALL_BBOX_WIDTH;
 		bottom = top + MARIO_SMALL_BBOX_HEIGHT;
 	}
+}
+
+void Mario::RenderBoundingBox()
+{
+	D3DXVECTOR3 p(x, y, 0);
+	RECT rect;
+
+	LPTEXTURE bbox = Textures::GetInstance()->Get(ID_TEX_BBOX);
+
+	float l, t, r, b;
+
+	GetBoundingBox(l, t, r, b);
+	rect.left = 0;
+	rect.top = 0;
+	rect.right = (int)r - (int)l;
+	rect.bottom = (int)b - (int)t;
+
+	float cx, cy;
+	Game::GetInstance()->GetCamera()->GetCamPos(cx, cy);
+
+	float xOffset = (level == MARIO_LEVEL_TANOOKI) ? 3 * nx : 0;
+
+	Game::GetInstance()->Draw(x + xOffset - cx, y - cy, bbox, &rect, BBOX_ALPHA);
 }
 
 void Mario::SetLevel(int l)

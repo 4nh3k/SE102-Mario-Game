@@ -258,6 +258,18 @@
                          "width":0,
                          "x":587,
                          "y":366
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":152,
+                         "name":"Koopa",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":498.5,
+                         "y":386.25
                         }],
                  "opacity":1,
                  "type":"objectgroup",
@@ -1255,7 +1267,7 @@
          "y":0
         }],
  "nextlayerid":19,
- "nextobjectid":152,
+ "nextobjectid":153,
  "orientation":"orthogonal",
  "properties":[
         {
