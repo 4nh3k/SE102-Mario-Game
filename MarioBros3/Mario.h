@@ -5,6 +5,7 @@
 #include "Animations.h"
 #include "QuestionBlock.h"
 #include "debug.h"
+#include "Tail.h"
 
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.2f
@@ -17,7 +18,8 @@
 
 #define MARIO_FRICTION			0.0003f
 #define MARIO_GRAVITY			0.0008f
-#define MARIO_FLY_SPEED_Y		0.005f
+#define MARIO_FLY_SPEED_Y		0.18f
+#define MARIO_FALL_DONW_SPEED_Y 0.02f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
 
@@ -33,12 +35,12 @@
 
 #define MARIO_STATE_JUMP			300
 #define MARIO_STATE_RELEASE_JUMP    301
+#define MARIO_STATE_FLY				302
 
 #define MARIO_STATE_RUNNING_RIGHT	400
 #define MARIO_STATE_RUNNING_HOLD_RIGHT 401
 #define MARIO_STATE_RUNNING_LEFT	500
 #define MARIO_STATE_RUNNING_HOLD_LEFT 501
-
 
 #define MARIO_STATE_SIT				600
 #define MARIO_STATE_SIT_RELEASE		601
@@ -148,10 +150,14 @@
 
 #define ID_ANI_MARIO_TANOOKI_FLY_RIGHT "tanooki_fly_right"
 #define ID_ANI_MARIO_TANOOKI_FLY_LEFT "tanooki_fly_left"
+
+#define ID_ANI_MARIO_TANOOKI_FALL_DOWN_RIGHT "tanooki_falldown_right"
+#define ID_ANI_MARIO_TANOOKI_FALL_DOWN_LEFT "tanooki_fall_down_left"
 #pragma endregion
 
 
 #define MARIO_KICK_TIMEOUT 100
+#define MARIO_FLY_TIMEOUT	200
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
@@ -176,7 +182,8 @@ class Mario : public GameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
-	int timer;
+	ULONGLONG kickTimer;
+	ULONGLONG flyTimer;
 
 	int level; 
 	int untouchable; 
@@ -186,7 +193,6 @@ class Mario : public GameObject
 	BOOLEAN isFlying;
 	GameObject* holdingObj;
 	int coin; 
-	float minAy;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
@@ -194,6 +200,7 @@ class Mario : public GameObject
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
 	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
 	void OnCollisionWithMushroom(LPCOLLISIONEVENT e);
+	void OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e);
 
 	string GetAniIdBig();
 	string GetAniIdSmall();
@@ -207,7 +214,9 @@ public:
 		ay = MARIO_GRAVITY; 
 		holdingObj = NULL;
 		isHolding = false;
-		timer = 0;
+		isFlying = false;
+		flyTimer = 0;
+		kickTimer = 0;
 		level = MARIO_LEVEL_BIG;
 		untouchable = 0;
 		untouchable_start = -1;
@@ -217,7 +226,6 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
-	
 	int IsCollidable()
 	{ 
 		return (state != MARIO_STATE_DIE); 
@@ -229,6 +237,8 @@ public:
 	}
 
 	int IsBlocking(float nx, float ny) { return (state != MARIO_STATE_DIE && untouchable==0); }
+
+	int CamYMove() { return (level == MARIO_LEVEL_TANOOKI); }
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);

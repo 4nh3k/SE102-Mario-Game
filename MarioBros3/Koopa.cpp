@@ -55,7 +55,6 @@ void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 		if (dynamic_cast<Koopa*>(e->obj)) OnCollisionWithKoopa(e);
 		else if (dynamic_cast<Goomba*>(e->obj)) OnCollisionWithGoomba(e);
 		else if (dynamic_cast<QuestionBlock*>(e->obj)) OnCollisionWithQuestionBlock(e);
-		DebugOutTitle(L"nx: %f, ny: %f", e->nx, e->ny);
 	}
 }
 void Koopa::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)

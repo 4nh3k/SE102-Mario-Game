@@ -21,6 +21,7 @@ protected:
 public: 
 	Scene(int id, LPCWSTR filePath)
 	{
+		this->player = NULL;
 		this->id = id;
 		this->sceneFilePath = filePath;
 		this->key_handler = NULL;

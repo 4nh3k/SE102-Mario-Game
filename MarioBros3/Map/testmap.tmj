@@ -32,144 +32,213 @@
          "y":0
         }, 
         {
-         "draworder":"topdown",
-         "id":5,
-         "name":"Koopa",
-         "objects":[
+         "id":7,
+         "layers":[
                 {
-                 "class":"",
-                 "height":0,
-                 "id":18,
+                 "draworder":"topdown",
+                 "id":5,
                  "name":"Koopa",
-                 "point":true,
-                 "rotation":0,
+                 "objects":[
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":20,
+                         "name":"Koopa",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":96.8955965230678,
+                         "y":119.514757856529
+                        }],
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"object_type",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "type":"objectgroup",
                  "visible":true,
-                 "width":0,
-                 "x":193.360580462233,
-                 "y":85.957683930805
+                 "x":0,
+                 "y":0
                 }],
+         "name":"Enemies",
          "opacity":1,
          "properties":[
                 {
-                 "name":"object_type",
-                 "type":"int",
-                 "value":3
+                 "name":"ani_path",
+                 "type":"string",
+                 "value":"textures\\enemies.xml"
                 }],
-         "type":"objectgroup",
+         "type":"group",
          "visible":true,
          "x":0,
          "y":0
         }, 
         {
-         "draworder":"topdown",
-         "id":2,
-         "name":"Plaform",
-         "objects":[
+         "id":6,
+         "layers":[
                 {
-                 "class":"",
-                 "height":30.25,
+                 "draworder":"topdown",
                  "id":2,
-                 "name":"Mario",
-                 "rotation":0,
-                 "visible":true,
-                 "width":14.5,
-                 "x":19.5,
-                 "y":111.75
-                }, 
-                {
-                 "class":"",
-                 "height":15.75,
-                 "id":7,
-                 "name":"Platform",
-                 "rotation":0,
-                 "visible":true,
-                 "width":160,
-                 "x":-0.25,
-                 "y":144.5
-                }, 
-                {
-                 "class":"",
-                 "height":19,
-                 "id":9,
-                 "name":"Portal",
+                 "name":"Plaform",
+                 "objects":[
+                        {
+                         "class":"",
+                         "height":30.25,
+                         "id":2,
+                         "name":"Mario",
+                         "rotation":0,
+                         "visible":true,
+                         "width":14.5,
+                         "x":46.7041264686217,
+                         "y":27.3866415130385
+                        }, 
+                        {
+                         "class":"",
+                         "height":15.75,
+                         "id":7,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":160,
+                         "x":-0.25,
+                         "y":144.5
+                        }, 
+                        {
+                         "class":"",
+                         "height":19,
+                         "id":9,
+                         "name":"Portal",
+                         "properties":[
+                                {
+                                 "name":"scene_id",
+                                 "type":"int",
+                                 "value":0
+                                }],
+                         "rotation":0,
+                         "visible":true,
+                         "width":22.25,
+                         "x":110.557622504537,
+                         "y":28.9257331168211
+                        }, 
+                        {
+                         "class":"",
+                         "height":3.59099828827968,
+                         "id":19,
+                         "name":"Special_Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":167.455508252937,
+                         "x":184.951202793963,
+                         "y":102.588873766358
+                        }],
+                 "opacity":1,
                  "properties":[
                         {
-                         "name":"scene_id",
+                         "name":"object_type",
                          "type":"int",
-                         "value":0
+                         "value":1
                         }],
-                 "rotation":0,
+                 "type":"objectgroup",
                  "visible":true,
-                 "width":22.25,
-                 "x":104.75,
-                 "y":81.5
+                 "x":0,
+                 "y":0
                 }],
+         "name":"Platform",
          "opacity":1,
-         "properties":[
-                {
-                 "name":"object_type",
-                 "type":"int",
-                 "value":1
-                }],
-         "type":"objectgroup",
+         "type":"group",
          "visible":true,
          "x":0,
          "y":0
         }, 
         {
-         "draworder":"topdown",
-         "id":4,
-         "name":"QBlocks",
-         "objects":[
+         "id":8,
+         "layers":[
                 {
-                 "class":"",
-                 "height":0,
-                 "id":17,
-                 "name":"Question Block",
-                 "point":true,
+                 "draworder":"topdown",
+                 "id":4,
+                 "name":"QBlocks",
+                 "objects":[
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":17,
+                         "name":"Question Block",
+                         "point":true,
+                         "properties":[
+                                {
+                                 "name":"reward_id",
+                                 "type":"int",
+                                 "value":1
+                                }],
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":53.1962938198491,
+                         "y":87.5361543604929
+                        }],
+                 "opacity":1,
                  "properties":[
                         {
-                         "name":"reward_id",
+                         "name":"object_type",
                          "type":"int",
-                         "value":0
+                         "value":6
                         }],
-                 "rotation":0,
+                 "type":"objectgroup",
                  "visible":true,
-                 "width":0,
-                 "x":53.1962938198491,
-                 "y":87.5361543604929
+                 "x":0,
+                 "y":0
                 }],
+         "name":"Misc",
          "opacity":1,
          "properties":[
                 {
-                 "name":"object_type",
-                 "type":"int",
-                 "value":6
+                 "name":"ani_path",
+                 "type":"string",
+                 "value":"textures\\misc.xml"
                 }],
-         "type":"objectgroup",
+         "type":"group",
          "visible":true,
          "x":0,
          "y":0
         }, 
         {
-         "draworder":"topdown",
-         "id":3,
+         "id":9,
+         "layers":[
+                {
+                 "draworder":"topdown",
+                 "id":3,
+                 "name":"Player",
+                 "objects":[],
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"object_type",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "type":"objectgroup",
+                 "visible":true,
+                 "x":0,
+                 "y":0
+                }],
          "name":"Player",
-         "objects":[],
          "opacity":1,
          "properties":[
                 {
-                 "name":"object_type",
-                 "type":"int",
-                 "value":0
+                 "name":"ani_path",
+                 "type":"string",
+                 "value":"textures\\mario.xml"
                 }],
-         "type":"objectgroup",
+         "type":"group",
          "visible":true,
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":19,
+ "nextlayerid":10,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "properties":[
         {

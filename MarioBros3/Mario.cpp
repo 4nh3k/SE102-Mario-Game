@@ -10,18 +10,10 @@
 #include "Portal.h"
 #include "Mushroom.h"
 #include "Collision.h"
+#include "SuperLeaf.h"
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	if (ay < MARIO_GRAVITY)
-	{
-		ay += MARIO_GRAVITY;
-	}
-	else if (ay > MARIO_GRAVITY)
-	{
-		ay = MARIO_GRAVITY;
-		isFlying = false;
-	}
 
 	vy += ay * dt;
 	vx += ax * dt;
@@ -37,23 +29,32 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			ax = 0;
 		}
 	}
-	else if (isHolding)
+	if (GetTickCount64() - flyTimer > MARIO_FLY_TIMEOUT)
 	{
-		if(nx > 0)
-			holdingObj->SetPosition(x + 10, y- 3);
-		else
-			holdingObj->SetPosition(x - 10, y -3);
+		flyTimer = 0;
+		isFlying = false;
+		//ay = MARIO_GRAVITY;
 	}
-
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
 		untouchable_start = 0;
 		untouchable = 0;
 	}
+
+	//DebugOutTitle(L"x: %f, y: %f, vx: %f, vy: %f, ax:%f, ay: %f", x, y, vx, vy, ax, ay);
+
+	//ay = MARIO_GRAVITY;
 	isOnPlatform = false;
 	Collision::GetInstance()->Process(this, dt, coObjects);
-
+	// set hold obj pos after x, y update
+	if (isHolding)
+	{
+		if (nx > 0)
+			holdingObj->SetPosition(x + 10, y - 3);
+		else
+			holdingObj->SetPosition(x - 10, y - 3);
+	}
 }
 
 void Mario::OnNoCollision(DWORD dt)
@@ -92,6 +93,21 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMushroom(e);
 	else if (dynamic_cast<Koopa*>(e->obj))
 		OnCollisionWithKoopa(e);
+	else if (dynamic_cast<SuperLeaf*>(e->obj))
+		OnCollisionWithSuperLeaf(e);
+}
+
+void Mario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
+{
+	SuperLeaf* superLeaf = dynamic_cast<SuperLeaf*>(e->obj);
+	if (level == MARIO_LEVEL_SMALL)
+	{
+		SetLevel(MARIO_LEVEL_BIG);
+	}
+	else if (level == MARIO_LEVEL_BIG) {
+		SetLevel(MARIO_LEVEL_TANOOKI);
+	}
+	superLeaf->Delete();
 }
 
 void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
@@ -418,10 +434,16 @@ string Mario::GetAniIdTanooki()
 		}
 		else
 		{
-			if (nx >= 0)
-				aniId = ID_ANI_MARIO_TANOOKI_JUMP_WALK_RIGHT;
+			if (isFlying)
+				if (nx >= 0)
+					aniId = ID_ANI_MARIO_TANOOKI_FALL_DOWN_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_TANOOKI_FALL_DOWN_LEFT;
 			else
-				aniId = ID_ANI_MARIO_TANOOKI_JUMP_WALK_LEFT;
+				if (nx >= 0)
+					aniId = ID_ANI_MARIO_TANOOKI_JUMP_WALK_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_TANOOKI_JUMP_WALK_LEFT;
 		}
 	}
 	else
@@ -500,7 +522,7 @@ void Mario::SetState(int state)
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return; 
 	// some animation cannot be cut off 
-	if (this->state == MARIO_STATE_KICK && GetTickCount64() - timer <= MARIO_KICK_TIMEOUT) return;
+	if (this->state == MARIO_STATE_KICK && GetTickCount64() - kickTimer <= MARIO_KICK_TIMEOUT) return;
 
 	switch (state)
 	{
@@ -559,16 +581,16 @@ void Mario::SetState(int state)
 			koopa->SetState(KOOPA_STATE_KICKED);
 		}
 		isHolding = false;
-		timer = GetTickCount64();
+		kickTimer = GetTickCount64();
 		break;
 	case MARIO_STATE_JUMP:
 		if (isSitting) break;
 		if (level == MARIO_LEVEL_TANOOKI && !isOnPlatform)
 		{
-			isFlying = true;	
-			ay = -MARIO_FLY_SPEED_Y;
+			SetState(MARIO_STATE_FLY);
+			break;
 		}
-		if (isOnPlatform)
+		if (isOnPlatform)	
 		{
 			if (abs(this->vx) == MARIO_RUNNING_SPEED)
 				vy = -MARIO_JUMP_RUN_SPEED_Y;
@@ -576,11 +598,16 @@ void Mario::SetState(int state)
 				vy = -MARIO_JUMP_SPEED_Y;
 		}
 		break;
-
+	case MARIO_STATE_FLY:
+		isFlying = true;
+		flyTimer = GetTickCount64();
+		if (abs(this->vx) == MARIO_RUNNING_SPEED)
+			vy = -MARIO_FLY_SPEED_Y;
+		else
+			vy = MARIO_FALL_DONW_SPEED_Y;
 	case MARIO_STATE_RELEASE_JUMP:
-		ay = MARIO_GRAVITY;
-
-		if (vy < 0) vy += MARIO_JUMP_SPEED_Y / 2;
+		// only pull down when not flying
+		if (vy < 0 && !isFlying) vy += MARIO_JUMP_SPEED_Y / 2;
 		break;
 
 	case MARIO_STATE_SIT:
