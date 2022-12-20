@@ -40,7 +40,7 @@ void Collision::SweptAABB(
 	float bt = dy > 0 ? mt : mt + dy;
 	float br = dx > 0 ? mr + dx : mr;
 	float bb = dy > 0 ? mb + dy : mb;
-	if (br <= sl || bl >= sr || bb <= st || bt >= sb) 
+	if (br < sl || bl > sr || bb < st || bt > sb) 
 		return;
 
 

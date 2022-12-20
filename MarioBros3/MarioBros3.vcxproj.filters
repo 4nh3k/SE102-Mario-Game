@@ -117,6 +117,12 @@
     <ClCompile Include="Tail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VenusFireTrap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -228,6 +234,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MarioConst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VenusFireTrap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

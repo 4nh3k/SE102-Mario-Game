@@ -55,7 +55,7 @@ public:
 	//
 	virtual int IsCollidable() { return 0; };
 
-	// Super leaf still collidable but go through platform
+	// Laser still collidable but go through platform
 	virtual int IsGoThrough(){ return 0; };
 
 	// When no collision has been detected (triggered by CCollision::Process)

@@ -173,6 +173,7 @@
     <ClCompile Include="GhostBlock.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koopa.cpp" />
+    <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Mushroom.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="tinyxmlerror.cpp" />
     <ClCompile Include="tinyxmlparser.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="VenusFireTrap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -211,6 +213,7 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
+    <ClInclude Include="Laser.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioConst.h" />
     <ClInclude Include="Mushroom.h" />
@@ -233,6 +236,7 @@
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="VenusFireTrap.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MarioBros3.rc" />

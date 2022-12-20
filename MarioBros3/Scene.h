@@ -18,6 +18,7 @@ protected:
 	LPCWSTR sceneFilePath;
 	LPGAMEOBJECT player;
 	std::deque<LPGAMEOBJECT> gameObjects;
+	std::deque<LPGAMEOBJECT> lowLayer;
 public: 
 	Scene(int id, LPCWSTR filePath)
 	{

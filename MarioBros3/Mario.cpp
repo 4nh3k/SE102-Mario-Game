@@ -11,6 +11,7 @@
 #include "Mushroom.h"
 #include "Collision.h"
 #include "SuperLeaf.h"
+#include "Laser.h"
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -51,9 +52,9 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (isHolding)
 	{
 		if (nx > 0)
-			holdingObj->SetPosition(x + MARIO_HOLDING_OFFSET_X, y );
+			holdingObj->SetPosition(x + MARIO_HOLDING_OFFSET_X, y + 1 );
 		else
-			holdingObj->SetPosition(x - MARIO_HOLDING_OFFSET_X, y );
+			holdingObj->SetPosition(x - MARIO_HOLDING_OFFSET_X, y + 1);
 	}
 }
 
@@ -655,7 +656,7 @@ void Mario::SetState(int state)
 		}
 		break;
 	case MARIO_STATE_TAIL_WHACK:
-		tail = new Tail(x + MARIO_TAIL_OFFSET_X * nx,y + MARIO_TAIL_OFFSET_Y);
+		tail = new Laser(x + MARIO_TAIL_OFFSET_X * nx,y + MARIO_TAIL_OFFSET_Y);
 		Game::GetInstance()->GetCurrentScene()->AddObject(tail);
 		tailTimer = GetTickCount64();
 		break;

@@ -53,7 +53,7 @@
 </Animation>
 <Animation aniID="venus_idle_left_up" frameTime="100"><Frame name="venus_idle_left_up0000" x="0" y="36" width="16" height="32" />
 </Animation>
-<Animation aniID="laser" frameTime="100"><Frame name="laser0000" x="144" y="13" width="8" height="10" />
+<Animation aniID="laser" frameTime="70"><Frame name="laser0000" x="144" y="13" width="8" height="10" />
 <Frame name="laser0001" x="144" y="39" width="8" height="8" />
 <Frame name="laser0002" x="144" y="51" width="8" height="8" />
 <Frame name="laser0003" x="144" y="26" width="8" height="10" />

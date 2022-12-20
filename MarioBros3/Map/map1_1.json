@@ -215,6 +215,28 @@
          "layers":[
                 {
                  "draworder":"topdown",
+                 "id":19,
+                 "name":"Venus",
+                 "objects":[
+                        {
+                         "class":"",
+                         "height":32,
+                         "id":155,
+                         "name":"Venus",
+                         "rotation":0,
+                         "visible":true,
+                         "width":15.5,
+                         "x":360.25,
+                         "y":369
+                        }],
+                 "opacity":1,
+                 "type":"objectgroup",
+                 "visible":true,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "draworder":"topdown",
                  "id":12,
                  "name":"Goomba",
                  "objects":[
@@ -1266,8 +1288,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":19,
- "nextobjectid":153,
+ "nextlayerid":20,
+ "nextobjectid":156,
  "orientation":"orthogonal",
  "properties":[
         {

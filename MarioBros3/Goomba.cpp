@@ -1,5 +1,5 @@
 #include "Goomba.h"
-
+#include "Tail.h"
 Goomba::Goomba(float x, float y):GameObject(x, y)
 {
 	this->ax = 0;
@@ -36,6 +36,7 @@ void Goomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking(e->nx,e->ny)) return; 
 	if (dynamic_cast<Goomba*>(e->obj)) return; 
+	if (dynamic_cast<Tail*>(e->obj)) SetState(GOOMBA_STATE_DIE);
 
 	if (e->ny != 0 )
 	{

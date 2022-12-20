@@ -16,6 +16,7 @@
 #include "Koopa.h"
 #include "Goomba.h"
 #include "RedKoopa.h"
+#include "VenusFireTrap.h"
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
@@ -110,6 +111,12 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		{
 			gameObj = new Coin(pos.x, pos.y);
 		}
+		else if (obj.getName() == "Venus")
+		{
+			gameObj = new VenusFireTrap(pos.x, pos.y);
+			lowLayer.push_back(gameObj);
+			continue;
+		}
 		//gameObj->SetPosition(10.0f, 01.0f);
 		gameObjects.push_back(gameObj);
 	}
@@ -193,12 +200,19 @@ void PlayScene::Update(DWORD dt)
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	vector<LPGAMEOBJECT> coObjects;
+	for (auto& obj : lowLayer)
+	{
+		coObjects.push_back(obj);
+	}
 	for (size_t i = 0; i < gameObjects.size(); i++)
 	{
 		if(!dynamic_cast<Mario*>(gameObjects[i]))
 			coObjects.push_back(gameObjects[i]);
 	}
-
+	for (auto& obj : lowLayer)
+	{
+		obj->Update(dt, &coObjects);
+	}
 	for (size_t i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects[i]->Update(dt, &coObjects);
@@ -234,6 +248,10 @@ void PlayScene::Update(DWORD dt)
 
 void PlayScene::Render()
 {
+	for (auto& obj : lowLayer)
+	{
+		obj->Render();
+	}
 	// Draw background first
 	for (auto& tile : tileMap)
 	{
@@ -245,7 +263,6 @@ void PlayScene::Render()
 	for (int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Render();
 }
-
 /*
 *	Clear all objects from this scene
 */

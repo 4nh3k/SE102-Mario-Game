@@ -11,6 +11,7 @@ void Tail::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
 	DebugOutTitle(L"nx: %f, ny: %f", e->nx, e->ny);
+
 	if (dynamic_cast<Goomba*>(e->obj))
 		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<QuestionBlock*>(e->obj))

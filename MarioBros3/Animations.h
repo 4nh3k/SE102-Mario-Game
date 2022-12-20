@@ -7,13 +7,6 @@
 #include "debug.h"
 #include "Textures.h"
 
-#define TEXTURES_DIR L""
-#define ANIMATIONS_PATH_MARIO "textures\\mario.xml"
-#define ANIMATIONS_PATH_ENEMIES "textures\\enemies.xml"
-#define ANIMATIONS_PATH_QUESTION_BLOCK "textures\\misc.xml"
-
-
-
 class Animations
 {
 	static Animations* __instance;
