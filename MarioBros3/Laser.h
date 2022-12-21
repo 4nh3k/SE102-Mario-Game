@@ -17,6 +17,5 @@ public:
 	}
 	virtual int IsGoThrough() { return 1; }
 	virtual int IsBlocking(float nx, float ny) { return 0; }
-	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 };
 

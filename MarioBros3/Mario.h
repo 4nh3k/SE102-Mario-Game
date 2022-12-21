@@ -29,6 +29,7 @@ class Mario : public GameObject
 	LPGAMEOBJECT tail;
 	int coin; 
 
+	void GetHitFromEnemy();
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -36,6 +37,8 @@ class Mario : public GameObject
 	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
 	void OnCollisionWithMushroom(LPCOLLISIONEVENT e);
 	void OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e);
+	void OnCollisionWithLaser(LPCOLLISIONEVENT e);
+	void OnCollisionWithVenus(LPCOLLISIONEVENT e);
 
 	string GetAniIdBig();
 	string GetAniIdSmall();

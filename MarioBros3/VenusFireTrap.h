@@ -17,8 +17,9 @@
 #define LASER_SHOOT_TIME 2000
 #define GO_DOWN_TIME 5000
 #define FAR_RANGE 80
-#define VENUS_SPEED 0.03f;
+#define VENUS_SPEED 0.03f
 #define VENUS_HEIGHT 32
+#define VENUS_WIDTH 16
 
 class VenusFireTrap :
     public GameObject
@@ -48,7 +49,7 @@ public:
 	virtual int IsCollidable() {
 		return 1;
 	};
-	virtual int IsBlocking(float nx, float ny) { return 1; }
+	virtual int IsBlocking(float nx, float ny) { return 0; }
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 };
 

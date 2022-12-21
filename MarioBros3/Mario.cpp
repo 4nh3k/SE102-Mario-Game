@@ -12,6 +12,7 @@
 #include "Collision.h"
 #include "SuperLeaf.h"
 #include "Laser.h"
+#include "VenusFireTrap.h"
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -96,6 +97,22 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithKoopa(e);
 	else if (dynamic_cast<SuperLeaf*>(e->obj))
 		OnCollisionWithSuperLeaf(e);
+	else if (dynamic_cast<Laser*>(e->obj))
+		OnCollisionWithLaser(e);
+	else if (dynamic_cast<VenusFireTrap*>(e->obj))
+		OnCollisionWithVenus(e);
+}
+
+void Mario::OnCollisionWithLaser(LPCOLLISIONEVENT e)
+{
+	if(untouchable == 0)
+		GetHitFromEnemy();
+}
+
+void Mario::OnCollisionWithVenus(LPCOLLISIONEVENT e)
+{
+	if(untouchable == 0)
+		GetHitFromEnemy();
 }
 
 void Mario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
@@ -155,16 +172,7 @@ void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 		{
 			if (koopa->GetState() != KOOPA_STATE_HIDE)
 			{
-				if (level > MARIO_LEVEL_SMALL)
-				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
-				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
-				}
+				GetHitFromEnemy();
 			}
 		}
 	}
@@ -211,16 +219,7 @@ void Mario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			if (goomba->GetState() != GOOMBA_STATE_DIE)
 			{
-				if (level > MARIO_LEVEL_SMALL)
-				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
-				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
-				}
+				GetHitFromEnemy();
 			}
 		}
 	}
@@ -238,6 +237,19 @@ void Mario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	Game::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
 
+void Mario::GetHitFromEnemy()
+{
+	if (level > MARIO_LEVEL_SMALL)
+	{
+		level = MARIO_LEVEL_SMALL;
+		StartUntouchable();
+	}
+	else
+	{
+		DebugOut(L">>> Mario DIE >>> \n");
+		SetState(MARIO_STATE_DIE);
+	}
+}
 //
 // Get animation ID for small Mario
 //

@@ -64,10 +64,10 @@ void VenusFireTrap::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void VenusFireTrap::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x - 10 / 2;
-	t = y - 10 / 2;
-	r = l + 10;
-	b = t + 10;
+	l = x - VENUS_WIDTH / 2;
+	t = y - VENUS_HEIGHT / 2;
+	r = l + VENUS_WIDTH;
+	b = t + VENUS_HEIGHT;
 }
 void VenusFireTrap::ShootLaser()
 {
@@ -76,7 +76,7 @@ void VenusFireTrap::ShootLaser()
 	xDirection = (x < mx) ? 1 : -1;
 	yDirection = (y < my) ? 1 : -1;
 	int kq = abs(x - mx);
-	if (kq > 80)
+	if (kq > FAR_RANGE)
 	{
 		xDirection *= 2;
 	}
@@ -115,7 +115,7 @@ void VenusFireTrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else if (GetTickCount64() - timer > LASER_SHOOT_TIME && isUp)
 	{
-		vy = -vy;
+		vy = VENUS_SPEED;
 		timer = GetTickCount64();
 		isUp = false;
 		moving = true;
@@ -124,7 +124,7 @@ void VenusFireTrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		moving = true;
 		hasShoot = false;
-		vy = (isUp) ? 0.03f : -0.03f;
+		vy = (isUp) ? VENUS_SPEED : -VENUS_SPEED;
 		timer = GetTickCount64();
 	}
 	Game::GetInstance()->GetCurrentScene()->GetPlayer()->GetPosition(mx,my);

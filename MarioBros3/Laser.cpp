@@ -1,16 +1,10 @@
 #include "Laser.h"
+#include "Mario.h"
 void Laser::Render()
 {
 	Animations::GetInstance()->Get(ID_ANI_LASER)->Render(x,y);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
-
-void Laser::OnCollisionWith(LPCOLLISIONEVENT e)
-{
-	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
-	DebugOutTitle(L"nx: %f, ny: %f", e->nx, e->ny);
-}
-
 
 void Laser::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
@@ -23,6 +17,4 @@ void Laser::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	x += vx * dt;
 	y += vy * dt;
-	Collision::GetInstance()->Process(this, dt, coObjects);
-
 }
