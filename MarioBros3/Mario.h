@@ -12,22 +12,26 @@
 class Mario : public GameObject
 {
 	BOOLEAN isSitting;
+	BOOLEAN isOnPlatform;
+	BOOLEAN isHolding;
+	BOOLEAN isKicking;
+	BOOLEAN isTailWhack;
+	BOOLEAN isFlying;
+
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
+
 	ULONGLONG kickTimer;
 	ULONGLONG flyTimer;
 	ULONGLONG tailTimer;
+	ULONGLONG untouchable_start;
 
+	int coin; 
 	int level; 
 	int untouchable; 
-	ULONGLONG untouchable_start;
-	BOOLEAN isOnPlatform;
-	BOOLEAN isHolding;
-	BOOLEAN isFlying;
-	GameObject* holdingObj;
+	LPGAMEOBJECT holdingObj;
 	LPGAMEOBJECT tail;
-	int coin; 
 
 	void GetHitFromEnemy();
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
@@ -57,6 +61,9 @@ public:
 		holdingObj = NULL;
 		isHolding = false;
 		isFlying = false;
+		isOnPlatform = false;
+		isKicking = false;
+		isTailWhack = false;
 		flyTimer = 0;
 		kickTimer = 0;
 		tailTimer = 0;
@@ -64,7 +71,6 @@ public:
 		tail = NULL;
 		untouchable = 0;
 		untouchable_start = -1;
-		isOnPlatform = false;
 		coin = 0;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

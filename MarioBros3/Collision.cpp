@@ -3,7 +3,7 @@
 
 #include "debug.h"
 
-#define BLOCK_PUSH_FACTOR 0.4f
+#define BLOCK_PUSH_FACTOR 0.15f
 
 Collision* Collision::__instance = NULL;
 
@@ -167,25 +167,20 @@ LPCOLLISIONEVENT Collision::SweptAABB(LPGAMEOBJECT objSrc, DWORD dt, LPGAMEOBJEC
 
 	objSrc->GetBoundingBox(ml, mt, mr, mb);
 	objDest->GetBoundingBox(sl, st, sr, sb);
-	if (mvx == 0 && mvy == 0)
-	{
-		AABB(
+	SweptAABB(
 		ml, mt, mr, mb,
+		dx, dy,
 		sl, st, sr, sb,
 		t, nx, ny
-		);
-	}
-	else
+	);
+	if (mdx == 0 && mdy==0 )
 	{
-		SweptAABB(
+		AABB(
 			ml, mt, mr, mb,
-			dx, dy,
 			sl, st, sr, sb,
 			t, nx, ny
 		);
-
 	}
-
 	CollisionEvent* e = new CollisionEvent(t, nx, ny, dx, dy, objDest, objSrc);
 	return e;
 }

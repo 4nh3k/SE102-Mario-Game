@@ -74,6 +74,10 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		}
 		else if (obj.getName() == "Koopa")
 		{
+			gameObj = new Koopa(pos.x, pos.y);
+		}
+		else if (obj.getName() == "RedKoopa")
+		{
 			gameObj = new RedKoopa(pos.x, pos.y);
 		}
 		else if (obj.getName() == "Mario")

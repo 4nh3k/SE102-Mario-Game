@@ -103,6 +103,7 @@ void VenusFireTrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}*/
 	if (y >= oldY)
 	{
+		isDown = true;
 		moving = false;
 	}
 	if (GetTickCount64() - timer > LASER_AIM_TIME && !hasShoot && isUp)
@@ -115,7 +116,8 @@ void VenusFireTrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		vy = VENUS_SPEED;
 		timer = GetTickCount64();
-		isUp = false;
+		isUp = false;		
+		isDown = false;
 		moving = true;
 	}
 	if (GetTickCount64() - timer > GO_DOWN_TIME)
@@ -123,7 +125,9 @@ void VenusFireTrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		moving = true;
 		hasShoot = false;
 		vy = (isUp) ? VENUS_SPEED : -VENUS_SPEED;
+		isDown = false;
 		timer = GetTickCount64();
 	}
+	//DebugOutTitle(L"x: %f, y:%f, vx:%f, vy: %f, moving: %d, isDown: %d, iscolliable: %d", x, y, vx, vy, moving, isDown, IsCollidable());
 	Game::GetInstance()->GetCurrentScene()->GetPlayer()->GetPosition(mx,my);
 }

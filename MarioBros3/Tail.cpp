@@ -38,17 +38,16 @@ void Tail::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	if (goomba->GetState() != GOOMBA_STATE_DIE)
 	{
 		goomba->nx = e->nx;
-		goomba->SetState(GOOMBA_STATE_DIE_UP_SIDE_DOWN);
+		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE_DOWN);
 	}
 }
 
 void Tail::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 {
 	Koopa* koopa = dynamic_cast<Koopa*>(e->obj);
-	if (koopa->GetState() != KOOPA_STATE_HIDE)
-	{
-		koopa->SetState(KOOPA_STATE_HIDE);
-	}
+	koopa->SetDirection(e->nx);
+	koopa->SetState(KOOPA_STATE_UPSIDE_DOWN);
+	koopa->SetState(KOOPA_STATE_HIDE);
 }
 
 void Tail::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)

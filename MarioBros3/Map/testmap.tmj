@@ -73,6 +73,18 @@
                          "width":15.5,
                          "x":215.69063425351,
                          "y":48.1895118922533
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":27,
+                         "name":"RedKoopa",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":272.041264686216,
+                         "y":65.4121692616296
                         }],
                  "opacity":1,
                  "properties":[
@@ -283,7 +295,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":27,
+ "nextobjectid":28,
  "orientation":"orthogonal",
  "properties":[
         {

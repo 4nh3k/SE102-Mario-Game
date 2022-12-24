@@ -28,6 +28,7 @@ class VenusFireTrap :
 	ULONGLONG timer;
 	ULONGLONG updownTimer;
 	bool isUp;
+	bool isDown;
 	bool hasShoot;
 	bool moving;
 	float mx, my;
@@ -41,13 +42,14 @@ public:
 		isUp = false; 
 		hasShoot = false;
 		moving = false;
+		isDown = true;
 		vy = -VENUS_SPEED; 
 	}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	virtual int IsCollidable() {
-		return (moving || !isUp);
+		return (moving || !isDown);
 	};
 	virtual int IsBlocking(float nx, float ny) { return 0; }
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);

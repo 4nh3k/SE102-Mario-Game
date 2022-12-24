@@ -43,7 +43,22 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-	
+	if (GetTickCount64() - kickTimer > MARIO_KICK_TIMEOUT)
+	{
+		kickTimer = 0;
+		isKicking = false;
+	}
+
+	if (GetTickCount64() - tailTimer > MARIO_TAIL_WHACK_TIMEOUT)
+	{
+		isTailWhack = false;
+		// end tail whack delete tail
+		if (tail != NULL)
+		{
+			tail->Delete();
+			tail = NULL;
+		}
+	}
 	isOnPlatform = false;
 
 	Collision::GetInstance()->Process(this, dt, coObjects);
@@ -68,10 +83,11 @@ void Mario::HoldingObjUpdate()
 {
 	if (isHolding)
 	{
+		int offsetX = (level == MARIO_LEVEL_TANOOKI) ? MARIO_TANOOKI_HOLDING_OFFSET_X : MARIO_HOLDING_OFFSET_X;
 		if (nx > 0)
-			holdingObj->SetPosition(x + MARIO_HOLDING_OFFSET_X, y + 1);
+			holdingObj->SetPosition(x + offsetX, y - MARIO_HOLDING_OFFSET_Y);
 		else
-			holdingObj->SetPosition(x - MARIO_HOLDING_OFFSET_X, y + 1);
+			holdingObj->SetPosition(x - offsetX, y - MARIO_HOLDING_OFFSET_Y);
 	}
 }
 
@@ -85,14 +101,13 @@ void Mario::OnNoCollision(DWORD dt)
 
 void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	DebugOutTitle(L"nx: %f, ny: %f", e->nx, e->ny);
 	if (e->ny != 0 && e->obj->IsBlocking(e->nx, e->ny))
 	{
 		vy = 0.0f;
 		if (e->ny < 0)
 		{
 			// pull mario down, because to low gravity make it fail broad-phase test in collision 
-			vy = 0.015f;
+			//vy = 0.015f;
 			isOnPlatform = true;
 		}
 	}
@@ -345,7 +360,7 @@ string Mario::GetAniIdSmall()
 				else if (ax == -MARIO_ACCEL_WALK_X)
 					aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
 			}
-	if (state == MARIO_STATE_KICK)
+	if (isKicking)
 	{
 		if (nx > 0) aniId = ID_ANI_MARIO_SMALL_KICK_RIGHT;
 		else aniId = ID_ANI_MARIO_SMALL_KICK_LEFT;
@@ -436,7 +451,7 @@ string Mario::GetAniIdBig()
 				else if (ax == -MARIO_ACCEL_WALK_X)
 					aniId = ID_ANI_MARIO_WALKING_LEFT;
 			}
-	if (state == MARIO_STATE_KICK)
+	if (isKicking)
 	{
 		if (nx > 0) aniId = ID_ANI_MARIO_KICK_RIGHT;
 		else aniId = ID_ANI_MARIO_KICK_LEFT;
@@ -535,12 +550,12 @@ string Mario::GetAniIdTanooki()
 				else if (ax == -MARIO_ACCEL_WALK_X)
 					aniId = ID_ANI_MARIO_TANOOKI_WALKING_LEFT;
 			}
-	if (state == MARIO_STATE_KICK)
+	if (isKicking)
 	{
 		if (nx > 0) aniId = ID_ANI_MARIO_TANOOKI_KICK_RIGHT;
 		else aniId = ID_ANI_MARIO_TANOOKI_KICK_LEFT;
 	}
-	else if (state == MARIO_STATE_TAIL_WHACK)
+	else if (isTailWhack)
 	{
 		if (nx > 0) aniId = ID_ANI_MARIO_TANOOKI_TAIL_WHACK_RIGHT;
 		else aniId = ID_ANI_MARIO_TANOOKI_TAIL_WHACK_LEFT;
@@ -575,19 +590,6 @@ void Mario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return; 
-	// some animation cannot be cut off 
-	if (this->state == MARIO_STATE_KICK && GetTickCount64() - kickTimer <= MARIO_KICK_TIMEOUT) return;
-
-	if (this->state == MARIO_STATE_TAIL_WHACK && GetTickCount64() - tailTimer <= MARIO_TAIL_WHACK_TIMEOUT) return;
-	else
-	{
-		// end tail whack delete tail
-		if (tail != NULL)
-		{
-			tail->Delete();
-			tail = NULL;
-		}
-	}
 
 	switch (state)
 	{
@@ -639,6 +641,7 @@ void Mario::SetState(int state)
 		nx = -1;
 		break;
 	case MARIO_STATE_KICK:
+		isKicking = true;
 		if (holdingObj != NULL)
 		{
 			Koopa* koopa = dynamic_cast<Koopa*>(holdingObj);
@@ -697,6 +700,8 @@ void Mario::SetState(int state)
 		}
 		break;
 	case MARIO_STATE_TAIL_WHACK:
+		if (isTailWhack) break;
+		isTailWhack = true;
 		tail = new Tail(x + MARIO_TAIL_OFFSET_X * nx,y + MARIO_TAIL_OFFSET_Y);
 		Game::GetInstance()->GetCurrentScene()->AddObject(tail);
 		tailTimer = GetTickCount64();
