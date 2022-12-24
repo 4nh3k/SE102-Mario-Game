@@ -58,7 +58,6 @@ void VenusFireTrap::Render()
 void VenusFireTrap::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
-	DebugOutTitle(L"nx: %f, ny: %f", e->nx, e->ny);
 
 }
 
@@ -90,7 +89,6 @@ void VenusFireTrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		y += vy * dt;
 	}
-	DebugOutTitle(L"y: %f oldY: %f, H: %d", y, oldY, VENUS_HEIGHT);
 	if (oldY - y >= VENUS_HEIGHT && !isUp)
 	{
 		timer = GetTickCount64();

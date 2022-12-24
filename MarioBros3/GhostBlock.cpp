@@ -8,7 +8,7 @@ void GhostBlock::Render()
 void GhostBlock::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
-	if (e->ny != 0)
+	if (e->ny < 0)
 	{
 		onPlatform = true;
 		//vy = 0;

@@ -13,6 +13,24 @@ Collision* Collision::GetInstance()
 	return __instance;
 }
 
+void Collision::AABB(float ml, float mt, float mr, float mb,
+	float sl, float st, float sr, float sb,
+	float& t, float& nx, float& ny)
+{
+	t = -1.0f;
+	nx = 0;
+	ny = 0;
+	if (ml < sr &&
+		mr > sl &&
+		mt < sb &&
+		mb > st)
+	{
+		t = 0;
+		nx = (ml < sl) ? -1 : 1;
+		ny = (mb > st) ? -1 : 1;
+	}
+}
+
 /*
 	SweptAABB 
 */
@@ -43,9 +61,17 @@ void Collision::SweptAABB(
 	if (br < sl || bl > sr || bb < st || bt > sb) 
 		return;
 
+	// checking overlay, this make red koopa not working
+	/*AABB( 
+		ml, mt, mr, mb,
+		sl, st, sr, sb,
+		t, nx, ny
+	);*/
 
-	if (dx == 0 && dy == 0) 
+	if (dx == 0 && dy == 0)
+	{
 		return;		// moving object is not moving > obvious no collision
+	}
 
 	if (dx > 0)
 	{
@@ -141,13 +167,24 @@ LPCOLLISIONEVENT Collision::SweptAABB(LPGAMEOBJECT objSrc, DWORD dt, LPGAMEOBJEC
 
 	objSrc->GetBoundingBox(ml, mt, mr, mb);
 	objDest->GetBoundingBox(sl, st, sr, sb);
-
-	SweptAABB(
+	if (mvx == 0 && mvy == 0)
+	{
+		AABB(
 		ml, mt, mr, mb,
-		dx, dy,
 		sl, st, sr, sb,
 		t, nx, ny
-	);
+		);
+	}
+	else
+	{
+		SweptAABB(
+			ml, mt, mr, mb,
+			dx, dy,
+			sl, st, sr, sb,
+			t, nx, ny
+		);
+
+	}
 
 	CollisionEvent* e = new CollisionEvent(t, nx, ny, dx, dy, objDest, objSrc);
 	return e;

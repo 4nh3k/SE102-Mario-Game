@@ -39,6 +39,10 @@ class Mario : public GameObject
 	void OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e);
 	void OnCollisionWithLaser(LPCOLLISIONEVENT e);
 	void OnCollisionWithVenus(LPCOLLISIONEVENT e);
+	void TailUpdate();
+	void HoldingObjUpdate();
+
+
 
 	string GetAniIdBig();
 	string GetAniIdSmall();

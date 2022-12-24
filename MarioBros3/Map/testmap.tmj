@@ -48,8 +48,31 @@
                          "rotation":0,
                          "visible":true,
                          "width":0,
-                         "x":96.8955965230678,
-                         "y":119.514757856529
+                         "x":90.4766453338425,
+                         "y":101.174897315885
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":25,
+                         "name":"Goomba",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":122.571401279969,
+                         "y":122.265736937625
+                        }, 
+                        {
+                         "class":"",
+                         "height":32,
+                         "id":26,
+                         "name":"Venus",
+                         "rotation":0,
+                         "visible":true,
+                         "width":15.5,
+                         "x":215.69063425351,
+                         "y":48.1895118922533
                         }],
                  "opacity":1,
                  "properties":[
@@ -92,8 +115,8 @@
                          "rotation":0,
                          "visible":true,
                          "width":14.5,
-                         "x":46.7041264686217,
-                         "y":27.3866415130385
+                         "x":30.5039163243863,
+                         "y":55.2020966663483
                         }, 
                         {
                          "class":"",
@@ -133,6 +156,28 @@
                          "width":167.455508252937,
                          "x":184.951202793963,
                          "y":102.588873766358
+                        }, 
+                        {
+                         "class":"",
+                         "height":81.6123794058649,
+                         "id":22,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":51.9629381984908,
+                         "x":-55.0195816219314,
+                         "y":75.8047569013277
+                        }, 
+                        {
+                         "class":"",
+                         "height":66.6348266310058,
+                         "id":23,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":12.8379023784507,
+                         "x":156.805807622505,
+                         "y":88.0313305950903
                         }],
                  "opacity":1,
                  "properties":[
@@ -176,8 +221,8 @@
                          "rotation":0,
                          "visible":true,
                          "width":0,
-                         "x":53.1962938198491,
-                         "y":87.5361543604929
+                         "x":40.0527270990544,
+                         "y":102.208042793008
                         }],
                  "opacity":1,
                  "properties":[
@@ -238,7 +283,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":22,
+ "nextobjectid":27,
  "orientation":"orthogonal",
  "properties":[
         {

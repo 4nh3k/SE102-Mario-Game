@@ -43,17 +43,33 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-
-	//DebugOutTitle(L"x: %f, y: %f, vx: %f, vy: %f, ax:%f, ay: %f", x, y, vx, vy, ax, ay);
-
-	//ay = MARIO_GRAVITY;
+	
 	isOnPlatform = false;
+
 	Collision::GetInstance()->Process(this, dt, coObjects);
 	// set hold obj pos after x, y update
+	TailUpdate();
+	HoldingObjUpdate();
+}
+
+void Mario::TailUpdate()
+{
+	if (tail != NULL)
+	{
+		float tailx, taily;
+		tail->GetPosition(tailx, taily);
+		if (GetTickCount64() - tailTimer >= TAIL_CHANGE_SIDE_TIME)
+			tail->SetPosition(x - MARIO_TAIL_OFFSET_X * nx, y + MARIO_TAIL_OFFSET_Y);
+		else
+			tail->SetPosition(x + MARIO_TAIL_OFFSET_X * nx, y + MARIO_TAIL_OFFSET_Y);
+	}
+}
+void Mario::HoldingObjUpdate()
+{
 	if (isHolding)
 	{
 		if (nx > 0)
-			holdingObj->SetPosition(x + MARIO_HOLDING_OFFSET_X, y + 1 );
+			holdingObj->SetPosition(x + MARIO_HOLDING_OFFSET_X, y + 1);
 		else
 			holdingObj->SetPosition(x - MARIO_HOLDING_OFFSET_X, y + 1);
 	}
@@ -61,6 +77,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 void Mario::OnNoCollision(DWORD dt)
 {
+
 	x += vx * dt;
 	y += vy * dt;
 
@@ -68,6 +85,7 @@ void Mario::OnNoCollision(DWORD dt)
 
 void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
+	DebugOutTitle(L"nx: %f, ny: %f", e->nx, e->ny);
 	if (e->ny != 0 && e->obj->IsBlocking(e->nx, e->ny))
 	{
 		vy = 0.0f;
@@ -79,10 +97,10 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		}
 	}
 	else 
-	if (e->nx != 0 && e->obj->IsBlocking(e->nx, e->ny))
-	{
-		vx = 0;
-	}
+		if (e->nx != 0 && e->obj->IsBlocking(e->nx, e->ny))
+		{
+			vx = 0;
+		}
 	if (dynamic_cast<Goomba*>(e->obj))
 		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<Coin*>(e->obj))
@@ -241,7 +259,14 @@ void Mario::GetHitFromEnemy()
 {
 	if (level > MARIO_LEVEL_SMALL)
 	{
-		level = MARIO_LEVEL_SMALL;
+		if (level == MARIO_LEVEL_TANOOKI)
+		{
+			SetLevel(MARIO_LEVEL_BIG);
+		}
+		else
+		{
+			SetLevel(MARIO_LEVEL_SMALL);
+		}
 		StartUntouchable();
 	}
 	else
@@ -557,7 +582,11 @@ void Mario::SetState(int state)
 	else
 	{
 		// end tail whack delete tail
-		
+		if (tail != NULL)
+		{
+			tail->Delete();
+			tail = NULL;
+		}
 	}
 
 	switch (state)
@@ -668,7 +697,7 @@ void Mario::SetState(int state)
 		}
 		break;
 	case MARIO_STATE_TAIL_WHACK:
-		tail = new Laser(x + MARIO_TAIL_OFFSET_X * nx,y + MARIO_TAIL_OFFSET_Y);
+		tail = new Tail(x + MARIO_TAIL_OFFSET_X * nx,y + MARIO_TAIL_OFFSET_Y);
 		Game::GetInstance()->GetCurrentScene()->AddObject(tail);
 		tailTimer = GetTickCount64();
 		break;

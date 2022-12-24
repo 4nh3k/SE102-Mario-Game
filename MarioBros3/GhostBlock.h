@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Koopa.h"
 
-#define GHOSTBLOCK_WIDTH 10
+#define GHOSTBLOCK_WIDTH 4
 
 class GhostBlock :
     public GameObject

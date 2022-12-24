@@ -251,6 +251,18 @@
                          "width":0,
                          "x":230,
                          "y":405.5
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":156,
+                         "name":"Goomba",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":498,
+                         "y":404.75
                         }],
                  "opacity":1,
                  "properties":[
@@ -290,8 +302,8 @@
                          "rotation":0,
                          "visible":true,
                          "width":0,
-                         "x":498.5,
-                         "y":386.25
+                         "x":561.5,
+                         "y":281.75
                         }],
                  "opacity":1,
                  "type":"objectgroup",
@@ -1289,7 +1301,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":156,
+ "nextobjectid":157,
  "orientation":"orthogonal",
  "properties":[
         {

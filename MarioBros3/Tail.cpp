@@ -2,6 +2,8 @@
 #include "Goomba.h"
 #include "QuestionBlock.h"
 #include "Koopa.h"
+#include "VenusFireTrap.h"
+
 void Tail::Render()
 {
 	RenderBoundingBox();
@@ -9,8 +11,7 @@ void Tail::Render()
 
 void Tail::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
-	DebugOutTitle(L"nx: %f, ny: %f", e->nx, e->ny);
+	//if (!e->obj->IsBlocking(e->nx, e->ny)) return;
 
 	if (dynamic_cast<Goomba*>(e->obj))
 		OnCollisionWithGoomba(e);
@@ -18,6 +19,17 @@ void Tail::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithQuestionBlock(e);
 	else if (dynamic_cast<Koopa*>(e->obj))
 		OnCollisionWithKoopa(e);
+	else if (dynamic_cast<VenusFireTrap*>(e->obj))
+		OnCollisionWithVenus(e);
+}
+
+void Tail::OnCollisionWithVenus(LPCOLLISIONEVENT e)
+{
+	VenusFireTrap* venus = dynamic_cast<VenusFireTrap*>(e->obj);
+	if (!venus->IsDeleted())
+	{
+		venus->Delete();
+	}
 }
 
 void Tail::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -25,7 +37,8 @@ void Tail::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	Goomba* goomba = dynamic_cast<Goomba*>(e->obj);
 	if (goomba->GetState() != GOOMBA_STATE_DIE)
 	{
-		goomba->SetState(GOOMBA_STATE_DIE);
+		goomba->nx = e->nx;
+		goomba->SetState(GOOMBA_STATE_DIE_UP_SIDE_DOWN);
 	}
 }
 
@@ -56,12 +69,6 @@ void Tail::GetBoundingBox(float& l, float& t, float& r, float& b)
 }
 void Tail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (GetTickCount64() - timer >= TAIL_CHANGE_SIDE_TIME && !hasChangedSide)
-	{
-		hasChangedSide = true;
-		timer = -1.0f;
-		this->Delete();
-	}
 	Collision::GetInstance()->Process(this, dt, coObjects);
 
 }

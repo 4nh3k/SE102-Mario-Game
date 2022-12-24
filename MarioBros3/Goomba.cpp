@@ -36,7 +36,6 @@ void Goomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking(e->nx,e->ny)) return; 
 	if (dynamic_cast<Goomba*>(e->obj)) return; 
-	if (dynamic_cast<Tail*>(e->obj)) SetState(GOOMBA_STATE_DIE);
 
 	if (e->ny != 0 )
 	{
@@ -71,7 +70,10 @@ void Goomba::Render()
 	{
 		aniId = ID_ANI_GOOMBA_DIE;
 	}
-
+	else if (state == GOOMBA_STATE_DIE_UP_SIDE_DOWN)
+	{
+		aniId = ID_ANI_GOOMBA_DIE_UP_SIDE_DOWN;
+	}
 	Animations::GetInstance()->Get(aniId)->Render(x,y);
 	//RenderBoundingBox();
 }
@@ -90,6 +92,11 @@ void Goomba::SetState(int state)
 			break;
 		case GOOMBA_STATE_WALKING: 
 			vx = -GOOMBA_WALKING_SPEED;
+			break;
+		case GOOMBA_STATE_DIE_UP_SIDE_DOWN:
+			vy = -GOOBA_DIE_SPEED_Y;
+			vx = -nx * GOOBA_DIE_SPEED_X;
+			die_start = GetTickCount64();
 			break;
 	}
 }

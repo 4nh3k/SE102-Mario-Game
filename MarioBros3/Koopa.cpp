@@ -39,6 +39,14 @@ void Koopa::OnNoCollision(DWORD dt)
 
 void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 {
+	
+	if (state == KOOPA_STATE_KICKED)
+	{
+		if (dynamic_cast<Koopa*>(e->obj)) OnCollisionWithKoopa(e);
+		else if (dynamic_cast<Goomba*>(e->obj)) OnCollisionWithGoomba(e);
+		else if (dynamic_cast<QuestionBlock*>(e->obj)) OnCollisionWithQuestionBlock(e);
+	}
+
 	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
 
 	if (e->ny != 0)
@@ -48,13 +56,6 @@ void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (e->nx != 0)
 	{
 		vx = -vx;
-	}
-	
-	if (state == KOOPA_STATE_KICKED)
-	{
-		if (dynamic_cast<Koopa*>(e->obj)) OnCollisionWithKoopa(e);
-		else if (dynamic_cast<Goomba*>(e->obj)) OnCollisionWithGoomba(e);
-		else if (dynamic_cast<QuestionBlock*>(e->obj)) OnCollisionWithQuestionBlock(e);
 	}
 }
 void Koopa::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)
@@ -74,7 +75,9 @@ void Koopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	Goomba* goomba = dynamic_cast<Goomba*>(e->obj);
 	if (goomba->GetState() != GOOMBA_STATE_DIE)
 	{
-		goomba->SetState(GOOMBA_STATE_DIE);
+		DebugOutTitle(L"%f", e->nx);
+		goomba->nx = e->nx;
+		goomba->SetState(GOOMBA_STATE_DIE_UP_SIDE_DOWN);
 	}
 }
 void Koopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e)

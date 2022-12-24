@@ -310,9 +310,22 @@ void PlayScene::PurgeDeletedObjects()
 			*it = NULL;
 		}
 	}
+	for (auto it = lowLayer.begin(); it != lowLayer.end(); it++)
+	{
+		LPGAMEOBJECT o = *it;
+		if (o->IsDeleted())
+		{
+			delete o;
+			*it = NULL;
+		}
+	}
 
 	// NOTE: remove_if will swap all deleted items to the end of the vector
 	// then simply trim the vector, this is much more efficient than deleting individual items
+	lowLayer.erase(
+		std::remove_if(lowLayer.begin(), lowLayer.end(), PlayScene::IsGameObjectDeleted),
+		lowLayer.end());
+
 	gameObjects.erase(
 		std::remove_if(gameObjects.begin(), gameObjects.end(), PlayScene::IsGameObjectDeleted),
 		gameObjects.end());

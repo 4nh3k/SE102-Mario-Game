@@ -61,7 +61,18 @@ public:
 		float& t,
 		float& nx,
 		float& ny);
-
+	static void AABB(
+		float ml,
+		float mt,			// move top
+		float mr,			// move right 
+		float mb,			// move bottom
+		float sl,			// static left
+		float st,
+		float sr,
+		float sb,
+		float& t,
+		float& nx,
+		float& ny);
 	LPCOLLISIONEVENT SweptAABB(
 		LPGAMEOBJECT objSrc, 
 		DWORD dt,
