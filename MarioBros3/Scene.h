@@ -15,6 +15,7 @@ class Scene
 protected:
 	LPKEYEVENTHANDLER key_handler;
 	int id;
+	bool pauseUpdate;
 	LPCWSTR sceneFilePath;
 	LPGAMEOBJECT player;
 	std::deque<LPGAMEOBJECT> gameObjects;
@@ -26,11 +27,15 @@ public:
 		this->id = id;
 		this->sceneFilePath = filePath;
 		this->key_handler = NULL;
+		this->pauseUpdate = false;
 	}
 	LPKEYEVENTHANDLER GetKeyEventHandler() { return key_handler; }
 	void AddObject(LPGAMEOBJECT obj) {
 		gameObjects.push_front(obj);
 	}
+	bool IsPause() { return pauseUpdate; }
+	void Pause() { pauseUpdate = true; }
+	void Continue() { pauseUpdate = false; }
 	LPGAMEOBJECT GetPlayer() { return player; }
 	virtual void Load() = 0;
 	virtual void Unload() = 0;

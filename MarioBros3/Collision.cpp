@@ -147,7 +147,7 @@ LPCOLLISIONEVENT Collision::SweptAABB(LPGAMEOBJECT objSrc, DWORD dt, LPGAMEOBJEC
 {
 	float sl, st, sr, sb;		// static object bbox
 	float ml, mt, mr, mb;		// moving object bbox
-	float t, nx, ny;
+	float t = -1, nx = 0, ny = 0;
 
 	float mvx, mvy;
 	objSrc->GetSpeed(mvx, mvy);
@@ -167,19 +167,22 @@ LPCOLLISIONEVENT Collision::SweptAABB(LPGAMEOBJECT objSrc, DWORD dt, LPGAMEOBJEC
 
 	objSrc->GetBoundingBox(ml, mt, mr, mb);
 	objDest->GetBoundingBox(sl, st, sr, sb);
-	SweptAABB(
-		ml, mt, mr, mb,
-		dx, dy,
-		sl, st, sr, sb,
-		t, nx, ny
-	);
-	if (mdx == 0 && mdy==0 )
+	if (objDest->IsCollidable())
 	{
-		AABB(
+		SweptAABB(
 			ml, mt, mr, mb,
+			dx, dy,
 			sl, st, sr, sb,
 			t, nx, ny
 		);
+		if ( mvx == 0 && mvy == 0 )
+		{
+			AABB(
+				ml, mt, mr, mb,
+				sl, st, sr, sb,
+				t, nx, ny
+			);
+		}
 	}
 	CollisionEvent* e = new CollisionEvent(t, nx, ny, dx, dy, objDest, objSrc);
 	return e;
@@ -195,6 +198,7 @@ void Collision::Scan(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* objDes
 {
 	for (UINT i = 0; i < objDests->size(); i++)
 	{
+		if (objSrc == objDests->at(i)) continue;
 		LPCOLLISIONEVENT e = SweptAABB(objSrc, dt, objDests->at(i));
 
 		if (e->WasCollided()==1)

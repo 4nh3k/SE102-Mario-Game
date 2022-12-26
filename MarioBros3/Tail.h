@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "MarioConst.h"
-#define TAIL_WIDTH 10
+#define TAIL_WIDTH 11
 #define TAIL_HEIGHT 4
 #define TAIL_WHACK_SPEED 0.0f
 #define TAIL_CHANGE_SIDE_TIME MARIO_TAIL_WHACK_TIMEOUT/2

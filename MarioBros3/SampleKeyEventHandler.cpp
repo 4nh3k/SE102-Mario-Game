@@ -37,6 +37,12 @@ void SampleKeyHandler::OnKeyDown(int KeyCode)
 		if (mario->IsTanooki())
 			mario->SetState(MARIO_STATE_TAIL_WHACK);
 		break;
+	case DIK_ESCAPE:
+		if (Game::GetInstance()->GetCurrentScene()->IsPause())
+		{
+			Game::GetInstance()->GetCurrentScene()->Continue();
+		}
+		else Game::GetInstance()->GetCurrentScene()->Pause();
 	}
 
 }
@@ -57,6 +63,10 @@ void SampleKeyHandler::OnKeyUp(int KeyCode)
 	case DIK_A:
 		if (mario->IsHolding())
 			mario->SetState(MARIO_STATE_KICK);
+		else
+		{
+			mario->SetState(MARIO_STATE_RELEASE_RUN);
+		}
 		break;
 	}
 }

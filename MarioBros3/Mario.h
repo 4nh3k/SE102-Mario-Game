@@ -17,6 +17,8 @@ class Mario : public GameObject
 	BOOLEAN isKicking;
 	BOOLEAN isTailWhack;
 	BOOLEAN isFlying;
+	BOOLEAN isRunningFast;
+	BOOLEAN startRunning;
 
 	float maxVx;
 	float ax;				// acceleration on x 
@@ -25,7 +27,9 @@ class Mario : public GameObject
 	ULONGLONG kickTimer;
 	ULONGLONG flyTimer;
 	ULONGLONG tailTimer;
+	ULONGLONG runTimer;
 	ULONGLONG untouchable_start;
+	ULONGLONG changeFormTimer;
 
 	int coin; 
 	int level; 
@@ -59,7 +63,9 @@ public:
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
 		holdingObj = NULL;
+		startRunning = false;
 		isHolding = false;
+		isRunningFast = false;
 		isFlying = false;
 		isOnPlatform = false;
 		isKicking = false;
@@ -67,6 +73,8 @@ public:
 		flyTimer = 0;
 		kickTimer = 0;
 		tailTimer = 0;
+		runTimer = -1;
+		changeFormTimer = 0;
 		level = MARIO_LEVEL_BIG;
 		tail = NULL;
 		untouchable = 0;
@@ -83,13 +91,12 @@ public:
 
 	BOOLEAN IsHolding()
 	{
-		return isHolding;
+		return (isHolding && !holdingObj->IsDeleted());
 	}
 
 	int IsBlocking(float nx, float ny) { return (state != MARIO_STATE_DIE && untouchable==0); }
 
 	int IsTanooki() { return (level == MARIO_LEVEL_TANOOKI); }
-
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 	int GetLevel() { return level; };

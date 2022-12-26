@@ -13,7 +13,7 @@ void QuestionBlock::Render()
 		animations->Get(ID_ANI_QUESTION_BLOCK_HIT)->Render(x, y);
 		break;
 	case QUESTION_BLOCK_STATE_IDLE:
-		animations->Get(ID_ANI_QUESTION_BLOCK_IDLE)->Render(x, y);
+		animations->Get(ID_ANI_QUESTION_BLOCK_IDLE)->Render(x, y, false);
 		break;
 	default:
 		break;

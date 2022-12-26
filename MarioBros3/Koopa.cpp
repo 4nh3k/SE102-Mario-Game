@@ -41,7 +41,7 @@ void Koopa::OnNoCollision(DWORD dt)
 void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	
-	if (state == KOOPA_STATE_KICKED)
+	if (state == KOOPA_STATE_KICKED || state == KOOPA_STATE_PICKED_UP)
 	{
 		if (dynamic_cast<Koopa*>(e->obj)) OnCollisionWithKoopa(e);
 		else if (dynamic_cast<Goomba*>(e->obj)) OnCollisionWithGoomba(e);
@@ -100,7 +100,7 @@ void Koopa::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)
 	QuestionBlock* qblock = dynamic_cast<QuestionBlock*>(e->obj);
 	if (e->nx != 0)
 	{
-		if (qblock->GetState() != QUESTION_BLOCK_STATE_HIT)
+		if (qblock->GetState() != QUESTION_BLOCK_STATE_HIT && this->state != KOOPA_STATE_PICKED_UP)
 		{
 			qblock->SetState(QUESTION_BLOCK_STATE_HIT);
 		}
@@ -114,6 +114,11 @@ void Koopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	{
 		goomba->nx = e->nx;
 		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE_DOWN);
+		if (this->state == KOOPA_STATE_PICKED_UP)
+		{
+			this->SetDirection(-e->nx);
+			this->SetState(KOOPA_STATE_DIE);
+		}
 	}
 }
 void Koopa::OnCollisionWithVenus(LPCOLLISIONEVENT e)
@@ -122,15 +127,25 @@ void Koopa::OnCollisionWithVenus(LPCOLLISIONEVENT e)
 	if (!venus->IsDeleted())
 	{
 		venus->Delete();
+		if (this->state == KOOPA_STATE_PICKED_UP)
+		{
+			this->SetDirection(-e->nx);
+			this->SetState(KOOPA_STATE_DIE);
+		}
 	}
 }
 void Koopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 {
 	Koopa* koopa = dynamic_cast<Koopa*>(e->obj);
-	if (koopa->GetState() != KOOPA_STATE_DIE)
+	if (koopa->GetState() != KOOPA_STATE_DIE && koopa != this)
 	{
 		koopa->SetDirection(e->nx);
 		koopa->SetState(KOOPA_STATE_DIE);
+		if (this->state == KOOPA_STATE_PICKED_UP)
+		{
+			this->SetDirection(-e->nx);
+			this->SetState(KOOPA_STATE_DIE);
+		}
 	}
 }
 
@@ -152,11 +167,9 @@ void Koopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if ((state == KOOPA_STATE_WAKE_UP) && (GetTickCount64() - wakeup_start > KOOPA_WAKE_UP_TIMEOUT))
 	{
 		isUpsideDown = false;
-		// push koopa up a bit so it not stuck under ground
-		y -= (KOOPA_BBOX_HEIGHT - KOOPA_BBOX_HEIGHT_HIDE)/2;
 		SetState(KOOPA_STATE_WALKING);
 	}
-	DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f", x, y, vx, vy, ax, ay);
+	//DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f", x, y, vx, vy, ax, ay);
 	Collision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -165,9 +178,9 @@ void Koopa::Render()
 {
 	string aniId;
 	if (!isUpsideDown)
-		aniId = GetAniId();
+		aniId = this->GetAniId();
 	else
-		aniId = GetAniIdUpsideDown();
+		aniId = this->GetAniIdUpsideDown();
 	Animations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
 }
@@ -185,6 +198,8 @@ void Koopa::SetState(int state)
 
 		break;
 	case KOOPA_STATE_WALKING:
+		ay = KOOPA_GRAVITY;
+		y -= (KOOPA_BBOX_HEIGHT - KOOPA_BBOX_HEIGHT_HIDE) / 2;
 		vx = -KOOPA_WALKING_SPEED ;
 		break;
 	case KOOPA_STATE_WAKE_UP:
@@ -207,7 +222,8 @@ void Koopa::SetState(int state)
 		break;
 	case KOOPA_STATE_DIE:			
 		die_start = GetTickCount64();
-		vy = -KOOPA_DIE_Y;
+		vy = -KOOPA_DIE_Y;		
+		ay = KOOPA_GRAVITY;
 		vx = KOOPA_TAIL_WHOOP_SPEED_X * -nx;
 		break;
 	}

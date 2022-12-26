@@ -14,7 +14,7 @@ void Animation::Add(string spriteId, DWORD time)
 	frames.push_back(frame);
 }
 
-void Animation::Render(float x, float y)
+void Animation::Render(float x, float y, bool stopMoving)
 {
 	ULONGLONG now = GetTickCount64();
 	if (currentFrame == -1)
@@ -24,14 +24,17 @@ void Animation::Render(float x, float y)
 	}
 	else
 	{
-		DWORD t = frames[currentFrame]->GetTime();
-		if (now - lastFrameTime > t)
+		if (!Game::GetInstance()->GetCurrentScene()->IsPause() || !stopMoving)
 		{
-			currentFrame++;
-			lastFrameTime = now;
-			if (currentFrame == frames.size()) currentFrame = 0;
-		}
+			DWORD t = frames[currentFrame]->GetTime();
+			if (now - lastFrameTime > t)
+			{
+				currentFrame++;
+				lastFrameTime = now;
+				if (currentFrame == frames.size()) currentFrame = 0;
+			}
 
+		}
 	}
 
 	frames[currentFrame]->GetSprite()->Draw(x, y);

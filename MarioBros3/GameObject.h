@@ -53,7 +53,7 @@ public:
 	//
 	// Collision ON or OFF ? This can change depending on object's state. For example: die
 	//
-	virtual int IsCollidable() { return 0; };
+	virtual int IsCollidable() { return 1; };
 
 	// Laser still collidable but go through platform
 	virtual int IsGoThrough(){ return 0; };

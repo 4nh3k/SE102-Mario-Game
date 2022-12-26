@@ -16,22 +16,37 @@
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if (abs(vx) > abs(maxVx) && !isSitting)
-		vx = maxVx;
-
-	if (isSitting)
+	if ((vx <= 0 && nx>0) || (vx >= 0 && nx < 0))
 	{
-		if ((vx <= 0 && nx>0) || (vx >= 0 && nx < 0))
+		if (isSitting)
 		{
 			vx = 0;
 			ax = 0;
 		}
 	}
-	if (GetTickCount64() - flyTimer > MARIO_FLY_TIMEOUT)
+	if (abs(vx) >= MARIO_RUNNING_SPEED && !startRunning)
+	{
+		startRunning = true;
+		runTimer = GetTickCount64();
+	}
+	else
+	{
+		if(abs(vx)< MARIO_RUNNING_SPEED)
+			startRunning = false;
+	}
+	if (GetTickCount64() - runTimer > MARIO_RUN_TIMEOUT && startRunning)
+	{
+		runTimer = 0;
+		startRunning = false;
+		isRunningFast = true;
+	}
+	if (abs(vx) > abs(maxVx) && !isSitting)
+		vx = maxVx;
+
+	if (GetTickCount64() - flyTimer > MARIO_FLY_TIMEOUT && isFlying)
 	{
 		flyTimer = 0;
 		isFlying = false;
@@ -43,13 +58,13 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
-	if (GetTickCount64() - kickTimer > MARIO_KICK_TIMEOUT)
+	if (GetTickCount64() - kickTimer > MARIO_KICK_TIMEOUT && isKicking)
 	{
 		kickTimer = 0;
 		isKicking = false;
 	}
 
-	if (GetTickCount64() - tailTimer > MARIO_TAIL_WHACK_TIMEOUT)
+	if (GetTickCount64() - tailTimer > MARIO_TAIL_WHACK_TIMEOUT && isTailWhack)
 	{
 		isTailWhack = false;
 		// end tail whack delete tail
@@ -60,6 +75,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 	isOnPlatform = false;
+	DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunning: %d, isWalking: %d", x, y, vx, vy, ax, ay, isRunningFast, startRunning);
 
 	Collision::GetInstance()->Process(this, dt, coObjects);
 	// set hold obj pos after x, y update
@@ -88,6 +104,17 @@ void Mario::HoldingObjUpdate()
 			holdingObj->SetPosition(x + offsetX, y - MARIO_HOLDING_OFFSET_Y);
 		else
 			holdingObj->SetPosition(x - offsetX, y - MARIO_HOLDING_OFFSET_Y);
+		if (holdingObj->GetState() == KOOPA_STATE_DIE)
+		{
+			isHolding = false;
+			holdingObj = NULL;
+		}
+		else if (holdingObj->GetState() == KOOPA_STATE_WALKING)
+		{
+			isHolding = false;
+			holdingObj = NULL;
+			GetHitFromEnemy();
+		}
 	}
 }
 
@@ -138,14 +165,12 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void Mario::OnCollisionWithLaser(LPCOLLISIONEVENT e)
 {
-	if(untouchable == 0)
 		GetHitFromEnemy();
 }
 
 void Mario::OnCollisionWithVenus(LPCOLLISIONEVENT e)
 {
-	if(untouchable == 0)
-		GetHitFromEnemy();
+	GetHitFromEnemy();
 }
 
 void Mario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
@@ -176,6 +201,7 @@ void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 		}
 		else
 		{
+			if (isHolding && this->holdingObj == koopa) return;
 			if (this->x > koopaX)
 			{
 				koopa->SetDirection(-1);
@@ -201,12 +227,9 @@ void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	}
 	else 
 	{
-		if (untouchable == 0)
+		if (koopa->GetState() != KOOPA_STATE_HIDE)
 		{
-			if (koopa->GetState() != KOOPA_STATE_HIDE)
-			{
-				GetHitFromEnemy();
-			}
+			GetHitFromEnemy();
 		}
 	}
 }
@@ -248,12 +271,9 @@ void Mario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 	else // hit by Goomba
 	{
-		if (untouchable == 0)
+		if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
-			if (goomba->GetState() != GOOMBA_STATE_DIE)
-			{
-				GetHitFromEnemy();
-			}
+			GetHitFromEnemy();
 		}
 	}
 }
@@ -272,6 +292,7 @@ void Mario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 
 void Mario::GetHitFromEnemy()
 {
+	if (untouchable != 0) return;
 	if (level > MARIO_LEVEL_SMALL)
 	{
 		if (level == MARIO_LEVEL_TANOOKI)
@@ -305,7 +326,7 @@ string Mario::GetAniIdSmall()
 			else
 				aniId = ID_ANI_MARIO_SMALL_JUMP_HOLD_LEFT;
 		}
-		else if (abs(ax) == MARIO_ACCEL_RUN_X)
+		else if (isRunningFast)
 		{
 			if (nx >= 0)
 				aniId = ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT;
@@ -340,25 +361,25 @@ string Mario::GetAniIdSmall()
 			}
 			else if (vx > 0)
 			{
+				if (ax < 0)
+					aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
+				else if (isRunningFast)
+					aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
 				if (isHolding)
 					aniId = ID_ANI_MARIO_SMALL_RUN_HOLD_RIGHT;
-				else if (ax < 0)
-					aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
 			}
 			else // vx < 0
 			{
+				if (ax > 0)
+					aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
+				else if (isRunningFast)
+					aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
+				else
+					aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
 				if (isHolding)
 					aniId = ID_ANI_MARIO_SMALL_RUN_HOLD_LEFT;
-				else if (ax > 0)
-					aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
 			}
 	if (isKicking)
 	{
@@ -386,7 +407,7 @@ string Mario::GetAniIdBig()
 			else
 				aniId = ID_ANI_MARIO_JUMP_HOLD_LEFT;
 		}
-		else if (abs(ax) == MARIO_ACCEL_RUN_X)
+		else if (isRunningFast)
 		{
 			if (nx >= 0)
 				aniId = ID_ANI_MARIO_JUMP_RUN_RIGHT;
@@ -431,33 +452,38 @@ string Mario::GetAniIdBig()
 			}
 			else if (vx > 0)
 			{
+				if (ax < 0)
+					aniId = ID_ANI_MARIO_BRACE_RIGHT;
+				else if (isRunningFast)
+					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_WALKING_RIGHT;
 				if (isHolding)
 					aniId = ID_ANI_MARIO_RUN_HOLD_RIGHT;
-				else if (ax < 0)
-					aniId = ID_ANI_MARIO_BRACE_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_WALKING_RIGHT;
 			}
 			else // vx < 0
 			{
+				if (ax > 0)
+					aniId = ID_ANI_MARIO_BRACE_LEFT;
+				else if (isRunningFast)
+					aniId = ID_ANI_MARIO_RUNNING_LEFT;
+				else
+					aniId = ID_ANI_MARIO_WALKING_LEFT;
 				if (isHolding)
 					aniId = ID_ANI_MARIO_RUN_HOLD_LEFT;
-				else if (ax > 0)
-					aniId = ID_ANI_MARIO_BRACE_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_WALKING_LEFT;
 			}
 	if (isKicking)
 	{
 		if (nx > 0) aniId = ID_ANI_MARIO_KICK_RIGHT;
 		else aniId = ID_ANI_MARIO_KICK_LEFT;
 	}
+	if (state == MARIO_STATE_GROW_UP)
+	{
+		if (nx > 0) aniId = ID_ANI_MARIO_GROW_UP_RIGHT;
+		else aniId = ID_ANI_MARIO_GROW_UP_LEFT;
+	}
 	if (aniId == "1") aniId = ID_ANI_MARIO_IDLE_RIGHT;
-
+	
 	return aniId;
 }
 
@@ -476,7 +502,7 @@ string Mario::GetAniIdTanooki()
 			else
 				aniId = ID_ANI_MARIO_TANOOKI_JUMP_HOLD_LEFT;
 		}
-		else if (abs(ax) == MARIO_ACCEL_RUN_X)
+		else if (isRunningFast)
 		{
 			if (isFlying)
 				if (nx >= 0)
@@ -530,25 +556,27 @@ string Mario::GetAniIdTanooki()
 			}
 			else if (vx > 0)
 			{
+				if (ax < 0)
+					aniId = ID_ANI_MARIO_TANOOKI_BRACE_RIGHT;
+				else 
+					if (isRunningFast)
+						aniId = ID_ANI_MARIO_TANOOKI_RUNNING_RIGHT;
+					else
+						aniId = ID_ANI_MARIO_TANOOKI_WALKING_RIGHT;
 				if (isHolding)
 					aniId = ID_ANI_MARIO_TANOOKI_RUN_HOLD_RIGHT;
-				else if (ax < 0)
-					aniId = ID_ANI_MARIO_TANOOKI_BRACE_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_TANOOKI_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_TANOOKI_WALKING_RIGHT;
 			}
 			else // vx < 0
 			{
+				if (ax > 0)
+					aniId = ID_ANI_MARIO_TANOOKI_BRACE_LEFT;
+				else 
+					if(isRunningFast)
+						aniId = ID_ANI_MARIO_TANOOKI_RUNNING_LEFT;
+					else
+						aniId = ID_ANI_MARIO_TANOOKI_WALKING_LEFT;
 				if (isHolding)
 					aniId = ID_ANI_MARIO_TANOOKI_RUN_HOLD_LEFT;
-				else if (ax > 0)
-					aniId = ID_ANI_MARIO_TANOOKI_BRACE_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_TANOOKI_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_TANOOKI_WALKING_LEFT;
 			}
 	if (isKicking)
 	{
@@ -579,7 +607,7 @@ void Mario::Render()
 	else if (level == MARIO_LEVEL_TANOOKI)
 		aniId = GetAniIdTanooki();
 
-	animations->Get(aniId)->Render(x, y);
+	animations->Get(aniId)->Render(x, y,false);
 
 	RenderBoundingBox();
 	
@@ -590,30 +618,37 @@ void Mario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return; 
+	if (this->state == MARIO_STATE_GROW_UP && GetTickCount64() - changeFormTimer < MARIO_GROW_UP_TIMEOUT) return;
+	else
+	{
+		if (this->state == MARIO_STATE_GROW_UP && GetTickCount64() - changeFormTimer > MARIO_GROW_UP_TIMEOUT)
+			Game::GetInstance()->GetCurrentScene()->Continue();
+	}
+
 
 	switch (state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
 		if (isSitting) break;
 		maxVx = MARIO_RUNNING_SPEED;
-		ax = MARIO_ACCEL_RUN_X;
+		ax = MARIO_ACCEL_WALK_X;
 		nx = 1;
 		break;
 	case MARIO_STATE_RUNNING_HOLD_RIGHT:
 		maxVx = MARIO_RUNNING_SPEED;
-		ax = MARIO_ACCEL_RUN_X;
+		ax = MARIO_ACCEL_WALK_X;
 		nx = 1;
 		break;
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_RUNNING_SPEED;
-		ax = -MARIO_ACCEL_RUN_X;
+		ax = -MARIO_ACCEL_WALK_X;
 		nx = -1;
 		break;
 	case MARIO_STATE_RUNNING_HOLD_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_RUNNING_SPEED;
-		ax = -MARIO_ACCEL_RUN_X;
+		ax = -MARIO_ACCEL_WALK_X;
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
@@ -622,19 +657,7 @@ void Mario::SetState(int state)
 		ax = MARIO_ACCEL_WALK_X;
 		nx = 1;
 		break;
-	case MARIO_STATE_WALKING_HOLD_RIGHT:
-		if (isSitting) break;
-		maxVx = MARIO_WALKING_SPEED;
-		ax = MARIO_ACCEL_WALK_X;
-		nx = 1;
-		break;
 	case MARIO_STATE_WALKING_LEFT:
-		if (isSitting) break;
-		maxVx = -MARIO_WALKING_SPEED;
-		ax = -MARIO_ACCEL_WALK_X;
-		nx = -1;
-		break;
-	case MARIO_STATE_WALKING_HOLD_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_WALKING_SPEED;
 		ax = -MARIO_ACCEL_WALK_X;
@@ -669,9 +692,10 @@ void Mario::SetState(int state)
 		}
 		break;
 	case MARIO_STATE_FLY:
+		if (isHolding) return;
 		isFlying = true;
 		flyTimer = GetTickCount64();
-		if (abs(this->vx) == MARIO_RUNNING_SPEED)
+		if (isRunningFast)
 			vy = -MARIO_FLY_SPEED_Y;
 		else
 			vy = MARIO_FALL_DONW_SPEED_Y;
@@ -715,10 +739,15 @@ void Mario::SetState(int state)
 		vx = 0;
 		ax = 0;
 		break;
+	case MARIO_STATE_RELEASE_RUN:
+		isRunningFast = false;
+		break;
+	case MARIO_STATE_GROW_UP:
+		changeFormTimer = GetTickCount64();
+		break;
 	}
 	GameObject::SetState(state);
 }
-
 void Mario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	if (level==MARIO_LEVEL_BIG || level == MARIO_LEVEL_TANOOKI)
@@ -777,6 +806,8 @@ void Mario::SetLevel(int l)
 	// Adjust position to avoid falling off platform
 	if (this->level == MARIO_LEVEL_SMALL)
 	{
+		this->SetState(MARIO_STATE_GROW_UP);
+		Game::GetInstance()->GetCurrentScene()->Pause();
 		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 	}
 	level = l;

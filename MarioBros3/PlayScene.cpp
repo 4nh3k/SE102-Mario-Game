@@ -85,12 +85,12 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			if (player != NULL)
 			{
 				DebugOut(L"[ERROR] MARIO object was created before!\n");
-				return;
+				continue;
 			}
 			gameObj = new Mario(pos.x, pos.y);
 			player = (Mario*)gameObj;
-
 			DebugOut(L"[INFO] Player object has been created!\n");
+			continue;
 		}
 		else if (obj.getName() == "Brick")
 		{
@@ -201,6 +201,8 @@ void PlayScene::Load()
 
 void PlayScene::Update(DWORD dt)
 {
+	if (this->IsPause()) 
+		return;
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	vector<LPGAMEOBJECT> coObjects;
@@ -210,8 +212,8 @@ void PlayScene::Update(DWORD dt)
 	}
 	for (size_t i = 0; i < gameObjects.size(); i++)
 	{
-		if(!dynamic_cast<Mario*>(gameObjects[i]))
-			coObjects.push_back(gameObjects[i]);
+		//if(dynamic_cast<Mario*>(gameObjects[i]))
+		coObjects.push_back(gameObjects[i]);
 	}
 	for (auto& obj : lowLayer)
 	{
@@ -224,7 +226,10 @@ void PlayScene::Update(DWORD dt)
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
 	if (player == NULL) return; 
-
+	else
+	{
+		player->Update(dt, &coObjects);
+	}
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
@@ -252,6 +257,8 @@ void PlayScene::Update(DWORD dt)
 
 void PlayScene::Render()
 {
+	//if (this->IsPause()) 
+	//	return;
 	for (auto& obj : lowLayer)
 	{
 		obj->Render();
@@ -266,6 +273,8 @@ void PlayScene::Render()
 	}
 	for (int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Render();
+	if (player != NULL) 
+		player->Render();
 }
 /*
 *	Clear all objects from this scene
