@@ -114,11 +114,14 @@ void Koopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	{
 		goomba->nx = e->nx;
 		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE_DOWN);
-		if (this->state == KOOPA_STATE_PICKED_UP)
+		if (sfx == NULL)
 		{
-			this->SetDirection(-e->nx);
-			this->SetState(KOOPA_STATE_DIE);
+			float tmpx, tmpy;
+			goomba->GetPosition(tmpx, tmpy);
+			sfx = new SFX(tmpx, tmpy, ID_ANI_HIT);
+			Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
 		}
+
 	}
 }
 void Koopa::OnCollisionWithVenus(LPCOLLISIONEVENT e)
@@ -145,6 +148,13 @@ void Koopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 		{
 			this->SetDirection(-e->nx);
 			this->SetState(KOOPA_STATE_DIE);
+		}
+		if (sfx == NULL)
+		{
+			float tmpx, tmpy;
+			koopa->GetPosition(tmpx, tmpy);
+			sfx = new SFX(tmpx, tmpy, ID_ANI_HIT);
+			Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-#define GOOMBA_GRAVITY 0.002f
+#define GOOMBA_GRAVITY 0.0008f
 #define GOOMBA_WALKING_SPEED 0.03f
 #define GOOBA_DIE_SPEED_Y 0.25f
 #define GOOBA_DIE_SPEED_X 0.1f
@@ -25,6 +25,8 @@ class Goomba : public GameObject
 protected:
 	float ax;				
 	float ay; 
+
+	bool isOnPlatform;
 
 	ULONGLONG die_start;
 

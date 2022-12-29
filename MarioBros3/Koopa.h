@@ -1,8 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
-#pragma once
-#include "GameObject.h"
+#include "SFX.h"
 
 #define KOOPA_GRAVITY 0.002f
 #define KOOPA_WALKING_SPEED 0.03f
@@ -45,6 +43,7 @@ protected:
 	float ay;
 	int nx;
 
+	LPGAMEOBJECT sfx;
 
 	bool isUpsideDown;
 	ULONGLONG hide_start;

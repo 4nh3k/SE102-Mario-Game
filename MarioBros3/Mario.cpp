@@ -1,9 +1,8 @@
 #include <algorithm>
 #include "debug.h"
-
 #include "Mario.h"
 #include "Game.h"
-
+#include "OneUpMushroom.h"
 #include "Goomba.h"
 #include "Koopa.h"
 #include "Coin.h"
@@ -13,6 +12,7 @@
 #include "SuperLeaf.h"
 #include "Laser.h"
 #include "SFX.h"
+#include "ParaGoomba.h"
 #include "VenusFireTrap.h"
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -250,6 +250,11 @@ void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 void Mario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
 	Mushroom* mushroom = dynamic_cast<Mushroom*>(e->obj);
+	if (dynamic_cast<OneUpMushroom*>(e->obj))
+	{
+		mushroom->Delete();
+		return;
+	}
 	if (level == MARIO_LEVEL_SMALL && mushroom->IsCollidable())
 	{
 		mushroom->Delete();
@@ -272,7 +277,11 @@ void Mario::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)
 void Mario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	Goomba* goomba = dynamic_cast<Goomba*>(e->obj);
-
+	if (dynamic_cast<ParaGoomba*>(e->obj))
+	{
+		OnCollisionWithParaGoomba(e);
+		return;
+	}
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
@@ -281,6 +290,28 @@ void Mario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 			goomba->SetState(GOOMBA_STATE_DIE);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
+	}
+	else // hit by Goomba
+	{
+		if (goomba->GetState() != GOOMBA_STATE_DIE)
+		{
+			GetHitFromEnemy();
+		}
+	}
+}
+
+void Mario::OnCollisionWithParaGoomba(LPCOLLISIONEVENT e)
+{
+	ParaGoomba* goomba = dynamic_cast<ParaGoomba*>(e->obj);
+	if (e->ny < 0)
+	{
+		if (goomba->HasWing())
+			goomba->SetWing(false);
+		else if (goomba->GetState() != GOOMBA_STATE_DIE)
+		{
+			goomba->SetState(GOOMBA_STATE_DIE);
+		}
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
 	}
 	else // hit by Goomba
 	{

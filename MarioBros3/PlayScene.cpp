@@ -17,7 +17,9 @@
 #include "Goomba.h"
 #include "RedKoopa.h"
 #include "VenusFireTrap.h"
+#include "RewardBrick.h"
 #include "SampleKeyEventHandler.h"
+#include "ParaGoomba.h"
 
 using namespace std;
 
@@ -99,8 +101,7 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		else if (obj.getName() == "Question Block")
 		{
 			int reward_id = GetProperty(obj, PROP_ID_REWARD);
-			QuestionBlock* qblock = new QuestionBlock(pos.x, pos.y, reward_id);
-			gameObj = qblock;
+			gameObj = new QuestionBlock(pos.x, pos.y, reward_id);;
 		}
 		else if (obj.getName() == "Portal")
 		{
@@ -120,6 +121,15 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			gameObj = new VenusFireTrap(pos.x, pos.y);
 			lowLayer.push_back(gameObj);
 			continue;
+		}
+		else if (obj.getName() == "Reward Brick")
+		{
+			int reward_id = GetProperty(obj, PROP_ID_REWARD);
+			gameObj = new RewardBrick(pos.x, pos.y, reward_id);
+		}
+		else if (obj.getName() == "ParaGoomba")
+		{
+			gameObj = new ParaGoomba(pos.x, pos.y);
 		}
 		//gameObj->SetPosition(10.0f, 01.0f);
 		gameObjects.push_back(gameObj);

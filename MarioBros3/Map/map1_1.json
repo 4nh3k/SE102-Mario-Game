@@ -287,6 +287,18 @@
                          "width":0,
                          "x":888.666666666667,
                          "y":393.666666666667
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":162,
+                         "name":"ParaGoomba",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":1757.75,
+                         "y":405.166666666667
                         }],
                  "opacity":1,
                  "properties":[
@@ -954,7 +966,7 @@
                          "class":"",
                          "height":0,
                          "id":158,
-                         "name":"Question Block",
+                         "name":"Reward Brick",
                          "point":true,
                          "properties":[
                                 {
@@ -1302,8 +1314,8 @@
                          "rotation":0,
                          "visible":true,
                          "width":19.0909090909091,
-                         "x":41.2727272727273,
-                         "y":387.090909090909
+                         "x":1665.27272727273,
+                         "y":328.424242424242
                         }],
                  "opacity":1,
                  "properties":[
@@ -1331,7 +1343,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":162,
+ "nextobjectid":163,
  "orientation":"orthogonal",
  "properties":[
         {

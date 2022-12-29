@@ -168,6 +168,9 @@
     <ClCompile Include="SFX.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="ParaGoomba.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -289,6 +292,15 @@
     </ClInclude>
     <ClInclude Include="SFX.h">
       <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="OneUpMushroom.h">
+      <Filter>Header Files\Misc\QuestionBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="RewardBrick.h">
+      <Filter>Header Files\Misc\QuestionBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="ParaGoomba.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

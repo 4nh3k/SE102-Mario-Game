@@ -37,9 +37,13 @@ void Goomba::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (!e->obj->IsBlocking(e->nx,e->ny)) return; 
 	if (dynamic_cast<Goomba*>(e->obj)) return; 
 
-	if (e->ny != 0 )
+	if (e->ny != 0 && e->obj->IsBlocking(e->nx, e->ny))
 	{
-		vy = 0;
+		vy = 0.0f;
+		if (e->ny < 0)
+		{
+			isOnPlatform = true;
+		}
 	}
 	else if (e->nx != 0)
 	{
@@ -58,7 +62,6 @@ void Goomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		return;
 	}
 
-	GameObject::Update(dt, coObjects);
 	Collision::GetInstance()->Process(this, dt, coObjects);
 }
 

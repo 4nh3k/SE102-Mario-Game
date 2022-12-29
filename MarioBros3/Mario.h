@@ -41,6 +41,7 @@ class Mario : public GameObject
 
 	void GetHitFromEnemy();
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	void OnCollisionWithParaGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);

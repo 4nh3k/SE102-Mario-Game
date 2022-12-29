@@ -1,6 +1,7 @@
 #include "QuestionBlock.h"
 #include "RewardCoin.h"
 #include "Mushroom.h"
+#include "OneUpMushroom.h"
 #include "SuperLeaf.h"
 #include "Mario.h"
 
@@ -77,7 +78,11 @@ LPGAMEOBJECT QuestionBlock::GetReward()
 	case ID_REWARD_SUPER_LEAF:
 		this->reward = new SuperLeaf(x, y);
 		break;
+	case ID_REWARD_1UP_MUSHROOM:
+		this->reward = new OneUpMushroom(x, y);
+		break;
 	default:
+		this->reward = new RewardCoin(x, y);
 		break;
 	}
 	Game::GetInstance()->GetCurrentScene()->AddObject(this->reward);
