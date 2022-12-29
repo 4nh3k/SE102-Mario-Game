@@ -101,7 +101,7 @@
          "name":"Background",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":176,
          "x":0,
          "y":0
@@ -153,7 +153,7 @@
          "name":"Platform",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":176,
          "x":0,
          "y":0
@@ -205,7 +205,7 @@
          "name":"Shadow",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":176,
          "x":0,
          "y":0
@@ -261,8 +261,32 @@
                          "rotation":0,
                          "visible":true,
                          "width":0,
-                         "x":498,
-                         "y":404.75
+                         "x":536.666666666667,
+                         "y":407.75
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":159,
+                         "name":"Goomba",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":839.666666666667,
+                         "y":393.333333333333
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":160,
+                         "name":"Goomba",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":888.666666666667,
+                         "y":393.666666666667
                         }],
                  "opacity":1,
                  "properties":[
@@ -285,25 +309,13 @@
                          "class":"",
                          "height":0,
                          "id":151,
-                         "name":"Koopa",
+                         "name":"RedKoopa",
                          "point":true,
                          "rotation":0,
                          "visible":true,
                          "width":0,
                          "x":587,
                          "y":366
-                        }, 
-                        {
-                         "class":"",
-                         "height":0,
-                         "id":152,
-                         "name":"Koopa",
-                         "point":true,
-                         "rotation":0,
-                         "visible":true,
-                         "width":0,
-                         "x":561.5,
-                         "y":281.75
                         }],
                  "opacity":1,
                  "type":"objectgroup",
@@ -948,7 +960,7 @@
                                 {
                                  "name":"reward_id",
                                  "type":"int",
-                                 "value":1
+                                 "value":3
                                 }],
                          "rotation":0,
                          "visible":true,
@@ -1319,7 +1331,7 @@
          "y":0
         }],
  "nextlayerid":20,
- "nextobjectid":159,
+ "nextobjectid":162,
  "orientation":"orthogonal",
  "properties":[
         {

@@ -12,6 +12,7 @@
 #include "Collision.h"
 #include "SuperLeaf.h"
 #include "Laser.h"
+#include "SFX.h"
 #include "VenusFireTrap.h"
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -75,8 +76,8 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 	isOnPlatform = false;
-	DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunning: %d, isWalking: %d", x, y, vx, vy, ax, ay, isRunningFast, startRunning);
-
+	//DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunning: %d, isWalking: %d", x, y, vx, vy, ax, ay, isRunningFast, startRunning);
+	DebugOutTitle(L"coin: %d, point: %d", coin, point);
 	Collision::GetInstance()->Process(this, dt, coObjects);
 	// set hold obj pos after x, y update
 	TailUpdate();
@@ -100,10 +101,22 @@ void Mario::HoldingObjUpdate()
 	if (isHolding)
 	{
 		int offsetX = (level == MARIO_LEVEL_TANOOKI) ? MARIO_TANOOKI_HOLDING_OFFSET_X : MARIO_HOLDING_OFFSET_X;
-		if (nx > 0)
+		if (vx == 0 || !isOnPlatform)
+		{
+			if (nx >= 0)
+				holdingObj->SetPosition(x + offsetX, y - MARIO_HOLDING_OFFSET_Y);
+			else
+				holdingObj->SetPosition(x - offsetX, y - MARIO_HOLDING_OFFSET_Y);
+		}
+		else if (vx > 0)
+		{
 			holdingObj->SetPosition(x + offsetX, y - MARIO_HOLDING_OFFSET_Y);
+		}
 		else
+		{
 			holdingObj->SetPosition(x - offsetX, y - MARIO_HOLDING_OFFSET_Y);
+
+		}
 		if (holdingObj->GetState() == KOOPA_STATE_DIE)
 		{
 			isHolding = false;
@@ -597,7 +610,23 @@ void Mario::Render()
 {
 	Animations* animations = Animations::GetInstance();
 	string aniId = "1";
+	if (!flickering && untouchable == 1)
+	{
+		flickering = true;
+	}
+	else if(flickering )
+	{
+		if (untouchable == 1)
+		{
+			flickering = false;
+			return;
+		}
+		if (level == MARIO_LEVEL_TANOOKI)
+		{
+			return;
+		}
 
+	}
 	if (state == MARIO_STATE_DIE)
 		aniId = ID_ANI_MARIO_DIE;
 	else if (level == MARIO_LEVEL_BIG)
@@ -606,8 +635,9 @@ void Mario::Render()
 		aniId = GetAniIdSmall();
 	else if (level == MARIO_LEVEL_TANOOKI)
 		aniId = GetAniIdTanooki();
+	float xOffset = (level == MARIO_LEVEL_TANOOKI) ? 3 * -nx : 0;
 
-	animations->Get(aniId)->Render(x, y,false);
+	animations->Get(aniId)->Render(x + xOffset , y,false);
 
 	RenderBoundingBox();
 	
@@ -622,7 +652,10 @@ void Mario::SetState(int state)
 	else
 	{
 		if (this->state == MARIO_STATE_GROW_UP && GetTickCount64() - changeFormTimer > MARIO_GROW_UP_TIMEOUT)
+		{
 			Game::GetInstance()->GetCurrentScene()->Continue();
+			flickering = false;
+		}
 	}
 
 
@@ -762,8 +795,7 @@ void Mario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 		else 
 		{
 			// correct bounding box for tanooki
-			float xOffset = (level == MARIO_LEVEL_TANOOKI) ? 3 * nx : 0;
-			left =(x + xOffset) - MARIO_BIG_BBOX_WIDTH/2 ;
+			left =(x ) - MARIO_BIG_BBOX_WIDTH/2 ;
 			top = y - MARIO_BIG_BBOX_HEIGHT/2;
 			right = left + MARIO_BIG_BBOX_WIDTH;
 			bottom = top + MARIO_BIG_BBOX_HEIGHT;
@@ -778,28 +810,28 @@ void Mario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	}
 }
 
-void Mario::RenderBoundingBox()
-{
-	D3DXVECTOR3 p(x, y, 0);
-	RECT rect;
-
-	LPTEXTURE bbox = Textures::GetInstance()->Get(ID_TEX_BBOX);
-
-	float l, t, r, b;
-
-	GetBoundingBox(l, t, r, b);
-	rect.left = 0;
-	rect.top = 0;
-	rect.right = (int)r - (int)l;
-	rect.bottom = (int)b - (int)t;
-
-	float cx, cy;
-	Game::GetInstance()->GetCamera()->GetCamPos(cx, cy);
-
-	float xOffset = (level == MARIO_LEVEL_TANOOKI) ? 3 * nx : 0;
-
-	Game::GetInstance()->Draw(x + xOffset - cx, y - cy, bbox, &rect, BBOX_ALPHA);
-}
+//void Mario::RenderBoundingBox()
+//{
+//	D3DXVECTOR3 p(x, y, 0);
+//	RECT rect;
+//
+//	LPTEXTURE bbox = Textures::GetInstance()->Get(ID_TEX_BBOX);
+//
+//	float l, t, r, b;
+//
+//	GetBoundingBox(l, t, r, b);
+//	rect.left = 0;
+//	rect.top = 0;
+//	rect.right = (int)r - (int)l;
+//	rect.bottom = (int)b - (int)t;
+//
+//	float cx, cy;
+//	Game::GetInstance()->GetCamera()->GetCamPos(cx, cy);
+//
+//	float xOffset = (level == MARIO_LEVEL_TANOOKI) ? 3 * nx : 0;
+//
+//	Game::GetInstance()->Draw(x + xOffset - cx, y - cy, bbox, &rect, BBOX_ALPHA);
+//}
 
 void Mario::SetLevel(int l)
 {
@@ -809,6 +841,15 @@ void Mario::SetLevel(int l)
 		this->SetState(MARIO_STATE_GROW_UP);
 		Game::GetInstance()->GetCurrentScene()->Pause();
 		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
+	}
+	if (l == MARIO_LEVEL_TANOOKI)
+	{
+		flickering = true;
+		this->SetState(MARIO_STATE_GROW_UP);
+		LPGAMEOBJECT sfx = new SFX(x, y, ID_ANI_VANISH);
+		Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
+		Game::GetInstance()->GetCurrentScene()->Pause();
+		
 	}
 	level = l;
 }

@@ -19,6 +19,7 @@ class Mario : public GameObject
 	BOOLEAN isFlying;
 	BOOLEAN isRunningFast;
 	BOOLEAN startRunning;
+	BOOLEAN flickering;
 
 	float maxVx;
 	float ax;				// acceleration on x 
@@ -32,6 +33,7 @@ class Mario : public GameObject
 	ULONGLONG changeFormTimer;
 
 	int coin; 
+	int point;
 	int level; 
 	int untouchable; 
 	LPGAMEOBJECT holdingObj;
@@ -70,12 +72,13 @@ public:
 		isOnPlatform = false;
 		isKicking = false;
 		isTailWhack = false;
+		flickering = false;
 		flyTimer = 0;
 		kickTimer = 0;
 		tailTimer = 0;
 		runTimer = -1;
 		changeFormTimer = 0;
-		level = MARIO_LEVEL_BIG;
+		level = MARIO_LEVEL_SMALL;
 		tail = NULL;
 		untouchable = 0;
 		untouchable_start = -1;
@@ -103,6 +106,6 @@ public:
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 
-	void RenderBoundingBox();
+	//void RenderBoundingBox();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

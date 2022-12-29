@@ -184,6 +184,7 @@
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="RewardCoin.cpp" />
     <ClCompile Include="SampleKeyEventHandler.cpp" />
+    <ClCompile Include="SFX.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="SuperLeaf.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="RewardCoin.h" />
     <ClInclude Include="SampleKeyEventHandler.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SFX.h" />
     <ClInclude Include="SpecialPlatform.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Sprites.h" />

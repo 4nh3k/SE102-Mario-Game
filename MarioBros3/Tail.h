@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 #include "MarioConst.h"
+#include "SFX.h"
+
 #define TAIL_WIDTH 11
 #define TAIL_HEIGHT 4
 #define TAIL_WHACK_SPEED 0.0f
@@ -10,6 +12,8 @@
 class Tail :
     public GameObject
 {	
+	LPGAMEOBJECT sfx;
+
 	float hasChangedSide = false;
 	float timer;
 	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
@@ -17,7 +21,7 @@ class Tail :
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 	void OnCollisionWithVenus(LPCOLLISIONEVENT e);
 public:
-	Tail(float x, float y) : GameObject(x, y) { };
+	Tail(float x, float y) : GameObject(x, y) { sfx = NULL; };
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);

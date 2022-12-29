@@ -39,6 +39,13 @@ void Tail::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	{
 		goomba->nx = e->nx;
 		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE_DOWN);
+		if (sfx == NULL)
+		{
+			float tmpx, tmpy;
+			goomba->GetPosition(tmpx, tmpy);
+			sfx = new SFX(tmpx, tmpy, ID_ANI_HIT);
+			Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
+		}
 	}
 }
 
@@ -48,6 +55,13 @@ void Tail::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	koopa->SetDirection(e->nx);
 	koopa->SetState(KOOPA_STATE_UPSIDE_DOWN);
 	koopa->SetState(KOOPA_STATE_HIDE);
+	if (sfx == NULL)
+	{
+		float tmpx, tmpy;
+		koopa->GetPosition(tmpx, tmpy);
+		sfx = new SFX(tmpx, tmpy, ID_ANI_HIT);
+		Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
+	}
 }
 
 void Tail::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)
@@ -68,6 +82,8 @@ void Tail::GetBoundingBox(float& l, float& t, float& r, float& b)
 }
 void Tail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if(sfx != NULL)
+		if (sfx->IsDeleted()) sfx = NULL;
 	Collision::GetInstance()->Process(this, dt, coObjects);
 
 }
