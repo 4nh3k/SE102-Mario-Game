@@ -118,6 +118,11 @@ void Koopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			float tmpx, tmpy;
 			goomba->GetPosition(tmpx, tmpy);
+			if (this->state == KOOPA_STATE_PICKED_UP)
+			{
+				this->SetDirection(-e->nx);
+				this->SetState(KOOPA_STATE_DIE);
+			}
 			sfx = new SFX(tmpx, tmpy, ID_ANI_HIT);
 			Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
 		}

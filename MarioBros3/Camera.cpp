@@ -1,4 +1,5 @@
 #include "Camera.h"
+
 RECT Camera::GetBound()
 {
 	RECT rect;

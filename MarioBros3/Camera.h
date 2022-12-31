@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+
 class Camera
 {
 	float cam_x = 0.0f;

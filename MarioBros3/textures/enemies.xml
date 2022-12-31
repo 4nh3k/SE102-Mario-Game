@@ -28,7 +28,7 @@
 </Animation>
 <Animation aniID="venus_idle_right_down" frameTime="100"><Frame name="venus_idle_right_down0000" x="20" y="0" width="16" height="32" />
 </Animation>
-<Animation aniID="paragoomba_fly" frameTime="100"><Frame name="paragoomba_fly0000" x="80" y="72" width="20" height="24" />
+<Animation aniID="paragoomba_fly" frameTime="50"><Frame name="paragoomba_fly0000" x="80" y="72" width="20" height="24" />
 <Frame name="paragoomba_fly0001" x="120" y="0" width="20" height="24" />
 <Frame name="paragoomba_fly0002" x="120" y="27" width="20" height="20" />
 <Frame name="paragoomba_fly0003" x="120" y="50" width="20" height="20" />

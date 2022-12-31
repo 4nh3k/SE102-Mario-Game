@@ -225,6 +225,7 @@ void PlayScene::Update(DWORD dt)
 		//if(dynamic_cast<Mario*>(gameObjects[i]))
 		coObjects.push_back(gameObjects[i]);
 	}
+
 	for (auto& obj : lowLayer)
 	{
 		obj->Update(dt, &coObjects);
