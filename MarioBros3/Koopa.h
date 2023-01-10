@@ -41,11 +41,14 @@ class Koopa : public GameObject
 protected:
 	float ax;
 	float ay;
+
+	int combo;
 	int nx;
 
 	LPGAMEOBJECT sfx;
 
 	bool isUpsideDown;
+
 	ULONGLONG hide_start;
 	ULONGLONG wakeup_start;	
 	ULONGLONG die_start;
@@ -64,7 +67,7 @@ protected:
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 	void OnCollisionWithVenus(LPCOLLISIONEVENT e);
 	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
-
+	void AddScore();
 
 public:
 	Koopa(float x, float y);

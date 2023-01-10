@@ -2,6 +2,7 @@
 #include "Goomba.h"
 #include "QuestionBlock.h"
 #include "Koopa.h"
+#include "Mario.h"
 #include "VenusFireTrap.h"
 
 void Tail::Render()
@@ -28,6 +29,15 @@ void Tail::OnCollisionWithVenus(LPCOLLISIONEVENT e)
 	VenusFireTrap* venus = dynamic_cast<VenusFireTrap*>(e->obj);
 	if (!venus->IsDeleted())
 	{
+		LPGAMEOBJECT player = Game::GetInstance()->GetCurrentScene()->GetPlayer();
+		dynamic_cast<Mario*>(player)->AddScore(x, y, 100);
+		if (sfx == NULL)
+		{
+			float tmpx, tmpy;
+			venus->GetPosition(tmpx, tmpy);
+			sfx = new SFX(tmpx, tmpy, ID_ANI_VANISH);
+			Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
+		}
 		venus->Delete();
 	}
 }
@@ -37,6 +47,8 @@ void Tail::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	Goomba* goomba = dynamic_cast<Goomba*>(e->obj);
 	if (goomba->GetState() != GOOMBA_STATE_DIE)
 	{
+		LPGAMEOBJECT player = Game::GetInstance()->GetCurrentScene()->GetPlayer();
+		dynamic_cast<Mario*>(player)->AddScore(x, y, 100);
 		goomba->nx = e->nx;
 		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE_DOWN);
 		if (sfx == NULL)

@@ -148,6 +148,7 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		{
 			// pull mario down, because to low gravity make it fail broad-phase test in collision 
 			//vy = 0.015f;
+			combo = 0;
 			isOnPlatform = true;
 		}
 	}
@@ -224,8 +225,10 @@ void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 			{
 				koopa->SetDirection(1);
 			}
-			if(isOnPlatform)
+			if (isOnPlatform)
 				this->SetState(MARIO_STATE_KICK);
+			if(combo!=0)
+				AddScore(x, y);
 			koopa->SetState(KOOPA_STATE_KICKED);
 		}
 		return;
@@ -233,6 +236,7 @@ void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
+		AddScore(x, y);
 		if (koopa->GetState() != KOOPA_STATE_HIDE)
 		{
 			koopa->SetState(KOOPA_STATE_HIDE);
@@ -292,7 +296,7 @@ void Mario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			goomba->SetState(GOOMBA_STATE_DIE);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
-			AddScore(x, y, 100);
+			AddScore(x, y);
 		}
 	}
 	else // hit by Goomba
@@ -309,13 +313,17 @@ void Mario::OnCollisionWithParaGoomba(LPCOLLISIONEVENT e)
 	ParaGoomba* goomba = dynamic_cast<ParaGoomba*>(e->obj);
 	if (e->ny < 0)
 	{
-		if (goomba->HasWing())
-			goomba->SetWing(false);
-		else if (goomba->GetState() != GOOMBA_STATE_DIE)
+		if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
+			AddScore(x, y);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			if (goomba->HasWing())
+			{
+				goomba->SetWing(false);
+				return;
+			}
 			goomba->SetState(GOOMBA_STATE_DIE);
 		}
-		vy = -MARIO_JUMP_DEFLECT_SPEED;
 	}
 	else // hit by Goomba
 	{
@@ -846,28 +854,40 @@ void Mario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 	}
 }
 
-//void Mario::RenderBoundingBox()
-//{
-//	D3DXVECTOR3 p(x, y, 0);
-//	RECT rect;
-//
-//	LPTEXTURE bbox = Textures::GetInstance()->Get(ID_TEX_BBOX);
-//
-//	float l, t, r, b;
-//
-//	GetBoundingBox(l, t, r, b);
-//	rect.left = 0;
-//	rect.top = 0;
-//	rect.right = (int)r - (int)l;
-//	rect.bottom = (int)b - (int)t;
-//
-//	float cx, cy;
-//	Game::GetInstance()->GetCamera()->GetCamPos(cx, cy);
-//
-//	float xOffset = (level == MARIO_LEVEL_TANOOKI) ? 3 * nx : 0;
-//
-//	Game::GetInstance()->Draw(x + xOffset - cx, y - cy, bbox, &rect, BBOX_ALPHA);
-//}
+int Mario::CalcPoint(int combo)
+{
+	int point = 0;
+	switch (combo)
+	{
+	case 1:
+		point = 100;
+		break;
+	case 2:
+		point = 200;
+		break;
+	case 3:
+		point = 400;
+		break;
+	case 4:
+		point = 800;
+		break;
+	case 5:
+		point = 1000;
+		break;
+	case 6:
+		point = 2000;
+		break;
+	case 7:
+		point = 4000;
+		break;
+	case 8:
+		point = 8000;
+		break;
+	default:
+		break;
+	}
+	return point;
+}
 
 void Mario::SetLevel(int l)
 {

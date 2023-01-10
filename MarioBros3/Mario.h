@@ -33,10 +33,12 @@ class Mario : public GameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG changeFormTimer;
 
-	int coin; 
+	int coin;
+	int combo;
 	int score;
 	int level; 
 	int untouchable; 
+
 	LPGAMEOBJECT holdingObj;
 	LPGAMEOBJECT tail;
 
@@ -77,6 +79,7 @@ public:
 		flyTimer = 0;
 		kickTimer = 0;
 		tailTimer = 0;
+		combo = 0;
 		runTimer = -1;
 		changeFormTimer = 0;
 		level = MARIO_LEVEL_SMALL;
@@ -106,10 +109,17 @@ public:
 	int GetLevel() { return level; };
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
-	void AddScore(float Px, float Py,int point) {
-		score += point;			
+	void AddScore(float Px, float Py) {
+		combo++;
+		int point = CalcPoint(combo);
+		AddScore(Px, Py, point);
+	}
+	void AddScore(float Px, float Py, int point)
+	{
+		score += point;
 		Game::GetInstance()->GetCurrentScene()->AddSFX(new PointSFX(Px, Py, PointSFX::GetAniId(point)));
 	}
+	int CalcPoint(int combo);
 	void AddCoin() { coin++; }
 	//void RenderBoundingBox();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

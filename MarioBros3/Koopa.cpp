@@ -2,6 +2,8 @@
 #include "Goomba.h"
 #include "QuestionBlock.h"
 #include "VenusFireTrap.h"
+#include "Mario.h"
+
 Koopa::Koopa(float x, float y) :GameObject(x, y)
 {
 	isUpsideDown = false;
@@ -37,7 +39,13 @@ void Koopa::OnNoCollision(DWORD dt)
 	x += vx * dt;
 	y += vy * dt;
 };
-
+void Koopa::AddScore()
+{
+	combo++;
+	LPGAMEOBJECT player = Game::GetInstance()->GetCurrentScene()->GetPlayer();
+	Mario* mario = dynamic_cast<Mario*>(player);
+	mario->AddScore(x, y, mario->CalcPoint(combo));
+}
 void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	
@@ -45,8 +53,8 @@ void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		if (dynamic_cast<Koopa*>(e->obj)) OnCollisionWithKoopa(e);
 		else if (dynamic_cast<Goomba*>(e->obj)) OnCollisionWithGoomba(e);
-		else if (dynamic_cast<QuestionBlock*>(e->obj)) OnCollisionWithQuestionBlock(e);
 		else if (dynamic_cast<VenusFireTrap*>(e->obj)) OnCollisionWithVenus(e);
+		else if (dynamic_cast<QuestionBlock*>(e->obj)) OnCollisionWithQuestionBlock(e);
 	}
 
 	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
@@ -112,6 +120,7 @@ void Koopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	Goomba* goomba = dynamic_cast<Goomba*>(e->obj);
 	if (goomba->GetState() != GOOMBA_STATE_DIE)
 	{
+		AddScore();
 		goomba->nx = e->nx;
 		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE_DOWN);
 		if (sfx == NULL)
@@ -134,6 +143,7 @@ void Koopa::OnCollisionWithVenus(LPCOLLISIONEVENT e)
 	VenusFireTrap* venus = dynamic_cast<VenusFireTrap*>(e->obj);
 	if (!venus->IsDeleted())
 	{
+		AddScore();
 		venus->Delete();
 		if (this->state == KOOPA_STATE_PICKED_UP)
 		{
@@ -145,8 +155,9 @@ void Koopa::OnCollisionWithVenus(LPCOLLISIONEVENT e)
 void Koopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 {
 	Koopa* koopa = dynamic_cast<Koopa*>(e->obj);
-	if (koopa->GetState() != KOOPA_STATE_DIE && koopa != this)
+	if (koopa->GetState() != KOOPA_STATE_DIE)
 	{
+		AddScore();
 		koopa->SetDirection(e->nx);
 		koopa->SetState(KOOPA_STATE_DIE);
 		if (this->state == KOOPA_STATE_PICKED_UP)
@@ -206,6 +217,7 @@ void Koopa::SetState(int state)
 	switch (state)
 	{
 	case KOOPA_STATE_HIDE:
+		combo = 0;
 		hide_start = GetTickCount64();
 		//y += (KOOPA_BBOX_HEIGHT - KOOPA_BBOX_HEIGHT_HIDE) / 2;
 		if(!isUpsideDown)
