@@ -211,11 +211,15 @@ void PlayScene::Load()
 
 void PlayScene::Update(DWORD dt)
 {
+	vector<LPGAMEOBJECT> coObjects;
+	for (auto& sfx : SFXs)
+	{
+		sfx->Update(dt, &coObjects);
+	}
 	if (this->IsPause()) 
 		return;
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-	vector<LPGAMEOBJECT> coObjects;
 	for (auto& obj : lowLayer)
 	{
 		coObjects.push_back(obj);
@@ -286,6 +290,10 @@ void PlayScene::Render()
 		gameObjects[i]->Render();
 	if (player != NULL) 
 		player->Render();
+	for (auto& sfx : SFXs)
+	{
+		sfx->Render();
+	}
 }
 /*
 *	Clear all objects from this scene
@@ -323,34 +331,61 @@ void PlayScene::Unload()
 
 bool PlayScene::IsGameObjectDeleted(const LPGAMEOBJECT& o) { return o == NULL; }
 
+void PlayScene::PurgeDeletedObjects(std::deque<LPGAMEOBJECT> &list)
+{
+	for (auto it = list.begin(); it != list.end(); it++)
+	{
+		LPGAMEOBJECT o = *it;
+		if (o->IsDeleted())
+		{
+			delete o;
+			*it = NULL;
+		}
+	}	// NOTE: remove_if will swap all deleted items to the end of the vector
+	// then simply trim the vector, this is much more efficient than deleting individual items
+	list.erase(
+		std::remove_if(list.begin(), list.end(), PlayScene::IsGameObjectDeleted),
+		list.end());
+}
+
 void PlayScene::PurgeDeletedObjects()
 {
-	for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
-	{
-		LPGAMEOBJECT o = *it;
-		if (o->IsDeleted())
-		{
-			delete o;
-			*it = NULL;
-		}
-	}
-	for (auto it = lowLayer.begin(); it != lowLayer.end(); it++)
-	{
-		LPGAMEOBJECT o = *it;
-		if (o->IsDeleted())
-		{
-			delete o;
-			*it = NULL;
-		}
-	}
+	PurgeDeletedObjects(gameObjects);
+	PurgeDeletedObjects(lowLayer);
+	PurgeDeletedObjects(SFXs);
+	//for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
+	//{
+	//	LPGAMEOBJECT o = *it;
+	//	if (o->IsDeleted())
+	//	{
+	//		delete o;
+	//		*it = NULL;
+	//	}
+	//}
+	//for (auto it = lowLayer.begin(); it != lowLayer.end(); it++)
+	//{
+	//	LPGAMEOBJECT o = *it;
+	//	if (o->IsDeleted())
+	//	{
+	//		delete o;
+	//		*it = NULL;
+	//	}
+	//}
+	//for (auto it = SFXs.begin(); it != SFXs.end(); it++)
+	//{
+	//	LPGAMEOBJECT o = *it;
+	//	if (o->IsDeleted())
+	//	{
+	//		delete o;
+	//		*it = NULL;
+	//	}
+	//}	// NOTE: remove_if will swap all deleted items to the end of the vector
+	//// then simply trim the vector, this is much more efficient than deleting individual items
+	//lowLayer.erase(
+	//	std::remove_if(lowLayer.begin(), lowLayer.end(), PlayScene::IsGameObjectDeleted),
+	//	lowLayer.end());
 
-	// NOTE: remove_if will swap all deleted items to the end of the vector
-	// then simply trim the vector, this is much more efficient than deleting individual items
-	lowLayer.erase(
-		std::remove_if(lowLayer.begin(), lowLayer.end(), PlayScene::IsGameObjectDeleted),
-		lowLayer.end());
-
-	gameObjects.erase(
-		std::remove_if(gameObjects.begin(), gameObjects.end(), PlayScene::IsGameObjectDeleted),
-		gameObjects.end());
+	//gameObjects.erase(
+	//	std::remove_if(gameObjects.begin(), gameObjects.end(), PlayScene::IsGameObjectDeleted),
+	//	gameObjects.end());
 }

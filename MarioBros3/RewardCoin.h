@@ -3,6 +3,7 @@
 #define REWARD_COIN_ANI_ID "reward_coin"
 #define COIN_RISE_UP_HEIGH 48
 #define COIN_RISE_UP_SPEED -0.2f
+#define COIN_DELETE_HEIGHT 16
 class RewardCoin :
     public Coin
 {

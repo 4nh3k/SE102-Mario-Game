@@ -7,6 +7,7 @@
 #include "debug.h"
 #include "Tail.h"
 #include "MarioConst.h"
+#include "PointSFX.h"
 
 
 class Mario : public GameObject
@@ -33,7 +34,7 @@ class Mario : public GameObject
 	ULONGLONG changeFormTimer;
 
 	int coin; 
-	int point;
+	int score;
 	int level; 
 	int untouchable; 
 	LPGAMEOBJECT holdingObj;
@@ -52,7 +53,6 @@ class Mario : public GameObject
 	void OnCollisionWithVenus(LPCOLLISIONEVENT e);
 	void TailUpdate();
 	void HoldingObjUpdate();
-
 
 
 	string GetAniIdBig();
@@ -106,7 +106,11 @@ public:
 	int GetLevel() { return level; };
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
-
+	void AddScore(float Px, float Py,int point) {
+		score += point;			
+		Game::GetInstance()->GetCurrentScene()->AddSFX(new PointSFX(Px, Py, PointSFX::GetAniId(point)));
+	}
+	void AddCoin() { coin++; }
 	//void RenderBoundingBox();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

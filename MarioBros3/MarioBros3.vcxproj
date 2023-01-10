@@ -180,6 +180,7 @@
     <ClCompile Include="ParaGoomba.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="PointSFX.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="ParaGoomba.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlayScene.h" />
+    <ClInclude Include="PointSFX.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="RedKoopa.h" />

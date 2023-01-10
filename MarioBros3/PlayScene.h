@@ -28,6 +28,7 @@ public:
 	LPGAMEOBJECT GetPlayer() { return player; }
 
 	void Clear();
+	void PurgeDeletedObjects(std::deque<LPGAMEOBJECT> &list);
 	void PurgeDeletedObjects();
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);

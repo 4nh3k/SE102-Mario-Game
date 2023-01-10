@@ -15,6 +15,7 @@
 
 #define LASER_AIM_TIME 2000
 #define LASER_SHOOT_TIME 2000
+#define LASER_OFFSET_Y -6
 #define GO_DOWN_TIME 5000
 #define FAR_RANGE 80
 #define VENUS_SPEED 0.03f

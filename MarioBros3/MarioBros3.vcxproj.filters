@@ -169,7 +169,10 @@
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
     <ClCompile Include="ParaGoomba.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="PointSFX.cpp">
+      <Filter>Source Files\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -300,7 +303,10 @@
       <Filter>Header Files\Misc\QuestionBlock</Filter>
     </ClInclude>
     <ClInclude Include="ParaGoomba.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="PointSFX.h">
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

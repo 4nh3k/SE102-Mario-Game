@@ -70,7 +70,7 @@ void VenusFireTrap::GetBoundingBox(float& l, float& t, float& r, float& b)
 }
 void VenusFireTrap::ShootLaser()
 {
-	LPGAMEOBJECT laser = new Laser(x, y);
+	LPGAMEOBJECT laser = new Laser(x, y + LASER_OFFSET_Y);
 	int xDirection, yDirection;
 	xDirection = (x < mx) ? 1 : -1;
 	yDirection = (y < my) ? 1 : -1;

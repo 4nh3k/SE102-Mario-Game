@@ -77,7 +77,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	isOnPlatform = false;
 	//DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunning: %d, isWalking: %d", x, y, vx, vy, ax, ay, isRunningFast, startRunning);
-	DebugOutTitle(L"coin: %d, point: %d", coin, point);
+	DebugOutTitle(L"coin: %d, point: %d", coin, score);
 	Collision::GetInstance()->Process(this, dt, coObjects);
 	// set hold obj pos after x, y update
 	TailUpdate();
@@ -189,6 +189,7 @@ void Mario::OnCollisionWithVenus(LPCOLLISIONEVENT e)
 void Mario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 {
 	SuperLeaf* superLeaf = dynamic_cast<SuperLeaf*>(e->obj);
+	AddScore(x, y, 1000);
 	if (level == MARIO_LEVEL_SMALL)
 	{
 		SetLevel(MARIO_LEVEL_BIG);
@@ -204,7 +205,7 @@ void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	Koopa* koopa = dynamic_cast<Koopa*>(e->obj);
 	if (koopa->GetState() == KOOPA_STATE_HIDE || koopa->GetState() == KOOPA_STATE_PICKED_UP)
 	{
-		float koopaX, koopaY;
+		float koopaX, koopaY;	
 		koopa->GetPosition(koopaX,koopaY);
 		if ((state == MARIO_STATE_RUNNING_LEFT || state == MARIO_STATE_RUNNING_RIGHT) && !isHolding)
 		{
@@ -252,11 +253,13 @@ void Mario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 	Mushroom* mushroom = dynamic_cast<Mushroom*>(e->obj);
 	if (dynamic_cast<OneUpMushroom*>(e->obj))
 	{
+		AddScore(x, y, 0);
 		mushroom->Delete();
 		return;
 	}
 	if (level == MARIO_LEVEL_SMALL && mushroom->IsCollidable())
 	{
+		AddScore(x, y, 1000);
 		mushroom->Delete();
 		SetLevel(MARIO_LEVEL_BIG);
 	}
@@ -289,6 +292,7 @@ void Mario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			goomba->SetState(GOOMBA_STATE_DIE);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			AddScore(x, y, 100);
 		}
 	}
 	else // hit by Goomba
@@ -324,6 +328,7 @@ void Mario::OnCollisionWithParaGoomba(LPCOLLISIONEVENT e)
 
 void Mario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
+	AddScore(x, y, 50);
 	e->obj->Delete();
 	coin++;
 }

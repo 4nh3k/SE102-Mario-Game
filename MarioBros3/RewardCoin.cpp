@@ -1,4 +1,5 @@
 #include "RewardCoin.h"
+#include "Mario.h"
 
 void RewardCoin::Render()
 {
@@ -20,8 +21,15 @@ void RewardCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (y > oldY )
+		if (y > oldY - COIN_DELETE_HEIGHT && vy >=0 )
 		{
+			if (!this->IsDeleted())
+			{	
+				LPGAMEOBJECT player = Game::GetInstance()->GetCurrentScene()->GetPlayer();
+				Mario* mario = dynamic_cast<Mario*>(player);
+				mario->AddCoin();
+				mario->AddScore(x,y,100);
+			}
 			this->Delete();
 			//y = oldY;
 			vy = 0;

@@ -6,6 +6,7 @@
 class SFX :
     public GameObject
 {
+protected:
 	ULONGLONG timer;
 	string aniId;
 public:

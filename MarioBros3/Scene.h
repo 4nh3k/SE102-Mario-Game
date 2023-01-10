@@ -18,6 +18,7 @@ protected:
 	bool pauseUpdate;
 	LPCWSTR sceneFilePath;
 	LPGAMEOBJECT player;
+	std::deque<LPGAMEOBJECT> SFXs;
 	std::deque<LPGAMEOBJECT> gameObjects;
 	std::deque<LPGAMEOBJECT> lowLayer;
 public: 
@@ -33,10 +34,14 @@ public:
 	void AddObject(LPGAMEOBJECT obj) {
 		gameObjects.push_front(obj);
 	}
+	void AddSFX(LPGAMEOBJECT sfx)
+	{
+		SFXs.push_back(sfx);
+	}
+	LPGAMEOBJECT GetPlayer() { return player; }
 	bool IsPause() { return pauseUpdate; }
 	void Pause() { pauseUpdate = true; }
 	void Continue() { pauseUpdate = false; }
-	LPGAMEOBJECT GetPlayer() { return player; }
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
 	virtual void Update(DWORD dt) = 0;
