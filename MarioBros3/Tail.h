@@ -20,6 +20,8 @@ class Tail :
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 	void OnCollisionWithVenus(LPCOLLISIONEVENT e);
+	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+
 public:
 	Tail(float x, float y) : GameObject(x, y) { sfx = NULL; };
 	void Render();

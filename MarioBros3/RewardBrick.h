@@ -21,6 +21,8 @@ public:
 		default:
 			break;
 		}
+		//RenderBoundingBox();
+
 	}
 };
 

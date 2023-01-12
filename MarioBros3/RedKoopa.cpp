@@ -8,10 +8,10 @@ void RedKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx = -vx;
 	}
 	if(state == KOOPA_STATE_WALKING && vx > 0)
-		ghostBlock->SetPosition(x + KOOPA_BBOX_WIDTH / 2 + GHOSTBLOCK_WIDTH/2 , y);
+		ghostBlock->SetPosition(x  + GHOSTBLOCK_WIDTH/2, y);
 	else
 	{
-		ghostBlock->SetPosition(x - KOOPA_BBOX_WIDTH / 2 - GHOSTBLOCK_WIDTH/2 , y);
+		ghostBlock->SetPosition(x  - GHOSTBLOCK_WIDTH/2 , y);
 	}
 }
 string RedKoopa::GetAniId()

@@ -4,6 +4,7 @@
 #include "Koopa.h"
 #include "Mario.h"
 #include "VenusFireTrap.h"
+#include "Brick.h"
 
 void Tail::Render()
 {
@@ -22,6 +23,8 @@ void Tail::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithKoopa(e);
 	else if (dynamic_cast<VenusFireTrap*>(e->obj))
 		OnCollisionWithVenus(e);
+	else if (dynamic_cast<Brick*>(e->obj))
+		OnCollisionWithBrick(e);
 }
 
 void Tail::OnCollisionWithVenus(LPCOLLISIONEVENT e)
@@ -36,9 +39,18 @@ void Tail::OnCollisionWithVenus(LPCOLLISIONEVENT e)
 			float tmpx, tmpy;
 			venus->GetPosition(tmpx, tmpy);
 			sfx = new SFX(tmpx, tmpy, ID_ANI_VANISH);
-			Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
+			Game::GetInstance()->GetCurrentScene()->AddSFX(sfx);
 		}
 		venus->Delete();
+	}
+}
+
+void Tail::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+	Brick* brick = dynamic_cast<Brick*>(e->obj);
+	if (!brick->IsDeleted())
+	{
+		brick->Break();
 	}
 }
 
@@ -56,7 +68,7 @@ void Tail::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 			float tmpx, tmpy;
 			goomba->GetPosition(tmpx, tmpy);
 			sfx = new SFX(tmpx, tmpy, ID_ANI_HIT);
-			Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
+			Game::GetInstance()->GetCurrentScene()->AddSFX(sfx);
 		}
 	}
 }
@@ -72,7 +84,7 @@ void Tail::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 		float tmpx, tmpy;
 		koopa->GetPosition(tmpx, tmpy);
 		sfx = new SFX(tmpx, tmpy, ID_ANI_HIT);
-		Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
+		Game::GetInstance()->GetCurrentScene()->AddSFX(sfx);
 	}
 }
 

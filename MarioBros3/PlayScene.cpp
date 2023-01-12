@@ -184,9 +184,16 @@ void PlayScene::Load()
 	tson::Tileson t;
 	map = t.parse(fs::path(sceneFilePath));
 
-	camY = any_cast<int>(map->getProp("cam_y")->getValue());
-	camY -= Game::GetInstance()->GetBackBufferHeight();
-
+	if (map->getProperties().hasProperty("cam_y"))
+	{
+		camY = any_cast<int>(map->getProp("cam_y")->getValue());
+		camY -= Game::GetInstance()->GetBackBufferHeight();
+	}
+	if (map->getProperties().hasProperty("cam_x"))
+	{
+		camX = any_cast<int>(map->getProp("cam_x")->getValue());
+		camX -= Game::GetInstance()->GetBackBufferWidth();
+	}
 	if (map->getStatus() == tson::ParseStatus::OK)
 	{
 		DebugOut(L"[INFO] Load map successfully from file: %s \n", sceneFilePath);
@@ -265,7 +272,8 @@ void PlayScene::Update(DWORD dt)
 	{
 		cy += game->GetBackBufferHeight() / 8;
 	}
-	Game::GetInstance()->GetCamera()->SetCamPos(cx, cy);
+	if(cx < camX)
+		Game::GetInstance()->GetCamera()->SetCamPos(cx, cy);
 
 	PurgeDeletedObjects();
 }

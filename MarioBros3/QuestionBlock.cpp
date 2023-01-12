@@ -4,6 +4,7 @@
 #include "OneUpMushroom.h"
 #include "SuperLeaf.h"
 #include "Mario.h"
+#include "PSwitch.h"
 
 void QuestionBlock::Render()
 {
@@ -80,6 +81,9 @@ LPGAMEOBJECT QuestionBlock::GetReward()
 		break;
 	case ID_REWARD_1UP_MUSHROOM:
 		this->reward = new OneUpMushroom(x, y);
+		break;
+	case ID_REWARD_PSWITCH:
+		this->reward = new PSwitch(x, y - (QUESTION_BLOCK_BBOX_HEIGHT / 2 + PSWITCH_IDLE_BBOX_HEIGHT / 2));
 		break;
 	default:
 		this->reward = new RewardCoin(x, y);

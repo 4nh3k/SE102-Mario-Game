@@ -39,6 +39,7 @@ public:
 		SFXs.push_back(sfx);
 	}
 	LPGAMEOBJECT GetPlayer() { return player; }
+	std::deque<LPGAMEOBJECT> GetGameObjects() { return gameObjects; }
 	bool IsPause() { return pauseUpdate; }
 	void Pause() { pauseUpdate = true; }
 	void Continue() { pauseUpdate = false; }

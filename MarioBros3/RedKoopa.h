@@ -20,7 +20,7 @@ class RedKoopa :
 public:
     RedKoopa(float x, float y) : Koopa(x,y)
     {
-        ghostBlock = new GhostBlock(x + KOOPA_BBOX_WIDTH/2 , y);
+        ghostBlock = new GhostBlock(x + KOOPA_BBOX_WIDTH/2, y);
         Game::GetInstance()->GetCurrentScene()->AddObject(ghostBlock);
     }
     virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

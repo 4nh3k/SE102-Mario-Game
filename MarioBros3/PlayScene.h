@@ -10,6 +10,7 @@ class PlayScene: public Scene
 protected: 
 	vector<Tile*> tileMap;
 	float camY;
+	float camX;
 
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);
@@ -24,8 +25,6 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
-
-	LPGAMEOBJECT GetPlayer() { return player; }
 
 	void Clear();
 	void PurgeDeletedObjects(std::deque<LPGAMEOBJECT> &list);

@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "SFX.h"
 
-#define KOOPA_GRAVITY 0.002f
+#define KOOPA_GRAVITY 0.0008f
 #define KOOPA_WALKING_SPEED 0.03f
 #define KOOPA_KICKED_SPEED 0.15f
 
@@ -67,6 +67,7 @@ protected:
 	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 	void OnCollisionWithVenus(LPCOLLISIONEVENT e);
 	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
+	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
 	void AddScore();
 
 public:

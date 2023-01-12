@@ -3,6 +3,7 @@
 #include "QuestionBlock.h"
 #include "VenusFireTrap.h"
 #include "Mario.h"
+#include "Brick.h"
 
 Koopa::Koopa(float x, float y) :GameObject(x, y)
 {
@@ -55,6 +56,7 @@ void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 		else if (dynamic_cast<Goomba*>(e->obj)) OnCollisionWithGoomba(e);
 		else if (dynamic_cast<VenusFireTrap*>(e->obj)) OnCollisionWithVenus(e);
 		else if (dynamic_cast<QuestionBlock*>(e->obj)) OnCollisionWithQuestionBlock(e);
+		else if (dynamic_cast<Brick*>(e->obj)) OnCollisionWithBrick(e);
 	}
 
 	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
@@ -103,6 +105,20 @@ string Koopa::GetAniIdUpsideDown()
 		aniId = ID_ANI_KOOPA_WAKE_UP_UPSIDE_DOWN;
 	return aniId;
 }
+
+void Koopa::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+	Brick* brick = dynamic_cast<Brick*>(e->obj);
+	if (e->nx != 0)
+	{
+		if (!brick->IsDeleted())
+		{
+			brick->Break();
+		}
+	}
+}
+
+
 void Koopa::OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e)
 {
 	QuestionBlock* qblock = dynamic_cast<QuestionBlock*>(e->obj);
@@ -133,7 +149,7 @@ void Koopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 				this->SetState(KOOPA_STATE_DIE);
 			}
 			sfx = new SFX(tmpx, tmpy, ID_ANI_HIT);
-			Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
+			Game::GetInstance()->GetCurrentScene()->AddSFX(sfx);
 		}
 
 	}
@@ -170,7 +186,7 @@ void Koopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 			float tmpx, tmpy;
 			koopa->GetPosition(tmpx, tmpy);
 			sfx = new SFX(tmpx, tmpy, ID_ANI_HIT);
-			Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
+			Game::GetInstance()->GetCurrentScene()->AddSFX(sfx);
 		}
 	}
 }

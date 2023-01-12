@@ -276,6 +276,11 @@
  "orientation":"orthogonal",
  "properties":[
         {
+         "name":"cam_x",
+         "type":"string",
+         "value":"2816"
+        }, 
+        {
          "name":"cam_y",
          "type":"int",
          "value":160

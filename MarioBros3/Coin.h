@@ -4,7 +4,7 @@
 #include "Animation.h"
 #include "Animations.h"
 
-#define ID_ANI_COIN "coin_rotate"
+#define ID_ANI_COIN "misc_coin_rotate"
 
 #define	COIN_WIDTH 10
 #define COIN_BBOX_WIDTH 10

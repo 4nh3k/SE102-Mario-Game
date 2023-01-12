@@ -14,6 +14,73 @@
 #include "SFX.h"
 #include "ParaGoomba.h"
 #include "VenusFireTrap.h"
+#include "PSwitch.h"
+#include "Brick.h"
+
+Mario::Mario(float x, float y) : GameObject(x, y)
+{
+	isSitting = false;
+	maxVx = 0.0f;
+	ax = 0.0f;
+	ay = MARIO_GRAVITY;
+	holdingObj = NULL;
+	startRunning = false;
+	isHolding = false;
+	isRunningFast = false;
+	isFlying = false;
+	isOnPlatform = false;
+	isKicking = false;
+	isTailWhack = false;
+	flickering = false;
+	flyTimer = 0;
+	kickTimer = 0;
+	tailTimer = 0;
+	combo = 0;
+	runTimer = -1;
+	changeFormTimer = 0;
+	level = MARIO_LEVEL_SMALL;
+	tail = NULL;
+	untouchable = 0;
+	untouchable_start = -1;
+	coin = 0;
+}
+
+int Mario::IsCollidable() 
+{
+	return (state != MARIO_STATE_DIE);
+}
+
+int Mario::IsBlocking(float nx, float ny) 
+{ 
+	return (state != MARIO_STATE_DIE && untouchable == 0);
+}
+
+int Mario::IsTanooki()
+{
+	return (level == MARIO_LEVEL_TANOOKI);
+}
+
+int Mario::GetLevel()
+{
+	return level;
+}
+
+void Mario::AddScore(float Px, float Py, int point)
+{
+	score += point;
+	Game::GetInstance()->GetCurrentScene()->AddSFX(new PointSFX(Px, Py, PointSFX::GetAniId(point)));
+}
+
+void Mario::AddScore(float Px, float Py) {
+	combo++;
+	int point = CalcPoint(combo);
+	AddScore(Px, Py, point);
+}
+
+BOOLEAN Mario::IsHolding()
+{
+	return (isHolding && !holdingObj->IsDeleted());
+}
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -175,6 +242,19 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithLaser(e);
 	else if (dynamic_cast<VenusFireTrap*>(e->obj))
 		OnCollisionWithVenus(e);
+	else if (dynamic_cast<PSwitch*>(e->obj))
+		OnCollisionWithPSwitch(e);
+	else if (dynamic_cast<Brick*>(e->obj))
+		OnCollisionWithBrick(e);
+}
+
+void Mario::OnCollisionWithPSwitch(LPCOLLISIONEVENT e)
+{
+	PSwitch* pSwitch = dynamic_cast<PSwitch*>(e->obj);
+	if (pSwitch->GetState() == PSWITCH_STATE_IDLE && e->ny < 0)
+	{
+		pSwitch->SetState(PSWITCH_STATE_HIT);
+	}
 }
 
 void Mario::OnCollisionWithLaser(LPCOLLISIONEVENT e)
@@ -185,6 +265,18 @@ void Mario::OnCollisionWithLaser(LPCOLLISIONEVENT e)
 void Mario::OnCollisionWithVenus(LPCOLLISIONEVENT e)
 {
 	GetHitFromEnemy();
+}
+
+void Mario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+	Brick* brick = dynamic_cast<Brick*>(e->obj);
+	if (e->ny > 0)
+	{
+		if (!brick->IsDeleted())
+		{
+			brick->Break();
+		}
+	}
 }
 
 void Mario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
@@ -658,7 +750,7 @@ void Mario::Render()
 	{
 		flickering = true;
 	}
-	else if(flickering )
+	else if(flickering)
 	{
 		if (untouchable == 1)
 		{
@@ -667,9 +759,10 @@ void Mario::Render()
 		}
 		if (level == MARIO_LEVEL_TANOOKI)
 		{
-			return;
+			if(Game::GetInstance()->GetCurrentScene()->IsPause())
+				return;
+			flickering = false;
 		}
-
 	}
 	if (state == MARIO_STATE_DIE)
 		aniId = ID_ANI_MARIO_DIE;
@@ -903,9 +996,8 @@ void Mario::SetLevel(int l)
 		flickering = true;
 		this->SetState(MARIO_STATE_GROW_UP);
 		LPGAMEOBJECT sfx = new SFX(x, y, ID_ANI_VANISH);
-		Game::GetInstance()->GetCurrentScene()->AddObject(sfx);
+		Game::GetInstance()->GetCurrentScene()->AddSFX(sfx);
 		Game::GetInstance()->GetCurrentScene()->Pause();
-		
 	}
 	level = l;
 }
