@@ -1,12 +1,11 @@
 #pragma once
 #include "GameObject.h"
-#include "SFX.h"
 
 #define KOOPA_GRAVITY 0.0008f
 #define KOOPA_WALKING_SPEED 0.03f
-#define KOOPA_KICKED_SPEED 0.15f
+#define KOOPA_KICKED_SPEED 0.18f
 
-#define KOOPA_TAIL_WHOOP_SPEED_Y 0.45f
+#define KOOPA_TAIL_WHOOP_SPEED_Y 0.25f
 #define KOOPA_DIE_Y 0.25f
 #define KOOPA_TAIL_WHOOP_SPEED_X 0.1f
 
@@ -47,6 +46,7 @@ protected:
 
 	LPGAMEOBJECT sfx;
 
+	bool isOnPlatform;
 	bool isUpsideDown;
 
 	ULONGLONG hide_start;
@@ -68,6 +68,8 @@ protected:
 	void OnCollisionWithVenus(LPCOLLISIONEVENT e);
 	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
+
 	void AddScore();
 
 public:

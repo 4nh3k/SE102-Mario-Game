@@ -179,6 +179,8 @@
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="ParaGoomba.cpp" />
+    <ClCompile Include="ParaKoopa.cpp" />
+    <ClCompile Include="PiranhaPlant.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="PointSFX.cpp" />
@@ -217,6 +219,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GhostBlock.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="GreenVenus.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Laser.h" />
@@ -225,6 +228,8 @@
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="OneUpMushroom.h" />
     <ClInclude Include="ParaGoomba.h" />
+    <ClInclude Include="ParaKoopa.h" />
+    <ClInclude Include="PiranhaPlant.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="PointSFX.h" />

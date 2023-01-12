@@ -215,6 +215,28 @@
          "layers":[
                 {
                  "draworder":"topdown",
+                 "id":21,
+                 "name":"PiranhaPlant",
+                 "objects":[
+                        {
+                         "class":"",
+                         "height":31.5454545454545,
+                         "id":211,
+                         "name":"PiranhaPlant",
+                         "rotation":0,
+                         "visible":true,
+                         "width":16.2727272727273,
+                         "x":1799.86363636364,
+                         "y":395.863636363636
+                        }],
+                 "opacity":1,
+                 "type":"objectgroup",
+                 "visible":true,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "draworder":"topdown",
                  "id":19,
                  "name":"Venus",
                  "objects":[
@@ -228,6 +250,17 @@
                          "width":15.5,
                          "x":360.25,
                          "y":369
+                        }, 
+                        {
+                         "class":"",
+                         "height":32,
+                         "id":206,
+                         "name":"GreenVenus",
+                         "rotation":0,
+                         "visible":true,
+                         "width":15.5,
+                         "x":1865.03977272727,
+                         "y":378.602272727273
                         }],
                  "opacity":1,
                  "type":"objectgroup",
@@ -340,6 +373,42 @@
                          "width":0,
                          "x":2105.375,
                          "y":375.75
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":214,
+                         "name":"ParaKoopa",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":1433.25,
+                         "y":309.5
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":215,
+                         "name":"ParaKoopa",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":1384.5,
+                         "y":306.25
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":216,
+                         "name":"ParaKoopa",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":1336,
+                         "y":310.5
                         }],
                  "opacity":1,
                  "type":"objectgroup",
@@ -1522,13 +1591,13 @@
                         {
                          "class":"",
                          "height":27.4545,
-                         "id":194,
+                         "id":217,
                          "name":"Mario",
                          "rotation":0,
                          "visible":true,
                          "width":19.0909,
-                         "x":2150.28788333333,
-                         "y":336.106083333333
+                         "x":1228.70455,
+                         "y":336.52275
                         }],
                  "opacity":1,
                  "properties":[
@@ -1555,8 +1624,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":21,
- "nextobjectid":206,
+ "nextlayerid":22,
+ "nextobjectid":218,
  "orientation":"orthogonal",
  "properties":[
         {

@@ -55,12 +55,6 @@ void VenusFireTrap::Render()
 	RenderBoundingBox();
 }
 
-void VenusFireTrap::OnCollisionWith(LPCOLLISIONEVENT e)
-{
-	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
-
-}
-
 void VenusFireTrap::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x - VENUS_WIDTH / 2;

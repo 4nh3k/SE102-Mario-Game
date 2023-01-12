@@ -20,6 +20,9 @@
 #include "RewardBrick.h"
 #include "SampleKeyEventHandler.h"
 #include "ParaGoomba.h"
+#include "GreenVenus.h"
+#include "PiranhaPlant.h"
+#include "ParaKoopa.h"
 
 using namespace std;
 
@@ -82,6 +85,10 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		{
 			gameObj = new RedKoopa(pos.x, pos.y);
 		}
+		else if (obj.getName() == "ParaKoopa")
+		{
+			gameObj = new ParaKoopa(pos.x, pos.y);
+		}
 		else if (obj.getName() == "Mario")
 		{
 			if (player != NULL)
@@ -119,6 +126,18 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		else if (obj.getName() == "Venus")
 		{
 			gameObj = new VenusFireTrap(pos.x, pos.y);
+			lowLayer.push_back(gameObj);
+			continue;
+		}
+		else if (obj.getName() == "GreenVenus")
+		{
+			gameObj = new GreenVenus(pos.x, pos.y);
+			lowLayer.push_back(gameObj);
+			continue;
+		}
+		else if (obj.getName() == "PiranhaPlant")
+		{
+			gameObj = new PiranhaPlant(pos.x, pos.y);
 			lowLayer.push_back(gameObj);
 			continue;
 		}

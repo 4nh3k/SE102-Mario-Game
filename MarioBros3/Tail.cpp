@@ -5,6 +5,8 @@
 #include "Mario.h"
 #include "VenusFireTrap.h"
 #include "Brick.h"
+#include "PiranhaPlant.h"
+#include "ParaKoopa.h"
 
 void Tail::Render()
 {
@@ -25,7 +27,28 @@ void Tail::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithVenus(e);
 	else if (dynamic_cast<Brick*>(e->obj))
 		OnCollisionWithBrick(e);
+	else if (dynamic_cast<PiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaPlant(e);
 }
+
+void Tail::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
+{
+	PiranhaPlant* piranha = dynamic_cast<PiranhaPlant*>(e->obj);
+	if (!piranha->IsDeleted())
+	{
+		LPGAMEOBJECT player = Game::GetInstance()->GetCurrentScene()->GetPlayer();
+		dynamic_cast<Mario*>(player)->AddScore(x, y, 100);
+		if (sfx == NULL)
+		{
+			float tmpx, tmpy;
+			piranha->GetPosition(tmpx, tmpy);
+			sfx = new SFX(tmpx, tmpy, ID_ANI_VANISH);
+			Game::GetInstance()->GetCurrentScene()->AddSFX(sfx);
+		}
+		piranha->Delete();
+	}
+}
+
 
 void Tail::OnCollisionWithVenus(LPCOLLISIONEVENT e)
 {
@@ -75,6 +98,14 @@ void Tail::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 
 void Tail::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 {
+	if (dynamic_cast<ParaKoopa*>(e->obj))
+	{
+		ParaKoopa* paraKoopa = dynamic_cast<ParaKoopa*>(e->obj);
+		if (paraKoopa->HasWing())
+		{
+			paraKoopa->SetWing(false);
+		}
+	}
 	Koopa* koopa = dynamic_cast<Koopa*>(e->obj);
 	koopa->SetDirection(e->nx);
 	koopa->SetState(KOOPA_STATE_UPSIDE_DOWN);

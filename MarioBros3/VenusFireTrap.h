@@ -25,6 +25,7 @@
 class VenusFireTrap :
     public GameObject
 {
+protected:
 	float oldY;
 	ULONGLONG timer;
 	ULONGLONG updownTimer;
@@ -53,6 +54,5 @@ public:
 		return (moving || !isDown);
 	};
 	virtual int IsBlocking(float nx, float ny) { return 0; }
-	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 };
 

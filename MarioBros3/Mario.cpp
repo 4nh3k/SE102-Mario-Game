@@ -16,6 +16,8 @@
 #include "VenusFireTrap.h"
 #include "PSwitch.h"
 #include "Brick.h"
+#include "PiranhaPlant.h"
+#include "ParaKoopa.h"
 
 Mario::Mario(float x, float y) : GameObject(x, y)
 {
@@ -144,7 +146,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	isOnPlatform = false;
 	//DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunning: %d, isWalking: %d", x, y, vx, vy, ax, ay, isRunningFast, startRunning);
-	DebugOutTitle(L"coin: %d, point: %d", coin, score);
+	//DebugOutTitle(L"coin: %d, point: %d", coin, score);
 	Collision::GetInstance()->Process(this, dt, coObjects);
 	// set hold obj pos after x, y update
 	TailUpdate();
@@ -246,6 +248,13 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPSwitch(e);
 	else if (dynamic_cast<Brick*>(e->obj))
 		OnCollisionWithBrick(e);
+	else if (dynamic_cast<PiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaPlant(e);
+}
+
+void Mario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
+{
+	GetHitFromEnemy();
 }
 
 void Mario::OnCollisionWithPSwitch(LPCOLLISIONEVENT e)
@@ -259,7 +268,7 @@ void Mario::OnCollisionWithPSwitch(LPCOLLISIONEVENT e)
 
 void Mario::OnCollisionWithLaser(LPCOLLISIONEVENT e)
 {
-		GetHitFromEnemy();
+	GetHitFromEnemy();
 }
 
 void Mario::OnCollisionWithVenus(LPCOLLISIONEVENT e)
@@ -328,11 +337,21 @@ void Mario::OnCollisionWithKoopa(LPCOLLISIONEVENT e)
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
+
 		AddScore(x, y);
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
+		if (dynamic_cast<ParaKoopa*>(e->obj))
+		{
+			ParaKoopa* paraKoopa = dynamic_cast<ParaKoopa*>(e->obj);
+			if (paraKoopa->HasWing())
+			{
+				paraKoopa->SetWing(false);
+				return;
+			}
+		}
 		if (koopa->GetState() != KOOPA_STATE_HIDE)
 		{
 			koopa->SetState(KOOPA_STATE_HIDE);
-			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
 	}
 	else 

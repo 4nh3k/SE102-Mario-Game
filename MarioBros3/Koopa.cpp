@@ -2,6 +2,7 @@
 #include "Goomba.h"
 #include "QuestionBlock.h"
 #include "VenusFireTrap.h"
+#include "PiranhaPlant.h"
 #include "Mario.h"
 #include "Brick.h"
 
@@ -57,10 +58,10 @@ void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 		else if (dynamic_cast<VenusFireTrap*>(e->obj)) OnCollisionWithVenus(e);
 		else if (dynamic_cast<QuestionBlock*>(e->obj)) OnCollisionWithQuestionBlock(e);
 		else if (dynamic_cast<Brick*>(e->obj)) OnCollisionWithBrick(e);
+		else if (dynamic_cast<PiranhaPlant*>(e->obj)) OnCollisionWithPiranhaPlant(e);
 	}
 
 	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
-
 	if (e->ny != 0)
 	{ 
 		if (isUpsideDown && state == KOOPA_STATE_HIDE)
@@ -68,12 +69,31 @@ void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 			vx = 0;
 		}
 		vy = 0;
+		if (e->ny < 0)
+		{
+			isOnPlatform = true;
+		}
 	}
 	else if (e->nx != 0)
 	{
 		vx = -vx;
 	}
 }
+void Koopa::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
+{
+	PiranhaPlant* piranha = dynamic_cast<PiranhaPlant*>(e->obj);
+	if (!piranha->IsDeleted())
+	{
+		AddScore();
+		piranha->Delete();
+		if (this->state == KOOPA_STATE_PICKED_UP)
+		{
+			this->SetDirection(-e->nx);
+			this->SetState(KOOPA_STATE_DIE);
+		}
+	}
+}
+
 string Koopa::GetAniId()
 {
 	string aniId = ID_ANI_KOOPA_WALK_RIGHT;
