@@ -9,6 +9,7 @@ class PlayScene: public Scene
 {
 protected: 
 	vector<Tile*> tileMap;
+	LPGAMEOBJECT hud;
 	float camY;
 	float camX;
 

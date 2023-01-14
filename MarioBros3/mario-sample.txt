@@ -1,19 +1,14 @@
 [SETTINGS]
-start	5
-width	320
-height	240
+start	1
+width	250
+height	250
 
 #id	type	file
 # type: 0: intro, 1: play scene 
 [SCENES]
-5	./Map/map1_1.json
-1	scene01.txt
-2	scene02.txt
-0	./Map/testmap.tmj
+1	./Map/map1_1.json
+6	./Map/testmap.tmj
 
 # id	file 
 [TEXTURES]
 -100	textures\bbox.png
-0	textures\mario.png
-10	textures\enemies.png
-20	textures\misc.png

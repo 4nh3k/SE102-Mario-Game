@@ -515,7 +515,8 @@ void Game::SwitchScene()
 
 	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
 
-	scenes[current_scene]->Unload();
+	if(current_scene > 0)
+		scenes[current_scene]->Unload();
 
 	Sprites::GetInstance()->Clear();
 	Animations::GetInstance()->Clear();

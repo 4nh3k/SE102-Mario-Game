@@ -22,9 +22,6 @@
     <Filter Include="Header Files\Enemies">
       <UniqueIdentifier>{638e85b2-d0ec-44ad-b5fc-64410f67b6e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Mario">
-      <UniqueIdentifier>{52c92810-42f8-4afe-ade5-5d5d39495632}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{9f6a40d9-bb3c-455a-8088-5839d8c229de}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,15 @@
     </Filter>
     <Filter Include="Source Files\Misc\QuestionBlock">
       <UniqueIdentifier>{e842f97c-49d8-4d69-98cb-924dc16e1fce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HUD">
+      <UniqueIdentifier>{4f428fce-68fc-4040-9705-cc8974a9efa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\HUD">
+      <UniqueIdentifier>{b15f4812-35b8-4227-bdd4-691524ac3eca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Mario">
+      <UniqueIdentifier>{52c92810-42f8-4afe-ade5-5d5d39495632}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +191,12 @@
     </ClCompile>
     <ClCompile Include="ParaKoopa.cpp">
       <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Source Files\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Source Files\HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +346,12 @@
     </ClInclude>
     <ClInclude Include="ParaKoopa.h">
       <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Header Files\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Header Files\HUD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

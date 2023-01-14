@@ -43,6 +43,6 @@ void PiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isDown = false;
 		timer = GetTickCount64();
 	}
-	DebugOutTitle(L"x: %f, y:%f, vx:%f, vy: %f, moving: %d, isDown: %d, isUp: %d, iscolliable: %d", x, y, vx, vy, moving, isDown, isUp, IsCollidable());
+	//DebugOutTitle(L"x: %f, y:%f, vx:%f, vy: %f, moving: %d, isDown: %d, isUp: %d, iscolliable: %d", x, y, vx, vy, moving, isDown, isUp, IsCollidable());
 
 }

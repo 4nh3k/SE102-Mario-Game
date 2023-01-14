@@ -33,6 +33,7 @@ class Mario : public GameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG changeFormTimer;
 
+	int life;
 	int coin;
 	int combo;
 	int score;
@@ -84,5 +85,7 @@ public:
 	int IsBlocking(float nx, float ny);
 	int IsTanooki();
 	int GetLevel();
+	int GetScore();
+	int GetCoin();
 	int CalcPoint(int combo);
 };

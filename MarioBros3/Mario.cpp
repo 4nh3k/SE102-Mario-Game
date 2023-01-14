@@ -67,6 +67,16 @@ int Mario::GetLevel()
 	return level;
 }
 
+int Mario::GetScore()
+{
+	return score;
+}
+
+int Mario::GetCoin()
+{
+	return coin;
+}
+
 void Mario::AddScore(float Px, float Py, int point)
 {
 	score += point;

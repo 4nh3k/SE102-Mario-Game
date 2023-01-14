@@ -211,6 +211,22 @@
          "y":0
         }, 
         {
+         "id":22,
+         "layers":[],
+         "name":"HUD",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"ani_path",
+                 "type":"string",
+                 "value":"textures\\HUD.xml"
+                }],
+         "type":"group",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "id":17,
          "layers":[
                 {
@@ -1596,8 +1612,8 @@
                          "rotation":0,
                          "visible":true,
                          "width":19.0909,
-                         "x":1228.70455,
-                         "y":336.52275
+                         "x":698.037883333333,
+                         "y":309.856083333333
                         }],
                  "opacity":1,
                  "properties":[
@@ -1624,7 +1640,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":22,
+ "nextlayerid":23,
  "nextobjectid":218,
  "orientation":"orthogonal",
  "properties":[

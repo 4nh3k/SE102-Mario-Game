@@ -32,6 +32,22 @@
          "y":0
         }, 
         {
+         "id":10,
+         "layers":[],
+         "name":"HUD",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"ani_path",
+                 "type":"string",
+                 "value":"textures\\HUD.xml"
+                }],
+         "type":"group",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "id":7,
          "layers":[
                 {
@@ -127,7 +143,7 @@
                                 {
                                  "name":"scene_id",
                                  "type":"int",
-                                 "value":0
+                                 "value":1
                                 }],
                          "rotation":0,
                          "visible":true,
@@ -271,14 +287,14 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":10,
+ "nextlayerid":11,
  "nextobjectid":28,
  "orientation":"orthogonal",
  "properties":[
         {
          "name":"cam_x",
-         "type":"string",
-         "value":"2816"
+         "type":"int",
+         "value":2816
         }, 
         {
          "name":"cam_y",

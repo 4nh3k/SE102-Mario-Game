@@ -23,6 +23,7 @@
 #include "GreenVenus.h"
 #include "PiranhaPlant.h"
 #include "ParaKoopa.h"
+#include "HUD.h"
 
 using namespace std;
 
@@ -32,6 +33,8 @@ PlayScene::PlayScene(int id, LPCWSTR filePath):
 	camY = 0.0f;
 	player = NULL;
 	key_handler = new SampleKeyHandler(this);
+	hud = new HUD(HUD_WIDTH / 2, camY + HUD_HEIGHT / 2);
+	SFXs.push_back(hud);
 }
 
 
@@ -291,8 +294,11 @@ void PlayScene::Update(DWORD dt)
 	{
 		cy += game->GetBackBufferHeight() / 8;
 	}
+
+	hud->SetPosition(cx + HUD_WIDTH / 2, cy + HUD_HEIGHT / 2 + game->GetBackBufferHeight());
+
 	if(cx < camX)
-		Game::GetInstance()->GetCamera()->SetCamPos(cx, cy);
+		Game::GetInstance()->GetCamera()->SetCamPos(cx , cy + HUD_HEIGHT);
 
 	PurgeDeletedObjects();
 }

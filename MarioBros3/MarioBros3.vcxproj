@@ -169,10 +169,12 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GhostBlock.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
@@ -215,11 +217,13 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GhostBlock.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="GreenVenus.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Laser.h" />
