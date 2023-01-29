@@ -5,6 +5,7 @@
 #define ID_ANI_MOMENTUM_INDICATOR_FULL "momentum_indicator_full"
 
 #define DECREASE_TIMEOUT 500
+#define FLYING_TIMEOUT 6000
 #define IDICATOR_WIDTH 8
 #define MOMENTUM_NODE_WIDTH 8
 #define MOMENTUM_NODE_HEIGHT 7
@@ -17,6 +18,7 @@ class MomentumBar
 	static MomentumBar* __instance;
 	float x, y;
 	DWORD timer;
+	BOOL stopDecrease;
 	int nodeFill;
 public:
 	MomentumBar(float x, float y);
@@ -24,7 +26,9 @@ public:
 	void SetNode(int node);
 	int GetNode();
 	void Render();
+	void StartTimer();
 	void Decrease();
+	void IndiactorFull();
 	static MomentumBar* GetInstance();
 };
 

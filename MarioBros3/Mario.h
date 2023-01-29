@@ -19,7 +19,6 @@ class Mario : public GameObject
 	BOOLEAN isTailWhack;
 	BOOLEAN isFlying;
 	BOOLEAN isRunningFast;
-	BOOLEAN startRunning;
 	BOOLEAN flickering;
 
 	float maxVx;

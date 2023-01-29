@@ -15,17 +15,42 @@ MomentumBar::MomentumBar(float x, float y)
 	this->x = x;
 	this->y = y;
 }
+void MomentumBar::IndiactorFull()
+{
+	if (nodeFill == 6)
+	{
+		stopDecrease = true;
+		StartTimer();
+	}
+}
 int MomentumBar::GetNode()
 {
 	return nodeFill;
 }
+void MomentumBar::StartTimer()
+{
+	timer = GetTickCount64();
+}
 void MomentumBar::Decrease()
 {
+	if (timer == 0) StartTimer();
+	if (stopDecrease)
+	{
+		if (GetTickCount64() - timer >= FLYING_TIMEOUT)
+		{
+			stopDecrease = false;
+		}
+		else
+		{
+			return;
+		}
+	}
 	if (GetTickCount64() - timer >= DECREASE_TIMEOUT && nodeFill > 0)
 	{
 		nodeFill--;
-		timer = GetTickCount64();
+		StartTimer();
 	}
+	if (nodeFill == 0) timer = 0;
 }
 void MomentumBar::SetNode(int node)
 {

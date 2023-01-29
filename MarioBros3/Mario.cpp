@@ -27,7 +27,6 @@ Mario::Mario(float x, float y) : GameObject(x, y)
 	ax = 0.0f;
 	ay = MARIO_GRAVITY;
 	holdingObj = NULL;
-	startRunning = false;
 	isHolding = false;
 	isRunningFast = false;
 	isFlying = false;
@@ -108,28 +107,13 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			ax = 0;
 		}
 	}
-	if (abs(vx) >= MARIO_RUNNING_SPEED && !startRunning)
-	{
-		startRunning = true;
-		runTimer = GetTickCount64();
-	}
-	else
-	{
-		if(abs(vx)< MARIO_RUNNING_SPEED)
-			startRunning = false;
-	}
-	if (GetTickCount64() - runTimer > MARIO_RUN_TIMEOUT && startRunning)
-	{
-		runTimer = 0;
-		startRunning = false;
-		isRunningFast = true;
-	}
 	if (abs(vx) > abs(maxVx) && !isSitting)
 		vx = maxVx;
 	if (abs(vx) > MARIO_WALKING_SPEED)
 	{
 		int tmp = (((abs(vx) - MARIO_WALKING_SPEED) / (MARIO_RUNNING_SPEED - MARIO_WALKING_SPEED)) * 6);
-		DebugOutTitle(L"vx: %f, ax: %f, tmp: %d", vx, ax, tmp);
+		isRunningFast = (tmp == 6) ? true : false;
+		//DebugOutTitle(L"vx: %f, ax: %f, tmp: %d", vx, ax, tmp);
 		MomentumBar::GetInstance()->SetNode(tmp);
 	}
 	else {
@@ -164,7 +148,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 	isOnPlatform = false;
-	//DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunning: %d, isWalking: %d", x, y, vx, vy, ax, ay, isRunningFast, startRunning);
+	DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunningFast: %d, isFlying: %d", x, y, vx, vy, ax, ay, isRunningFast, isFlying);
 	Collision::GetInstance()->Process(this, dt, coObjects);
 	// set hold obj pos after x, y update
 	TailUpdate();
@@ -678,6 +662,7 @@ string Mario::GetAniIdBig()
 //
 string Mario::GetAniIdTanooki()
 {
+	int node = MomentumBar::GetInstance()->GetNode();
 	string aniId = "1";
 	if (!isOnPlatform)
 	{
@@ -688,7 +673,7 @@ string Mario::GetAniIdTanooki()
 			else
 				aniId = ID_ANI_MARIO_TANOOKI_JUMP_HOLD_LEFT;
 		}
-		else if (isRunningFast)
+		else if (node == 6)
 		{
 			if (isFlying)
 				if (nx >= 0)
@@ -905,8 +890,11 @@ void Mario::SetState(int state)
 		if (isHolding) return;
 		isFlying = true;
 		flyTimer = GetTickCount64();
-		if (isRunningFast)
+		if(isRunningFast)	MomentumBar::GetInstance()->IndiactorFull();
+		if (MomentumBar::GetInstance()->GetNode() == 6)
+		{
 			vy = -MARIO_FLY_SPEED_Y;
+		}
 		else
 			vy = MARIO_FALL_DONW_SPEED_Y;
 	case MARIO_STATE_RELEASE_JUMP:
