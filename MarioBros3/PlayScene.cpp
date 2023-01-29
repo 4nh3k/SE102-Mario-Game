@@ -33,7 +33,7 @@ PlayScene::PlayScene(int id, LPCWSTR filePath):
 	camY = 0.0f;
 	player = NULL;
 	key_handler = new SampleKeyHandler(this);
-	hud = new HUD(HUD_WIDTH / 2, camY + HUD_HEIGHT / 2);
+	hud = HUD::GetInstance();
 	SFXs.push_back(hud);
 }
 

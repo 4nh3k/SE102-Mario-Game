@@ -18,6 +18,7 @@
 #include "Brick.h"
 #include "PiranhaPlant.h"
 #include "ParaKoopa.h"
+#include "MomentumBar.h"
 
 Mario::Mario(float x, float y) : GameObject(x, y)
 {
@@ -125,7 +126,15 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	if (abs(vx) > abs(maxVx) && !isSitting)
 		vx = maxVx;
-
+	if (abs(vx) > MARIO_WALKING_SPEED)
+	{
+		int tmp = (((abs(vx) - MARIO_WALKING_SPEED) / (MARIO_RUNNING_SPEED - MARIO_WALKING_SPEED)) * 6);
+		DebugOutTitle(L"vx: %f, ax: %f, tmp: %d", vx, ax, tmp);
+		MomentumBar::GetInstance()->SetNode(tmp);
+	}
+	else {
+		MomentumBar::GetInstance()->Decrease();
+	}
 	if (GetTickCount64() - flyTimer > MARIO_FLY_TIMEOUT && isFlying)
 	{
 		flyTimer = 0;
@@ -156,7 +165,6 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 	isOnPlatform = false;
 	//DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunning: %d, isWalking: %d", x, y, vx, vy, ax, ay, isRunningFast, startRunning);
-	//DebugOutTitle(L"coin: %d, point: %d", coin, score);
 	Collision::GetInstance()->Process(this, dt, coObjects);
 	// set hold obj pos after x, y update
 	TailUpdate();
@@ -824,30 +832,33 @@ void Mario::SetState(int state)
 		}
 	}
 
-
 	switch (state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
 		if (isSitting) break;
 		maxVx = MARIO_RUNNING_SPEED;
-		ax = MARIO_ACCEL_WALK_X;
+		ax = ((abs(vx) > MARIO_WALKING_SPEED) && vx >0) ? MARIO_ACCEL_RUN_X : MARIO_ACCEL_WALK_X;
+		//ax = MARIO_ACCEL_WALK_X;
 		nx = 1;
 		break;
 	case MARIO_STATE_RUNNING_HOLD_RIGHT:
 		maxVx = MARIO_RUNNING_SPEED;
-		ax = MARIO_ACCEL_WALK_X;
+		ax = ((abs(vx) > MARIO_WALKING_SPEED) && vx>0) ? MARIO_ACCEL_RUN_X : MARIO_ACCEL_WALK_X;
+		//ax = MARIO_ACCEL_WALK_X;
 		nx = 1;
 		break;
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_RUNNING_SPEED;
-		ax = -MARIO_ACCEL_WALK_X;
+		ax = ((abs(vx) > MARIO_WALKING_SPEED) && vx < 0) ? -MARIO_ACCEL_RUN_X : -MARIO_ACCEL_WALK_X;
+		//ax = -MARIO_ACCEL_WALK_X;
 		nx = -1;
 		break;
 	case MARIO_STATE_RUNNING_HOLD_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_RUNNING_SPEED;
-		ax = -MARIO_ACCEL_WALK_X;
+		ax = ((abs(vx) > MARIO_WALKING_SPEED) && vx < 0) ? -MARIO_ACCEL_RUN_X : -MARIO_ACCEL_WALK_X;
+		//ax = -MARIO_ACCEL_WALK_X;
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:

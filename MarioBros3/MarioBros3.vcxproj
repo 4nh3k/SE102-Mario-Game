@@ -179,6 +179,7 @@
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MomentumBar.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="ParaGoomba.cpp" />
     <ClCompile Include="ParaKoopa.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioConst.h" />
+    <ClInclude Include="MomentumBar.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="OneUpMushroom.h" />
     <ClInclude Include="ParaGoomba.h" />
