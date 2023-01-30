@@ -1,0 +1,108 @@
+{ "compressionlevel":-1,
+ "height":14,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[23, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 24,
+            21, 0, 0, 0, 1, 19, 6, 19, 1, 19, 1, 19, 6, 0, 0, 22,
+            21, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 22,
+            21, 19, 33, 19, 8, 0, 0, 0, 7, 19, 1, 19, 17, 0, 0, 22,
+            21, 0, 0, 0, 18, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 22,
+            21, 0, 0, 0, 7, 19, 4, 19, 1, 0, 0, 12, 10, 11, 0, 22,
+            21, 0, 0, 0, 20, 0, 0, 0, 0, 12, 10, 14, 2, 9, 0, 22,
+            21, 0, 0, 16, 7, 16, 17, 19, 6, 13, 6, 19, 3, 9, 0, 22,
+            21, 0, 16, 16, 20, 16, 16, 0, 20, 9, 0, 0, 0, 9, 0, 22,
+            21, 0, 16, 16, 1, 19, 6, 19, 1, 15, 10, 10, 10, 14, 0, 22,
+            31, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 32,
+            28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28,
+            28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28,
+            28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28],
+         "height":14,
+         "id":1,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":16,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "id":4,
+         "layers":[],
+         "name":"HUD",
+         "offsetx":1.63364531420931,
+         "offsety":0,
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"ani_path",
+                 "type":"string",
+                 "value":"textures\\HUD.xml"
+                }],
+         "type":"group",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "id":3,
+         "layers":[
+                {
+                 "draworder":"topdown",
+                 "id":2,
+                 "name":"Player",
+                 "objects":[
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":1,
+                         "name":"Mario",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":88.3333333333333,
+                         "y":67.0000000000003
+                        }],
+                 "opacity":1,
+                 "type":"objectgroup",
+                 "visible":true,
+                 "x":0,
+                 "y":0
+                }],
+         "name":"Player",
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"ani_path",
+                 "type":"string",
+                 "value":"textures\\mario.xml"
+                }],
+         "type":"group",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":5,
+ "nextobjectid":4,
+ "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"cam_y",
+         "type":"int",
+         "value":174
+        }],
+ "renderorder":"right-down",
+ "tiledversion":"1.9.2",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"worldMapTiles.json"
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":"1.9",
+ "width":16
+}

@@ -9,6 +9,7 @@ class PlayScene: public Scene
 {
 protected: 
 	vector<Tile*> tileMap;
+	vector<std::pair<tson::Object, bool>> spawnPoint;
 	LPGAMEOBJECT hud;
 	float camY;
 	float camX;
@@ -18,6 +19,7 @@ protected:
 	void LoadTileObjects(map<tuple<int,int>, tson::TileObject> tileObjects, tson::Vector2i tileSize);
 	void LoadTilesets(vector<tson::Tileset> tileSets);
 	void LoadAssets(LPCWSTR assetFile);
+	void Spawn(tson::Object);
 	
 public: 
 	PlayScene(int id, LPCWSTR filePath);

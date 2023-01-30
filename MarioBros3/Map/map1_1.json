@@ -324,8 +324,8 @@
                          "rotation":0,
                          "visible":true,
                          "width":0,
-                         "x":1109.66666666667,
-                         "y":388.333333333333
+                         "x":839.91666666667,
+                         "y":392.083333333333
                         }, 
                         {
                          "class":"",
@@ -336,8 +336,8 @@
                          "rotation":0,
                          "visible":true,
                          "width":0,
-                         "x":1105.33333333333,
-                         "y":390
+                         "x":888.33333333333,
+                         "y":391.5
                         }, 
                         {
                          "class":"",
@@ -348,8 +348,8 @@
                          "rotation":0,
                          "visible":true,
                          "width":0,
-                         "x":1107,
-                         "y":389.625
+                         "x":953.5,
+                         "y":390.375
                         }],
                  "opacity":1,
                  "properties":[
@@ -605,8 +605,8 @@
                          "name":"Platform",
                          "rotation":0,
                          "visible":true,
-                         "width":558.636363636364,
-                         "x":2256.95454545455,
+                         "width":557.363636363637,
+                         "x":2258.22727272728,
                          "y":417.238636363636
                         }, 
                         {
@@ -674,6 +674,116 @@
                          "width":24.5,
                          "x":2816,
                          "y":-239.5
+                        }, 
+                        {
+                         "class":"",
+                         "height":190.7386,
+                         "id":241,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":108.7386,
+                         "x":1986.3807,
+                         "y":463.6307
+                        }, 
+                        {
+                         "class":"",
+                         "height":26.7386,
+                         "id":242,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":381.5,
+                         "x":2095.8807,
+                         "y":624.6307
+                        }, 
+                        {
+                         "class":"",
+                         "height":15.7386,
+                         "id":243,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":82.5,
+                         "x":2224.25,
+                         "y":608.6307
+                        }, 
+                        {
+                         "class":"",
+                         "height":15.7386,
+                         "id":245,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":82.5,
+                         "x":2240.20454545455,
+                         "y":592.857972727273
+                        }, 
+                        {
+                         "class":"",
+                         "height":15.7386,
+                         "id":246,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":82.5,
+                         "x":2256.56818181818,
+                         "y":576.676154545455
+                        }, 
+                        {
+                         "class":"",
+                         "height":15.7386,
+                         "id":247,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":82.5,
+                         "x":2288.02272727273,
+                         "y":544.312518181818
+                        }, 
+                        {
+                         "class":"",
+                         "height":62.2840545454546,
+                         "id":248,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":92.5,
+                         "x":2352.56818181818,
+                         "y":465.221609090909
+                        }, 
+                        {
+                         "class":"",
+                         "height":15.7386,
+                         "id":249,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":82.5,
+                         "x":2277.47727272727,
+                         "y":559.221609090909
+                        }, 
+                        {
+                         "class":"",
+                         "height":15.7386,
+                         "id":250,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":82.5,
+                         "x":2305.29545454545,
+                         "y":527.767063636364
+                        }, 
+                        {
+                         "class":"",
+                         "height":15.7386,
+                         "id":251,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":194.166666666667,
+                         "x":2127.75,
+                         "y":464.1307
                         }],
                  "opacity":1,
                  "properties":[
@@ -1572,6 +1682,150 @@
                          "width":0,
                          "x":1847.25,
                          "y":135.875
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":254,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2231.46590909091,
+                         "y":513.011363636364
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":255,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2232,
+                         "y":529.886363636364
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":256,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2215.29545454545,
+                         "y":496.761363636364
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":257,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2199.25,
+                         "y":497.147727272727
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":258,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2183.60227272727,
+                         "y":513.409090909091
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":259,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2199.60227272727,
+                         "y":546.329545454545
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":260,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2215.30681818182,
+                         "y":545.215909090909
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":261,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2232.05681818182,
+                         "y":561.272727272727
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":262,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2231.375,
+                         "y":579.352272727273
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":263,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2199.03409090909,
+                         "y":594.25
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":264,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2215.38636363636,
+                         "y":595.397727272727
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":265,
+                         "name":"Coin",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":2183.36363636364,
+                         "y":577.329545454545
                         }],
                  "opacity":1,
                  "properties":[
@@ -1609,13 +1863,13 @@
                         {
                          "class":"",
                          "height":27.4545,
-                         "id":217,
+                         "id":268,
                          "name":"Mario",
                          "rotation":0,
                          "visible":true,
                          "width":19.0909,
-                         "x":698.037883333333,
-                         "y":309.856083333333
+                         "x":52.0795499999999,
+                         "y":383.64775
                         }],
                  "opacity":1,
                  "properties":[
@@ -1643,7 +1897,7 @@
          "y":0
         }],
  "nextlayerid":23,
- "nextobjectid":218,
+ "nextobjectid":269,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -1654,7 +1908,7 @@
         {
          "name":"cam_y",
          "type":"int",
-         "value":432
+         "value":431
         }],
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

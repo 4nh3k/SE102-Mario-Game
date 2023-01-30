@@ -148,7 +148,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 	isOnPlatform = false;
-	DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunningFast: %d, isFlying: %d", x, y, vx, vy, ax, ay, isRunningFast, isFlying);
+	//DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunningFast: %d, isFlying: %d", x, y, vx, vy, ax, ay, isRunningFast, isFlying);
 	Collision::GetInstance()->Process(this, dt, coObjects);
 	// set hold obj pos after x, y update
 	TailUpdate();

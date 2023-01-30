@@ -18,7 +18,7 @@
 #include "RedKoopa.h"
 #include "VenusFireTrap.h"
 #include "RewardBrick.h"
-#include "SampleKeyEventHandler.h"
+#include "PlaySceneKeyHandler.h"
 #include "ParaGoomba.h"
 #include "GreenVenus.h"
 #include "PiranhaPlant.h"
@@ -32,7 +32,7 @@ PlayScene::PlayScene(int id, LPCWSTR filePath):
 {
 	camY = 0.0f;
 	player = NULL;
-	key_handler = new SampleKeyHandler(this);
+	key_handler = new PlaySceneKeyHandler(this);
 	hud = HUD::GetInstance();
 	SFXs.push_back(hud);
 }
@@ -63,11 +63,60 @@ void PlayScene::LoadTilesets(vector<tson::Tileset> tileSets)
 	}
 }
 
+void PlayScene::Spawn(tson::Object obj)
+{
+	LPGAMEOBJECT gameObj = NULL;
+
+	tson::Vector2f pos = ToInGamePos(obj);
+	tson::Vector2i size = obj.getSize();
+	if (obj.getName() == "Koopa")
+	{
+		gameObj = new Koopa(pos.x, pos.y);
+	}
+	/*else if (obj.getName() == "RedKoopa")
+	{
+		gameObj = new RedKoopa(pos.x, pos.y);
+	}*/
+	else if (obj.getName() == "ParaKoopa")
+	{
+		gameObj = new ParaKoopa(pos.x, pos.y);
+	}
+	else if (obj.getName() == "Goomba")
+	{
+		gameObj = new Goomba(pos.x, pos.y);
+	}
+	else if (obj.getName() == "Venus")
+	{
+		gameObj = new VenusFireTrap(pos.x, pos.y);
+		lowLayer.push_back(gameObj);
+		return;
+	}
+	else if (obj.getName() == "GreenVenus")
+	{
+		gameObj = new GreenVenus(pos.x, pos.y);
+		lowLayer.push_back(gameObj);
+		return;
+	}
+	else if (obj.getName() == "PiranhaPlant")
+	{
+		gameObj = new PiranhaPlant(pos.x, pos.y);
+		lowLayer.push_back(gameObj);
+		return;
+	}
+	else if (obj.getName() == "ParaGoomba")
+	{
+		gameObj = new ParaGoomba(pos.x, pos.y);
+	}
+	//gameObj->SetPosition(10.0f, 01.0f);
+	gameObjects.push_back(gameObj);
+}
+
 void PlayScene::LoadObjects(vector<tson::Object> objects)
 {
 	for (auto& obj : objects)
 	{
 		LPGAMEOBJECT gameObj = NULL;
+		tson::Object spawnObj = obj;
 
 		tson::Vector2f pos = ToInGamePos(obj);
 		tson::Vector2i size = obj.getSize();
@@ -80,18 +129,18 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		{
 			gameObj = new SpecialPlatform(pos.x, pos.y, size.x, size.y);
 		}
-		else if (obj.getName() == "Koopa")
-		{
-			gameObj = new Koopa(pos.x, pos.y);
-		}
+		//else if (obj.getName() == "Koopa")
+		//{
+		//	gameObj = new Koopa(pos.x, pos.y);
+		//}
 		else if (obj.getName() == "RedKoopa")
 		{
 			gameObj = new RedKoopa(pos.x, pos.y);
 		}
-		else if (obj.getName() == "ParaKoopa")
-		{
-			gameObj = new ParaKoopa(pos.x, pos.y);
-		}
+		//else if (obj.getName() == "ParaKoopa")
+		//{
+		//	gameObj = new ParaKoopa(pos.x, pos.y);
+		//}
 		else if (obj.getName() == "Mario")
 		{
 			if (player != NULL)
@@ -118,15 +167,17 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			int scene_id = GetProperty(obj, PROP_ID_SCENE);
 			gameObj = new Portal(pos.x, pos.y, size.x + pos.x, pos.y + size.y,scene_id);
 		}
-		else if (obj.getName() == "Goomba")
-		{
-			gameObj = new Goomba(pos.x, pos.y);
-		}
+		//else if (obj.getName() == "Goomba")
+		//{
+		//	spawnPoint.push_back({ obj, false });
+		//	//return;
+		//	gameObj = new Goomba(pos.x, pos.y);
+		//}
 		else if (obj.getName() == "Coin")
 		{
 			gameObj = new Coin(pos.x, pos.y);
 		}
-		else if (obj.getName() == "Venus")
+		/*else if (obj.getName() == "Venus")
 		{
 			gameObj = new VenusFireTrap(pos.x, pos.y);
 			lowLayer.push_back(gameObj);
@@ -143,15 +194,19 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			gameObj = new PiranhaPlant(pos.x, pos.y);
 			lowLayer.push_back(gameObj);
 			continue;
-		}
+		}*/
 		else if (obj.getName() == "Reward Brick")
 		{
 			int reward_id = GetProperty(obj, PROP_ID_REWARD);
 			gameObj = new RewardBrick(pos.x, pos.y, reward_id);
 		}
-		else if (obj.getName() == "ParaGoomba")
-		{
-			gameObj = new ParaGoomba(pos.x, pos.y);
+		//else if (obj.getName() == "ParaGoomba")
+		//{
+		//	gameObj = new ParaGoomba(pos.x, pos.y);
+		//}
+		else {
+			spawnPoint.push_back({ obj, false });
+			continue;
 		}
 		//gameObj->SetPosition(10.0f, 01.0f);
 		gameObjects.push_back(gameObj);
@@ -206,18 +261,18 @@ void PlayScene::Load()
 	tson::Tileson t;
 	map = t.parse(fs::path(sceneFilePath));
 
-	if (map->getProperties().hasProperty("cam_y"))
-	{
-		camY = any_cast<int>(map->getProp("cam_y")->getValue());
-		camY -= Game::GetInstance()->GetBackBufferHeight();
-	}
-	if (map->getProperties().hasProperty("cam_x"))
-	{
-		camX = any_cast<int>(map->getProp("cam_x")->getValue());
-		camX -= Game::GetInstance()->GetBackBufferWidth();
-	}
 	if (map->getStatus() == tson::ParseStatus::OK)
 	{
+		if (map->getProperties().hasProperty("cam_y"))
+		{
+			camY = any_cast<int>(map->getProp("cam_y")->getValue());
+			camY -= Game::GetInstance()->GetBackBufferHeight();
+		}
+		if (map->getProperties().hasProperty("cam_x"))
+		{
+			camX = any_cast<int>(map->getProp("cam_x")->getValue());
+			camX -= Game::GetInstance()->GetBackBufferWidth();
+		}
 		DebugOut(L"[INFO] Load map successfully from file: %s \n", sceneFilePath);
 		LoadTilesets(map->getTilesets());
 
@@ -225,7 +280,8 @@ void PlayScene::Load()
 		{
 			LoadLayer(layer, map->getTileSize());
 		}
-		DebugOutTitle(L"Done load");
+		//DebugOutTitle(L"Done load");
+		DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 
 	}
 	else
@@ -234,12 +290,24 @@ void PlayScene::Load()
 
 	}
 
-	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 }
 
 
 void PlayScene::Update(DWORD dt)
 {
+	for (auto& obj : spawnPoint)
+	{
+		tson::Vector2i pos = obj.first.getPosition();
+		bool isContain = Game::GetInstance()->GetCamera()->IsContain(pos.x, pos.y);
+		//DebugOutTitle(L"%d, %d",pos.x, pos.y);
+		if (isContain && !obj.second)
+		{
+			obj.second = true;
+			DebugOutTitle(L"%d, %d",pos.x, pos.y );
+
+			Spawn(obj.first);
+		}
+	}
 	vector<LPGAMEOBJECT> coObjects;
 	for (auto& sfx : SFXs)
 	{
@@ -295,10 +363,12 @@ void PlayScene::Update(DWORD dt)
 		cy += game->GetBackBufferHeight() / 8;
 	}
 
-	hud->SetPosition(cx + HUD_WIDTH / 2, cy + HUD_HEIGHT / 2 + game->GetBackBufferHeight());
 
-	if(cx < camX)
+	if (cx < camX)
+	{
+		hud->SetPosition(cx + HUD_WIDTH / 2, cy + HUD_HEIGHT / 2 + game->GetBackBufferHeight());
 		Game::GetInstance()->GetCamera()->SetCamPos(cx , cy + HUD_HEIGHT);
+	}
 
 	PurgeDeletedObjects();
 }

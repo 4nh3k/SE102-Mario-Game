@@ -156,7 +156,7 @@
     <ClCompile Include="RewardCoin.cpp">
       <Filter>Source Files\Misc\QuestionBlock</Filter>
     </ClCompile>
-    <ClCompile Include="SampleKeyEventHandler.cpp">
+    <ClCompile Include="PlaySceneKeyHandler.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="SuperLeaf.cpp">
@@ -260,7 +260,7 @@
     <ClInclude Include="RedKoopa.h">
       <Filter>Header Files\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="SampleKeyEventHandler.h">
+    <ClInclude Include="PlaySceneKeyHandler.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">

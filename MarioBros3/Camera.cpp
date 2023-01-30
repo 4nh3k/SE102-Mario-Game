@@ -6,9 +6,16 @@ RECT Camera::GetBound()
 	rect.left = cam_x;
 	rect.top = cam_y;
     // draw some tile outside of camera
-	rect.bottom = heigh + 32;
-	rect.right = width + 32;
+	rect.bottom = cam_y + heigh + 32;
+	rect.right = cam_x + width + 32;
 	return rect;
+}
+bool Camera::IsContain(float x, float y)
+{
+    RECT camBBox = GetBound();
+    if (x <= camBBox.right && x >= camBBox.left && y >= camBBox.top && y <= camBBox.bottom)
+        return true;
+    return false;
 }
 bool Camera::IsContain(RECT objectBBox)
 {

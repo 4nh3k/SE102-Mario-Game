@@ -2,11 +2,11 @@
 
 #include "Scene.h"
 
-class SampleKeyHandler: public CSceneKeyHandler
+class PlaySceneKeyHandler: public CSceneKeyHandler
 {
 public:
 	virtual void KeyState(BYTE *states);
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
-	SampleKeyHandler(LPSCENE s) :CSceneKeyHandler(s) {};
+	PlaySceneKeyHandler(LPSCENE s) :CSceneKeyHandler(s) {};
 };

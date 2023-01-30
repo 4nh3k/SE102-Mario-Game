@@ -128,12 +128,15 @@ string Koopa::GetAniIdUpsideDown()
 
 void Koopa::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 {
-	Brick* brick = dynamic_cast<Brick*>(e->obj);
-	if (e->nx != 0)
+	if (state == KOOPA_STATE_KICKED)
 	{
-		if (!brick->IsDeleted())
+		Brick* brick = dynamic_cast<Brick*>(e->obj);
+		if (e->nx != 0)
 		{
-			brick->Break();
+			if (!brick->IsDeleted())
+			{
+				brick->Break();
+			}
 		}
 	}
 }
