@@ -16,6 +16,9 @@ void PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_DOWN:
 		mario->SetState(MARIO_STATE_SIT);
 		break;
+	case DIK_UP:
+		mario->SetUpKey(true);
+		break;
 	case DIK_S:
 		mario->SetState(MARIO_STATE_JUMP);
 		break;
@@ -60,6 +63,8 @@ void PlaySceneKeyHandler::OnKeyUp(int KeyCode)
 	case DIK_DOWN:
 		mario->SetState(MARIO_STATE_SIT_RELEASE);
 		break;
+	case DIK_UP:
+		mario->SetUpKey(false);
 	case DIK_A:
 		if (mario->IsHolding())
 			mario->SetState(MARIO_STATE_KICK);

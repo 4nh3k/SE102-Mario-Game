@@ -24,6 +24,7 @@
 
 class HUD : public GameObject
 {
+	int currentTime;
 	static HUD* __instance;
 	DWORD time;
 	Font* life;
@@ -31,9 +32,11 @@ class HUD : public GameObject
 	Font* score;
 	Font* timer;
 	MomentumBar* momentumBar;
+	bool stopTimer;
 public:
 	HUD(float x, float y) : GameObject(x,y)
 	{
+		currentTime = PLAYSCENE_TIME;
 		timer = new Font(x, y, 3);
 		coin = new Font(x, y, 2);
 		life = new Font(x, y, 2);
@@ -44,6 +47,8 @@ public:
 	static HUD* GetInstance();
 	void SetPosition(float x, float y);
 	void Render();
+	void StopTimer();
+	void StartTimer();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom) {}
 };

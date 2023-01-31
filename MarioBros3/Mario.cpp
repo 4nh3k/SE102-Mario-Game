@@ -18,7 +18,9 @@
 #include "Brick.h"
 #include "PiranhaPlant.h"
 #include "ParaKoopa.h"
+#include "Pipeline.h"
 #include "MomentumBar.h"
+#include "HUD.h"
 
 Mario::Mario(float x, float y) : GameObject(x, y)
 {
@@ -34,6 +36,7 @@ Mario::Mario(float x, float y) : GameObject(x, y)
 	isKicking = false;
 	isTailWhack = false;
 	flickering = false;
+	isPressUp = false;
 	flyTimer = 0;
 	kickTimer = 0;
 	tailTimer = 0;
@@ -55,6 +58,16 @@ int Mario::IsCollidable()
 int Mario::IsBlocking(float nx, float ny) 
 { 
 	return (state != MARIO_STATE_DIE && untouchable == 0);
+}
+
+BOOLEAN Mario::IsGoingPipeLine()
+{
+	return teleporting;
+}
+
+void Mario::SetUpKey(bool keyDown)
+{
+	this->isPressUp = keyDown;
 }
 
 int Mario::IsTanooki()
@@ -96,6 +109,23 @@ BOOLEAN Mario::IsHolding()
 
 void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	if (teleporting)
+	{
+
+		// if mario issitting then go down?
+		vy = MARIO_GO_DOWN_SPEED_Y * teleDirection;
+		y += vy * dt;
+		DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunningFast: %d, isFlying: %d, isSitting: %d, isPressUp: %d", x, y, vx, vy, ax, ay, isRunningFast, isFlying, isSitting, isPressUp);
+
+		if (abs(oldY - y) > MARIO_BIG_BBOX_HEIGHT)
+		{
+			teleporting = false;
+			Game::GetInstance()->GetCurrentScene()->SetCamLimitPos(teleCamX, teleCamY);
+			x = teleX;
+			y = teleY;
+		}
+	}
+
 	vy += ay * dt;
 	vx += ax * dt;
 
@@ -119,6 +149,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	else {
 		MomentumBar::GetInstance()->Decrease();
 	}
+
 	if (GetTickCount64() - flyTimer > MARIO_FLY_TIMEOUT && isFlying)
 	{
 		flyTimer = 0;
@@ -148,7 +179,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 	}
 	isOnPlatform = false;
-	//DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunningFast: %d, isFlying: %d", x, y, vx, vy, ax, ay, isRunningFast, isFlying);
+	//DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunningFast: %d, isFlying: %d, isSitting: %d, isPressUp: %d", x, y, vx, vy, ax, ay, isRunningFast, isFlying, isSitting, isPressUp);
 	Collision::GetInstance()->Process(this, dt, coObjects);
 	// set hold obj pos after x, y update
 	TailUpdate();
@@ -204,9 +235,12 @@ void Mario::HoldingObjUpdate()
 
 void Mario::OnNoCollision(DWORD dt)
 {
-
-	x += vx * dt;
-	y += vy * dt;
+	// stop moving while go down pipeline
+	if (!teleporting)
+	{
+		x += vx * dt;
+		y += vy * dt;
+	}
 
 }
 
@@ -252,6 +286,25 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithBrick(e);
 	else if (dynamic_cast<PiranhaPlant*>(e->obj))
 		OnCollisionWithPiranhaPlant(e);
+	else if (dynamic_cast<Pipeline*>(e->obj))
+		OnCollisionWithPipeline(e);
+}
+
+void Mario::OnCollisionWithPipeline(LPCOLLISIONEVENT e)
+{
+	Pipeline* pipe = dynamic_cast<Pipeline*>(e->obj);
+	if ((e->ny < 0 && (this->state == MARIO_STATE_SIT || isSitting)) || (e->ny > 0 && isPressUp))
+	{
+		HUD::GetInstance()->StopTimer();
+		teleDirection = (isPressUp) ? -1 : 1;
+		// do it like this because collision push back set it back to old pos
+		oldY = y;
+		pipe->GetTelePos(x, y);
+		pipe->GetCamPos(teleCamX, teleCamY);
+		teleX = x;
+		teleY = y;
+		teleporting = true;
+	}
 }
 
 void Mario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
@@ -759,6 +812,7 @@ string Mario::GetAniIdTanooki()
 		if (nx > 0) aniId = ID_ANI_MARIO_TANOOKI_TAIL_WHACK_RIGHT;
 		else aniId = ID_ANI_MARIO_TANOOKI_TAIL_WHACK_LEFT;
 	}
+	else if (teleporting) aniId = ID_ANI_MARIO_GO_DOWN;
 	if (aniId == "1") aniId = ID_ANI_MARIO_TANOOKI_IDLE_RIGHT;
 
 	return aniId;

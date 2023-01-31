@@ -23,13 +23,30 @@ void HUD::SetPosition(float x, float y) {
 	timer->SetPos(x + TIMER_POS_OFFSET_X, y + TIMER_POS_OFFSET_Y);
 	momentumBar->SetPos(x + MOMENTUMBAR_POS_OFFSET_X, y + MOMENTUMBAR_POS_OFFSET_Y);
 }
+void HUD::StartTimer()
+{
+	time = GetTickCount64() - (PLAYSCENE_TIME - currentTime)*1000;
+	stopTimer = false;
+}
+void HUD::StopTimer()
+{
+	stopTimer = true;
+}
 void HUD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	Mario* player = dynamic_cast<Mario*>(Game::GetInstance()->GetCurrentScene()->GetPlayer());
 	life->SetNumber(2);
 	coin->SetNumber(player->GetCoin());
 	score->SetNumber(player->GetScore());
-	int timerNum = PLAYSCENE_TIME - (GetTickCount64() - time) / 1000;
-	timer->SetNumber(timerNum);
+	if (!stopTimer)
+	{
+		int timerNum = PLAYSCENE_TIME - (GetTickCount64() - time) / 1000;
+		timer->SetNumber(timerNum);
+		currentTime = timerNum;
+	}
+	else
+	{
+		timer->SetNumber(currentTime);
+	}
 	//momentumBar->SetNode(1);
 } 

@@ -20,6 +20,15 @@ class Mario : public GameObject
 	BOOLEAN isFlying;
 	BOOLEAN isRunningFast;
 	BOOLEAN flickering;
+	BOOLEAN isPressUp;
+
+	BOOLEAN teleporting;
+	int teleDirection;
+	float oldY;
+	float teleX;
+	float teleY;
+	float teleCamX;
+	float teleCamY;
 
 	float maxVx;
 	float ax;				// acceleration on x 
@@ -57,6 +66,7 @@ class Mario : public GameObject
 	void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
 	void OnCollisionWithPSwitch(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithPipeline(LPCOLLISIONEVENT e);
 
 	void TailUpdate();
 	void HoldingObjUpdate();
@@ -74,12 +84,14 @@ public:
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 	void SetLevel(int l);
+	void SetUpKey(bool);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	void AddScore(float Px, float Py);
 	void AddScore(float Px, float Py, int point);
 	void AddCoin() { coin++; }
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
+	BOOLEAN IsGoingPipeLine();
 	int IsCollidable();
 	int IsBlocking(float nx, float ny);
 	int IsTanooki();

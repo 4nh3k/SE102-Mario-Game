@@ -18,6 +18,8 @@ protected:
 	bool pauseUpdate;
 	LPCWSTR sceneFilePath;
 	LPGAMEOBJECT player;
+	float camY;
+	float camX;
 	std::deque<LPGAMEOBJECT> SFXs;
 	std::deque<LPGAMEOBJECT> gameObjects;
 	std::deque<LPGAMEOBJECT> lowLayer;
@@ -38,6 +40,11 @@ public:
 	{
 		SFXs.push_back(sfx);
 	}
+	void SetCamLimitPos(int camX, int camY) {
+		this->camX = camX;
+		this->camY = camY;
+	}
+
 	LPGAMEOBJECT GetPlayer() { return player; }
 	std::deque<LPGAMEOBJECT> GetGameObjects() { return gameObjects; }
 	bool IsPause() { return pauseUpdate; }

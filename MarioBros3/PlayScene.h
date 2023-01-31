@@ -11,8 +11,7 @@ protected:
 	vector<Tile*> tileMap;
 	vector<std::pair<tson::Object, bool>> spawnPoint;
 	LPGAMEOBJECT hud;
-	float camY;
-	float camX;
+
 
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);

@@ -24,10 +24,11 @@ void PSwitch::Render()
 
 void PSwitch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (sfx->IsDeleted())
-	{
-		startRender = true;
-	}
+	if(startRender == false)
+		if (sfx->IsDeleted())
+		{
+			startRender = true;
+		}
 }
 
 void PSwitch::GetBoundingBox(float& l, float& t, float& r, float& b)

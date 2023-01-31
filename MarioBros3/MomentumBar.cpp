@@ -59,7 +59,7 @@ void MomentumBar::SetNode(int node)
 		Decrease();
 		return;
 	}
-	node = (node > 6) ? 6 : node;
+	if (node > nodeFill + 1) node = nodeFill + 1;
 	nodeFill = node;
 }
 void MomentumBar::Render()

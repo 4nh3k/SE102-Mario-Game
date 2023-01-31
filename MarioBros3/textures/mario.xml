@@ -1,90 +1,85 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Texture imagePath="mario.png">
-<Animation aniID="tanooki_walk_fly_right" frameTime="100"><Frame name="tanooki_walk_fly_right0000" x="136" y="0" width="22" height="28" />
-<Frame name="tanooki_walk_fly_right0001" x="0" y="193" width="24" height="28" />
+<Animation aniID="tanooki_jump_hold_left" frameTime="100"><Frame name="tanooki_jump_hold_left0000" x="25" y="66" width="22" height="28" />
 </Animation>
-<Animation aniID="tanooki_idle_left" frameTime="100"><Frame name="tanooki_idle_left0000" x="0" y="34" width="22" height="28" />
+<Animation aniID="big_idle_hold_right" frameTime="100"><Frame name="big_idle_hold_right0000" x="162" y="93" width="14" height="28" />
 </Animation>
-<Animation aniID="tanooki_run_left" frameTime="100"><Frame name="tanooki_run_left0000" x="51" y="34" width="24" height="28" />
-<Frame name="tanooki_run_left0001" x="80" y="0" width="24" height="28" />
-<Frame name="tanooki_run_left0002" x="54" y="162" width="24" height="28" />
+<Animation aniID="tanooki_falldown_left" frameTime="100"><Frame name="tanooki_falldown_left0000" x="210" y="155" width="24" height="28" />
 </Animation>
-<Animation aniID="small_walk_left" frameTime="100"><Frame name="small_walk_left0000" x="52" y="224" width="16" height="16" />
-<Frame name="small_walk_left0001" x="256" y="100" width="12" height="16" />
-</Animation>
-<Animation aniID="small_jump_hold_right" frameTime="100"><Frame name="small_jump_hold_right0000" x="230" y="224" width="16" height="16" />
-</Animation>
-<Animation aniID="big_run_jump_right" frameTime="100"><Frame name="big_run_jump_right0000" x="113" y="193" width="20" height="26" />
-</Animation>
-<Animation aniID="big_idle_left" frameTime="100"><Frame name="big_idle_left0000" x="136" y="96" width="14" height="28" />
-</Animation>
-<Animation aniID="tanooki_walk_right" frameTime="100"><Frame name="tanooki_walk_right0000" x="210" y="93" width="24" height="28" />
-<Frame name="tanooki_walk_right0001" x="108" y="64" width="22" height="28" />
-<Frame name="tanooki_walk_right0002" x="0" y="98" width="22" height="28" />
-</Animation>
-<Animation aniID="mario_grow_up_right" frameTime="100"><Frame name="mario_grow_up_right0000" x="256" y="119" width="12" height="16" />
-<Frame name="mario_grow_up_right0001" x="187" y="62" width="14" height="28" />
-<Frame name="mario_grow_up_right0002" x="217" y="193" width="14" height="22" />
-</Animation>
-<Animation aniID="tanooki_walk_jump_right" frameTime="100"><Frame name="tanooki_walk_jump_right0000" x="210" y="62" width="24" height="28" />
+<Animation aniID="small_kick_right" frameTime="100"><Frame name="small_kick_right0000" x="210" y="224" width="16" height="16" />
 </Animation>
 <Animation aniID="small_idle_left" frameTime="100"><Frame name="small_idle_left0000" x="256" y="100" width="12" height="16" />
 </Animation>
-<Animation aniID="tanooki_run_jump_left" frameTime="100"><Frame name="tanooki_run_jump_left0000" x="80" y="32" width="24" height="28" />
+<Animation aniID="tanooki_falldown_right" frameTime="100"><Frame name="tanooki_falldown_right0000" x="0" y="193" width="24" height="28" />
 </Animation>
-<Animation aniID="small_run_hold_right" frameTime="100"><Frame name="small_run_hold_right0000" x="230" y="224" width="16" height="16" />
-<Frame name="small_run_hold_right0001" x="238" y="84" width="14" height="16" />
+<Animation aniID="small_walk_jump_right" frameTime="100"><Frame name="small_walk_jump_right0000" x="256" y="60" width="16" height="16" />
 </Animation>
-<Animation aniID="tanooki_walk_left" frameTime="100"><Frame name="tanooki_walk_left0000" x="25" y="34" width="22" height="28" />
-<Frame name="tanooki_walk_left0001" x="0" y="162" width="24" height="28" />
-<Frame name="tanooki_walk_left0002" x="0" y="34" width="22" height="28" />
+<Animation aniID="small_jump_hold_right" frameTime="100"><Frame name="small_jump_hold_right0000" x="230" y="224" width="16" height="16" />
 </Animation>
-<Animation aniID="tanooki_run_jump_right" frameTime="100"><Frame name="tanooki_run_jump_right0000" x="77" y="66" width="24" height="28" />
-</Animation>
-<Animation aniID="big_run_hold_left" frameTime="100"><Frame name="big_run_hold_left0000" x="138" y="130" width="16" height="28" />
-<Frame name="big_run_hold_left0001" x="73" y="193" width="16" height="26" />
-<Frame name="big_run_hold_left0002" x="120" y="130" width="14" height="28" />
+<Animation aniID="tanooki_fly_left" frameTime="100"><Frame name="tanooki_fly_left0000" x="82" y="162" width="24" height="28" />
+<Frame name="tanooki_fly_left0001" x="110" y="162" width="24" height="28" />
+<Frame name="tanooki_fly_left0002" x="80" y="32" width="24" height="28" />
 </Animation>
 <Animation aniID="small_run_left" frameTime="100"><Frame name="small_run_left0000" x="91" y="224" width="16" height="16" />
 <Frame name="small_run_left0001" x="111" y="224" width="16" height="16" />
 </Animation>
-<Animation aniID="small_brace_left" frameTime="100"><Frame name="small_brace_left0000" x="238" y="44" width="14" height="16" />
+<Animation aniID="tanooki_walk_jump_right" frameTime="100"><Frame name="tanooki_walk_jump_right0000" x="210" y="62" width="24" height="28" />
 </Animation>
-<Animation aniID="tanooki_sit_left" frameTime="100"><Frame name="tanooki_sit_left0000" x="0" y="224" width="22" height="18" />
-</Animation>
-<Animation aniID="big_kick_right" frameTime="100"><Frame name="big_kick_right0000" x="162" y="31" width="22" height="28" />
+<Animation aniID="big_walk_jump_left" frameTime="100"><Frame name="big_walk_jump_left0000" x="187" y="123" width="16" height="26" />
 </Animation>
 <Animation aniID="tanooki_idle_hold_left" frameTime="100"><Frame name="tanooki_idle_hold_left0000" x="0" y="66" width="22" height="28" />
 </Animation>
-<Animation aniID="small_walk_jump_right" frameTime="100"><Frame name="small_walk_jump_right0000" x="256" y="60" width="16" height="16" />
+<Animation aniID="small_run_jump_right" frameTime="100"><Frame name="small_run_jump_right0000" x="256" y="0" width="16" height="16" />
 </Animation>
-<Animation aniID="small_kick_right" frameTime="100"><Frame name="small_kick_right0000" x="210" y="224" width="16" height="16" />
+<Animation aniID="big_sit_right" frameTime="100"><Frame name="big_sit_right0000" x="238" y="22" width="14" height="18" />
 </Animation>
-<Animation aniID="tanooki_idle_right" frameTime="100"><Frame name="tanooki_idle_right0000" x="0" y="98" width="22" height="28" />
+<Animation aniID="big_brace_right" frameTime="100"><Frame name="big_brace_right0000" x="60" y="0" width="16" height="28" />
 </Animation>
-<Animation aniID="big_walk_jump_right" frameTime="100"><Frame name="big_walk_jump_right0000" x="159" y="193" width="16" height="26" />
+<Animation aniID="tanooki_walk_fly_right" frameTime="100"><Frame name="tanooki_walk_fly_right0000" x="136" y="0" width="22" height="28" />
+<Frame name="tanooki_walk_fly_right0001" x="0" y="193" width="24" height="28" />
 </Animation>
-<Animation aniID="tanooki_brace_left" frameTime="100"><Frame name="tanooki_brace_left0000" x="0" y="0" width="16" height="30" />
+<Animation aniID="small_walk_right" frameTime="100"><Frame name="small_walk_right0000" x="256" y="80" width="16" height="16" />
+<Frame name="small_walk_right0001" x="256" y="119" width="12" height="16" />
 </Animation>
-<Animation aniID="big_jump_hold_right" frameTime="100"><Frame name="big_jump_hold_right0000" x="162" y="62" width="16" height="28" />
+<Animation aniID="small_run_hold_left" frameTime="100"><Frame name="small_run_hold_left0000" x="151" y="224" width="16" height="16" />
+<Frame name="small_run_hold_left0001" x="238" y="64" width="14" height="16" />
 </Animation>
-<Animation aniID="small_brace_right" frameTime="100"><Frame name="small_brace_right0000" x="238" y="104" width="14" height="16" />
+<Animation aniID="big_idle_right" frameTime="100"><Frame name="big_idle_right0000" x="187" y="62" width="14" height="28" />
 </Animation>
 <Animation aniID="big_run_hold_right" frameTime="100"><Frame name="big_run_hold_right0000" x="93" y="193" width="16" height="26" />
 <Frame name="big_run_hold_right0001" x="162" y="62" width="16" height="28" />
 <Frame name="big_run_hold_right0002" x="162" y="93" width="14" height="28" />
 </Animation>
-<Animation aniID="small_kick_left" frameTime="100"><Frame name="small_kick_left0000" x="170" y="224" width="16" height="16" />
+<Animation aniID="big_kick_right" frameTime="100"><Frame name="big_kick_right0000" x="162" y="31" width="22" height="28" />
 </Animation>
-<Animation aniID="big_falldown_left" frameTime="100"><Frame name="big_falldown_left0000" x="187" y="93" width="16" height="26" />
+<Animation aniID="tanooki_idle_right" frameTime="100"><Frame name="tanooki_idle_right0000" x="0" y="98" width="22" height="28" />
 </Animation>
-<Animation aniID="tanooki_run_hold_right" frameTime="100"><Frame name="tanooki_run_hold_right0000" x="210" y="124" width="24" height="28" />
-<Frame name="tanooki_run_hold_right0001" x="51" y="98" width="22" height="28" />
-<Frame name="tanooki_run_hold_right0002" x="77" y="98" width="22" height="28" />
+<Animation aniID="small_run_right" frameTime="100"><Frame name="small_run_right0000" x="256" y="20" width="16" height="16" />
+<Frame name="small_run_right0001" x="256" y="40" width="16" height="16" />
 </Animation>
-<Animation aniID="tanooki_run_hold_left" frameTime="100"><Frame name="tanooki_run_hold_left0000" x="25" y="66" width="22" height="28" />
-<Frame name="tanooki_run_hold_left0001" x="138" y="162" width="24" height="28" />
-<Frame name="tanooki_run_hold_left0002" x="0" y="66" width="22" height="28" />
+<Animation aniID="big_run_right" frameTime="100"><Frame name="big_run_right0000" x="136" y="193" width="20" height="26" />
+<Frame name="big_run_right0001" x="162" y="124" width="20" height="28" />
+<Frame name="big_run_right0002" x="187" y="0" width="20" height="28" />
+</Animation>
+<Animation aniID="tanooki_idle_hold_right" frameTime="100"><Frame name="tanooki_idle_hold_right0000" x="77" y="98" width="22" height="28" />
+</Animation>
+<Animation aniID="big_jump_hold_right" frameTime="100"><Frame name="big_jump_hold_right0000" x="162" y="62" width="16" height="28" />
+</Animation>
+<Animation aniID="big_run_left" frameTime="100"><Frame name="big_run_left0000" x="74" y="130" width="20" height="28" />
+<Frame name="big_run_left0001" x="97" y="130" width="20" height="28" />
+<Frame name="big_run_left0002" x="27" y="193" width="20" height="26" />
+</Animation>
+<Animation aniID="mario_go_pipeline" frameTime="100"><Frame name="_mario_go_pipeline0000" x="136" y="32" width="16" height="28" />
+</Animation>
+<Animation aniID="small_idle_right" frameTime="100"><Frame name="small_idle_right0000" x="256" y="119" width="12" height="16" />
+</Animation>
+<Animation aniID="big_idle_hold_left" frameTime="100"><Frame name="big_idle_hold_left0000" x="120" y="130" width="14" height="28" />
+</Animation>
+<Animation aniID="big_falldown_right" frameTime="100"><Frame name="big_falldown_right0000" x="179" y="193" width="16" height="26" />
+</Animation>
+<Animation aniID="tanooki_walk_jump_left" frameTime="100"><Frame name="tanooki_walk_jump_left0000" x="27" y="162" width="24" height="28" />
+</Animation>
+<Animation aniID="small_walk_jump_left" frameTime="100"><Frame name="small_walk_jump_left0000" x="71" y="224" width="16" height="16" />
 </Animation>
 <Animation aniID="big_walk_left" frameTime="100"><Frame name="big_walk_left0000" x="54" y="130" width="16" height="28" />
 <Frame name="big_walk_left0001" x="187" y="93" width="16" height="26" />
@@ -92,112 +87,119 @@
 </Animation>
 <Animation aniID="big_run_jump_left" frameTime="100"><Frame name="big_run_jump_left0000" x="50" y="193" width="20" height="26" />
 </Animation>
-<Animation aniID="small_jump_hold_left" frameTime="100"><Frame name="small_jump_hold_left0000" x="151" y="224" width="16" height="16" />
+<Animation aniID="small_kick_left" frameTime="100"><Frame name="small_kick_left0000" x="170" y="224" width="16" height="16" />
 </Animation>
-<Animation aniID="small_idle_hold_left" frameTime="100"><Frame name="small_idle_hold_left0000" x="238" y="64" width="14" height="16" />
-</Animation>
-<Animation aniID="small_run_jump_right" frameTime="100"><Frame name="small_run_jump_right0000" x="256" y="0" width="16" height="16" />
-</Animation>
-<Animation aniID="big_idle_hold_left" frameTime="100"><Frame name="big_idle_hold_left0000" x="120" y="130" width="14" height="28" />
-</Animation>
-<Animation aniID="tanooki_fly_right" frameTime="100"><Frame name="tanooki_fly_right0000" x="165" y="162" width="24" height="28" />
-<Frame name="tanooki_fly_right0001" x="210" y="0" width="24" height="28" />
-<Frame name="tanooki_fly_right0002" x="77" y="66" width="24" height="28" />
-</Animation>
-<Animation aniID="big_brace_left" frameTime="100"><Frame name="big_brace_left0000" x="40" y="0" width="16" height="28" />
-</Animation>
-<Animation aniID="mario_grow_up_left" frameTime="100"><Frame name="mario_grow_up_left0000" x="256" y="100" width="12" height="16" />
-<Frame name="mario_grow_up_left0001" x="136" y="96" width="14" height="28" />
-<Frame name="mario_grow_up_left0002" x="199" y="193" width="14" height="22" />
-</Animation>
-<Animation aniID="tanooki_jump_hold_right" frameTime="100"><Frame name="tanooki_jump_hold_right0000" x="51" y="98" width="22" height="28" />
-</Animation>
-<Animation aniID="big_idle_right" frameTime="100"><Frame name="big_idle_right0000" x="187" y="62" width="14" height="28" />
-</Animation>
-<Animation aniID="tanooki_tail_whack_left" frameTime="100"><Frame name="tanooki_tail_whack_left0000" x="136" y="32" width="16" height="28" />
-<Frame name="tanooki_tail_whack_left0001" x="27" y="130" width="24" height="28" />
-<Frame name="tanooki_tail_whack_left0002" x="136" y="64" width="16" height="28" />
-<Frame name="tanooki_tail_whack_left0003" x="0" y="130" width="24" height="28" />
-</Animation>
-<Animation aniID="big_kick_left" frameTime="100"><Frame name="big_kick_left0000" x="162" y="0" width="22" height="28" />
-</Animation>
-<Animation aniID="tanooki_kick_left" frameTime="100"><Frame name="tanooki_kick_left0000" x="51" y="66" width="22" height="28" />
-</Animation>
-<Animation aniID="small_walk_jump_left" frameTime="100"><Frame name="small_walk_jump_left0000" x="71" y="224" width="16" height="16" />
-</Animation>
-<Animation aniID="tanooki_walk_jump_left" frameTime="100"><Frame name="tanooki_walk_jump_left0000" x="27" y="162" width="24" height="28" />
-</Animation>
-<Animation aniID="big_idle_hold_right" frameTime="100"><Frame name="big_idle_hold_right0000" x="162" y="93" width="14" height="28" />
-</Animation>
-<Animation aniID="big_sit_right" frameTime="100"><Frame name="big_sit_right0000" x="238" y="22" width="14" height="18" />
-</Animation>
-<Animation aniID="tanooki_sit_right" frameTime="100"><Frame name="tanooki_sit_right0000" x="26" y="224" width="22" height="18" />
-</Animation>
-<Animation aniID="small_run_hold_left" frameTime="100"><Frame name="small_run_hold_left0000" x="151" y="224" width="16" height="16" />
-<Frame name="small_run_hold_left0001" x="238" y="64" width="14" height="16" />
-</Animation>
-<Animation aniID="small_idle_right" frameTime="100"><Frame name="small_idle_right0000" x="256" y="119" width="12" height="16" />
-</Animation>
-<Animation aniID="small_die" frameTime="100"><Frame name="small_die0000" x="190" y="224" width="16" height="16" />
-</Animation>
-<Animation aniID="big_brace_right" frameTime="100"><Frame name="big_brace_right0000" x="60" y="0" width="16" height="28" />
-</Animation>
-<Animation aniID="big_walk_jump_left" frameTime="100"><Frame name="big_walk_jump_left0000" x="187" y="123" width="16" height="26" />
-</Animation>
-<Animation aniID="tanooki_kick_right" frameTime="100"><Frame name="tanooki_kick_right0000" x="25" y="98" width="22" height="28" />
-</Animation>
-<Animation aniID="big_run_left" frameTime="100"><Frame name="big_run_left0000" x="74" y="130" width="20" height="28" />
-<Frame name="big_run_left0001" x="97" y="130" width="20" height="28" />
-<Frame name="big_run_left0002" x="27" y="193" width="20" height="26" />
-</Animation>
-<Animation aniID="tanooki_idle_hold_right" frameTime="100"><Frame name="tanooki_idle_hold_right0000" x="77" y="98" width="22" height="28" />
-</Animation>
-<Animation aniID="tanooki_falldown_right" frameTime="100"><Frame name="tanooki_falldown_right0000" x="0" y="193" width="24" height="28" />
-</Animation>
-<Animation aniID="big_falldown_right" frameTime="100"><Frame name="big_falldown_right0000" x="179" y="193" width="16" height="26" />
-</Animation>
-<Animation aniID="big_sit_left" frameTime="100"><Frame name="big_sit_left0000" x="238" y="0" width="14" height="18" />
+<Animation aniID="big_walk_jump_right" frameTime="100"><Frame name="big_walk_jump_right0000" x="159" y="193" width="16" height="26" />
 </Animation>
 <Animation aniID="big_walk_right" frameTime="100"><Frame name="big_walk_right0000" x="179" y="193" width="16" height="26" />
 <Frame name="big_walk_right0001" x="187" y="31" width="16" height="28" />
 <Frame name="big_walk_right0002" x="187" y="62" width="14" height="28" />
 </Animation>
-<Animation aniID="tanooki_walk_fly_left" frameTime="100"><Frame name="tanooki_walk_fly_left0000" x="210" y="155" width="24" height="28" />
-<Frame name="tanooki_walk_fly_left0001" x="102" y="98" width="22" height="28" />
+<Animation aniID="tanooki_walk_right" frameTime="100"><Frame name="tanooki_walk_right0000" x="210" y="93" width="24" height="28" />
+<Frame name="tanooki_walk_right0001" x="108" y="64" width="22" height="28" />
+<Frame name="tanooki_walk_right0002" x="0" y="98" width="22" height="28" />
 </Animation>
-<Animation aniID="tanooki_falldown_left" frameTime="100"><Frame name="tanooki_falldown_left0000" x="210" y="155" width="24" height="28" />
+<Animation aniID="tanooki_run_left" frameTime="100"><Frame name="tanooki_run_left0000" x="51" y="34" width="24" height="28" />
+<Frame name="tanooki_run_left0001" x="80" y="0" width="24" height="28" />
+<Frame name="tanooki_run_left0002" x="54" y="162" width="24" height="28" />
 </Animation>
-<Animation aniID="big_run_right" frameTime="100"><Frame name="big_run_right0000" x="136" y="193" width="20" height="26" />
-<Frame name="big_run_right0001" x="162" y="124" width="20" height="28" />
-<Frame name="big_run_right0002" x="187" y="0" width="20" height="28" />
+<Animation aniID="big_jump_hold_left" frameTime="100"><Frame name="big_jump_hold_left0000" x="138" y="130" width="16" height="28" />
+</Animation>
+<Animation aniID="big_run_jump_right" frameTime="100"><Frame name="big_run_jump_right0000" x="113" y="193" width="20" height="26" />
 </Animation>
 <Animation aniID="tanooki_brace_right" frameTime="100"><Frame name="tanooki_brace_right0000" x="20" y="0" width="16" height="30" />
 </Animation>
-<Animation aniID="tanooki_fly_left" frameTime="100"><Frame name="tanooki_fly_left0000" x="82" y="162" width="24" height="28" />
-<Frame name="tanooki_fly_left0001" x="110" y="162" width="24" height="28" />
-<Frame name="tanooki_fly_left0002" x="80" y="32" width="24" height="28" />
+<Animation aniID="tanooki_run_jump_right" frameTime="100"><Frame name="tanooki_run_jump_right0000" x="77" y="66" width="24" height="28" />
 </Animation>
-<Animation aniID="small_idle_hold_right" frameTime="100"><Frame name="small_idle_hold_right0000" x="238" y="84" width="14" height="16" />
+<Animation aniID="tanooki_run_hold_left" frameTime="100"><Frame name="tanooki_run_hold_left0000" x="25" y="66" width="22" height="28" />
+<Frame name="tanooki_run_hold_left0001" x="138" y="162" width="24" height="28" />
+<Frame name="tanooki_run_hold_left0002" x="0" y="66" width="22" height="28" />
 </Animation>
-<Animation aniID="small_run_right" frameTime="100"><Frame name="small_run_right0000" x="256" y="20" width="16" height="16" />
-<Frame name="small_run_right0001" x="256" y="40" width="16" height="16" />
+<Animation aniID="small_idle_hold_left" frameTime="100"><Frame name="small_idle_hold_left0000" x="238" y="64" width="14" height="16" />
 </Animation>
-<Animation aniID="tanooki_jump_hold_left" frameTime="100"><Frame name="tanooki_jump_hold_left0000" x="25" y="66" width="22" height="28" />
+<Animation aniID="small_brace_left" frameTime="100"><Frame name="small_brace_left0000" x="238" y="44" width="14" height="16" />
+</Animation>
+<Animation aniID="small_run_hold_right" frameTime="100"><Frame name="small_run_hold_right0000" x="230" y="224" width="16" height="16" />
+<Frame name="small_run_hold_right0001" x="238" y="84" width="14" height="16" />
+</Animation>
+<Animation aniID="tanooki_jump_hold_right" frameTime="100"><Frame name="tanooki_jump_hold_right0000" x="51" y="98" width="22" height="28" />
 </Animation>
 <Animation aniID="tanooki_tail_whack_right" frameTime="100"><Frame name="tanooki_tail_whack_right0000" x="136" y="32" width="16" height="28" />
 <Frame name="tanooki_tail_whack_right0001" x="0" y="130" width="24" height="28" />
 <Frame name="tanooki_tail_whack_right0002" x="136" y="64" width="16" height="28" />
 <Frame name="tanooki_tail_whack_right0003" x="27" y="130" width="24" height="28" />
 </Animation>
-<Animation aniID="big_jump_hold_left" frameTime="100"><Frame name="big_jump_hold_left0000" x="138" y="130" width="16" height="28" />
+<Animation aniID="tanooki_walk_fly_left" frameTime="100"><Frame name="tanooki_walk_fly_left0000" x="210" y="155" width="24" height="28" />
+<Frame name="tanooki_walk_fly_left0001" x="102" y="98" width="22" height="28" />
+</Animation>
+<Animation aniID="small_die" frameTime="100"><Frame name="small_die0000" x="190" y="224" width="16" height="16" />
+</Animation>
+<Animation aniID="tanooki_sit_left" frameTime="100"><Frame name="tanooki_sit_left0000" x="0" y="224" width="22" height="18" />
+</Animation>
+<Animation aniID="small_walk_left" frameTime="100"><Frame name="small_walk_left0000" x="52" y="224" width="16" height="16" />
+<Frame name="small_walk_left0001" x="256" y="100" width="12" height="16" />
+</Animation>
+<Animation aniID="mario_grow_up_left" frameTime="100"><Frame name="mario_grow_up_left0000" x="256" y="100" width="12" height="16" />
+<Frame name="mario_grow_up_left0001" x="136" y="96" width="14" height="28" />
+<Frame name="mario_grow_up_left0002" x="199" y="193" width="14" height="22" />
+</Animation>
+<Animation aniID="big_brace_left" frameTime="100"><Frame name="big_brace_left0000" x="40" y="0" width="16" height="28" />
+</Animation>
+<Animation aniID="big_run_hold_left" frameTime="100"><Frame name="big_run_hold_left0000" x="138" y="130" width="16" height="28" />
+<Frame name="big_run_hold_left0001" x="73" y="193" width="16" height="26" />
+<Frame name="big_run_hold_left0002" x="120" y="130" width="14" height="28" />
+</Animation>
+<Animation aniID="small_idle_hold_right" frameTime="100"><Frame name="small_idle_hold_right0000" x="238" y="84" width="14" height="16" />
+</Animation>
+<Animation aniID="big_kick_left" frameTime="100"><Frame name="big_kick_left0000" x="162" y="0" width="22" height="28" />
+</Animation>
+<Animation aniID="tanooki_fly_right" frameTime="100"><Frame name="tanooki_fly_right0000" x="165" y="162" width="24" height="28" />
+<Frame name="tanooki_fly_right0001" x="210" y="0" width="24" height="28" />
+<Frame name="tanooki_fly_right0002" x="77" y="66" width="24" height="28" />
+</Animation>
+<Animation aniID="tanooki_sit_right" frameTime="100"><Frame name="tanooki_sit_right0000" x="26" y="224" width="22" height="18" />
+</Animation>
+<Animation aniID="tanooki_walk_left" frameTime="100"><Frame name="tanooki_walk_left0000" x="25" y="34" width="22" height="28" />
+<Frame name="tanooki_walk_left0001" x="0" y="162" width="24" height="28" />
+<Frame name="tanooki_walk_left0002" x="0" y="34" width="22" height="28" />
+</Animation>
+<Animation aniID="tanooki_kick_left" frameTime="100"><Frame name="tanooki_kick_left0000" x="51" y="66" width="22" height="28" />
+</Animation>
+<Animation aniID="tanooki_run_jump_left" frameTime="100"><Frame name="tanooki_run_jump_left0000" x="80" y="32" width="24" height="28" />
+</Animation>
+<Animation aniID="big_idle_left" frameTime="100"><Frame name="big_idle_left0000" x="136" y="96" width="14" height="28" />
+</Animation>
+<Animation aniID="big_falldown_left" frameTime="100"><Frame name="big_falldown_left0000" x="187" y="93" width="16" height="26" />
+</Animation>
+<Animation aniID="tanooki_kick_right" frameTime="100"><Frame name="tanooki_kick_right0000" x="25" y="98" width="22" height="28" />
+</Animation>
+<Animation aniID="tanooki_tail_whack_left" frameTime="100"><Frame name="tanooki_tail_whack_left0000" x="136" y="32" width="16" height="28" />
+<Frame name="tanooki_tail_whack_left0001" x="27" y="130" width="24" height="28" />
+<Frame name="tanooki_tail_whack_left0002" x="136" y="64" width="16" height="28" />
+<Frame name="tanooki_tail_whack_left0003" x="0" y="130" width="24" height="28" />
 </Animation>
 <Animation aniID="tanooki_run_right" frameTime="100"><Frame name="tanooki_run_right0000" x="210" y="31" width="24" height="28" />
 <Frame name="tanooki_run_right0001" x="108" y="0" width="24" height="28" />
 <Frame name="tanooki_run_right0002" x="108" y="32" width="24" height="28" />
 </Animation>
-<Animation aniID="small_walk_right" frameTime="100"><Frame name="small_walk_right0000" x="256" y="80" width="16" height="16" />
-<Frame name="small_walk_right0001" x="256" y="119" width="12" height="16" />
+<Animation aniID="small_jump_hold_left" frameTime="100"><Frame name="small_jump_hold_left0000" x="151" y="224" width="16" height="16" />
+</Animation>
+<Animation aniID="big_sit_left" frameTime="100"><Frame name="big_sit_left0000" x="238" y="0" width="14" height="18" />
 </Animation>
 <Animation aniID="small_run_jump_left" frameTime="100"><Frame name="small_run_jump_left0000" x="131" y="224" width="16" height="16" />
+</Animation>
+<Animation aniID="tanooki_idle_left" frameTime="100"><Frame name="tanooki_idle_left0000" x="0" y="34" width="22" height="28" />
+</Animation>
+<Animation aniID="mario_grow_up_right" frameTime="100"><Frame name="mario_grow_up_right0000" x="256" y="119" width="12" height="16" />
+<Frame name="mario_grow_up_right0001" x="187" y="62" width="14" height="28" />
+<Frame name="mario_grow_up_right0002" x="217" y="193" width="14" height="22" />
+</Animation>
+<Animation aniID="tanooki_brace_left" frameTime="100"><Frame name="tanooki_brace_left0000" x="0" y="0" width="16" height="30" />
+</Animation>
+<Animation aniID="small_brace_right" frameTime="100"><Frame name="small_brace_right0000" x="238" y="104" width="14" height="16" />
+</Animation>
+<Animation aniID="tanooki_run_hold_right" frameTime="100"><Frame name="tanooki_run_hold_right0000" x="210" y="124" width="24" height="28" />
+<Frame name="tanooki_run_hold_right0001" x="51" y="98" width="22" height="28" />
+<Frame name="tanooki_run_hold_right0002" x="77" y="98" width="22" height="28" />
 </Animation>
 </Texture>

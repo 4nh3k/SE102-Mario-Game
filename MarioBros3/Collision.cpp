@@ -374,7 +374,9 @@ void Collision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* coO
 				y += dy;
 			}
 		if (!objSrc->IsGoThrough())
+		{
 			objSrc->SetPosition(x, y);
+		}
 	}
 
 	//

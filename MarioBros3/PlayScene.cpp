@@ -23,6 +23,7 @@
 #include "GreenVenus.h"
 #include "PiranhaPlant.h"
 #include "ParaKoopa.h"
+#include "Pipeline.h"
 #include "HUD.h"
 
 using namespace std;
@@ -200,6 +201,14 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			int reward_id = GetProperty(obj, PROP_ID_REWARD);
 			gameObj = new RewardBrick(pos.x, pos.y, reward_id);
 		}
+		else if (obj.getName() == "Pipeline")
+		{
+			int targetX = GetProperty(obj, "x");
+			int targetY = GetProperty(obj, "y");
+			int tmp = GetProperty(obj, "camY");
+			tmp -= Game::GetInstance()->GetBackBufferHeight();
+			gameObj = new Pipeline(pos.x, pos.y, size.x, size.y, targetX, targetY,camX,tmp);
+		}
 		//else if (obj.getName() == "ParaGoomba")
 		//{
 		//	gameObj = new ParaGoomba(pos.x, pos.y);
@@ -304,7 +313,6 @@ void PlayScene::Update(DWORD dt)
 		{
 			obj.second = true;
 			DebugOutTitle(L"%d, %d",pos.x, pos.y );
-
 			Spawn(obj.first);
 		}
 	}
@@ -377,6 +385,11 @@ void PlayScene::Render()
 {
 	//if (this->IsPause()) 
 	//	return;
+	bool teleporting = dynamic_cast<Mario*>(player)->IsGoingPipeLine();
+	if ((player != NULL) && teleporting)
+	{
+		player->Render();
+	}
 	for (auto& obj : lowLayer)
 	{
 		obj->Render();
@@ -391,7 +404,7 @@ void PlayScene::Render()
 	}
 	for (int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Render();
-	if (player != NULL) 
+	if (player != NULL && !teleporting) 
 		player->Render();
 	for (auto& sfx : SFXs)
 	{

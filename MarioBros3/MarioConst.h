@@ -13,6 +13,7 @@
 #define MARIO_FRICTION			0.0003f
 #define MARIO_GRAVITY			0.0008f
 #define MARIO_FLY_SPEED_Y		0.18f
+#define MARIO_GO_DOWN_SPEED_Y	0.02f
 #define MARIO_FALL_DONW_SPEED_Y 0.02f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.2f
@@ -193,5 +194,5 @@
 #define ID_ANI_MARIO_TANOOKI_TAIL_WHACK_RIGHT "tanooki_tail_whack_right"
 #define ID_ANI_MARIO_TANOOKI_TAIL_WHACK_LEFT "tanooki_tail_whack_left"
 
-
+#define ID_ANI_MARIO_GO_DOWN "mario_go_pipeline"
 #pragma endregion
