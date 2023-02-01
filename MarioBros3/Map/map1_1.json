@@ -427,6 +427,18 @@
                          "width":0,
                          "x":1336,
                          "y":310.5
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":280,
+                         "name":"Koopa",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":1481.81818181818,
+                         "y":408.363636363636
                         }],
                  "opacity":1,
                  "type":"objectgroup",
@@ -784,6 +796,17 @@
                          "width":30.2386,
                          "x":2256.75948787879,
                          "y":272.448881818182
+                        }, 
+                        {
+                         "class":"",
+                         "height":657.455,
+                         "id":279,
+                         "name":"Platform",
+                         "rotation":0,
+                         "visible":true,
+                         "width":24.5,
+                         "x":-24.25,
+                         "y":-132.7275
                         }],
                  "opacity":1,
                  "properties":[
@@ -1868,8 +1891,8 @@
                          "rotation":0,
                          "visible":true,
                          "width":19.0909,
-                         "x":2261.74621666667,
-                         "y":80.6477499999999
+                         "x":76.7613681818216,
+                         "y":379.481083333333
                         }],
                  "opacity":1,
                  "properties":[
@@ -1962,7 +1985,7 @@
          "y":0
         }],
  "nextlayerid":24,
- "nextobjectid":279,
+ "nextobjectid":281,
  "orientation":"orthogonal",
  "properties":[
         {

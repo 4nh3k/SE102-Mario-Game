@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Texture imagePath="map.png">
+<Animation aniID="help_message" frameTime="100"><Frame name="help_message0000" x="20" y="73" width="16" height="14" />
+</Animation>
+<Animation aniID="tanooki_mario_map" frameTime="100"><Frame name="tanooki_mario_map0000" x="0" y="0" width="16" height="24" />
+<Frame name="tanooki_mario_map0001" x="20" y="0" width="16" height="24" />
+</Animation>
+<Animation aniID="turtle_walk_left" frameTime="100"><Frame name="turtle_walk_left0000" x="80" y="38" width="16" height="16" />
+<Frame name="turtle_walk_left0001" x="0" y="53" width="16" height="16" />
+</Animation>
+<Animation aniID="big_mario_map" frameTime="100"><Frame name="big_mario_map0000" x="40" y="0" width="16" height="22" />
+<Frame name="big_mario_map0001" x="0" y="28" width="16" height="22" />
+</Animation>
+<Animation aniID="turtle_walk_right" frameTime="100"><Frame name="turtle_walk_right0000" x="56" y="53" width="16" height="16" />
+<Frame name="turtle_walk_right0001" x="0" y="73" width="16" height="16" />
+</Animation>
+<Animation aniID="small_mario_map" frameTime="100"><Frame name="small_mario_map0000" x="20" y="53" width="14" height="16" />
+<Frame name="small_mario_map0001" x="38" y="53" width="14" height="16" />
+</Animation>
+<Animation aniID="map_bush" frameTime="400"><Frame name="map_bush0000" x="80" y="0" width="16" height="16" />
+<Frame name="map_bush0001" x="20" y="28" width="16" height="16" />
+<Frame name="map_bush0002" x="80" y="19" width="16" height="16" />
+<Frame name="map_bush0003" x="39" y="28" width="16" height="16" />
+</Animation>
+<Animation aniID="world1" frameTime="100"><Frame name="world10000" x="60" y="20" width="16" height="16" />
+</Animation>
+<Animation aniID="world_clear" frameTime="100"><Frame name="world_clear0000" x="60" y="0" width="16" height="16" />
+</Animation>
+</Texture>

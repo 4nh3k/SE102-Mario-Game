@@ -178,7 +178,11 @@
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapBush.cpp" />
+    <ClCompile Include="MapNode.cpp" />
+    <ClCompile Include="MapSceneKeyHandler.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MarioMap.cpp" />
     <ClCompile Include="MomentumBar.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="ParaGoomba.cpp" />
@@ -207,6 +211,7 @@
     <ClCompile Include="tinyxmlparser.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VenusFireTrap.cpp" />
+    <ClCompile Include="WorldMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -229,8 +234,12 @@
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Laser.h" />
+    <ClInclude Include="MapBush.h" />
+    <ClInclude Include="MapNode.h" />
+    <ClInclude Include="MapSceneKeyHandler.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioConst.h" />
+    <ClInclude Include="MarioMap.h" />
     <ClInclude Include="MomentumBar.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="OneUpMushroom.h" />
@@ -262,6 +271,7 @@
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="VenusFireTrap.h" />
+    <ClInclude Include="WorldMap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

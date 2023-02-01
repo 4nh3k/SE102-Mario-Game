@@ -4,11 +4,11 @@ width	250
 height	250
 
 #id	type	file
-# type: 0: intro, 1: play scene 
+# type: 0: intro, 1: worldMap, 2: PlayScene 
 [SCENES]
-1	./Map/map1_1.json
-6	./Map/worldMap.tmj
-5	./Map/testmap.tmj
+1	1	./Map/worldMap.tmj
+2	2	./Map/map1_1.json
+3	2	./Map/testmap.tmj
 
 # id	file 
 [TEXTURES]

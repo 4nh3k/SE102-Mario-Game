@@ -6,6 +6,7 @@
 //
 //#include "Texture.h"
 //#include "Animations.h"
+#include "WorldMap.h"
 #include "PlayScene.h"
 
 Game * Game::__instance = NULL;
@@ -454,11 +455,21 @@ void Game::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
 
-	if (tokens.size() < 2) return;
+	if (tokens.size() < 3) return;
 	int id = atoi(tokens[0].c_str());
-	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
-
-	LPSCENE scene = new PlayScene(id, path);
+	int type = atoi(tokens[1].c_str());
+	LPCWSTR path = ToLPCWSTR(tokens[2]);   // file: ASCII format (single-byte char) => Wide Char
+	LPSCENE scene = NULL;
+	switch (type)
+	{
+	case 1:
+		scene = new WorldMap(id, path);
+		break;
+	case 2: 
+		scene = new PlayScene(id, path);
+	default:
+		break;
+	}
 	scenes[id] = scene;
 }
 
