@@ -27,6 +27,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+	virtual int GetBackGroundColor() { return BLUE_BACKGROUND_ID; }
 
 	void Clear();
 	void PurgeDeletedObjects(std::deque<LPGAMEOBJECT> &list);

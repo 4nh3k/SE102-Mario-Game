@@ -2,6 +2,7 @@
 #include "Scene.h"
 class MapSceneKeyHandler : public CSceneKeyHandler
 {
+	int lastKeyCode;
 public:
 	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);

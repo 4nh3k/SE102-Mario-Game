@@ -23,7 +23,6 @@ WorldMap::WorldMap(int id, LPCWSTR filePath) :
 	player = NULL;
 	key_handler = new MapSceneKeyHandler(this);
 	hud = HUD::GetInstance();
-	hud->SetPosition(HUD_POS_X, HUD_POS_Y);
 	SFXs.push_back(hud);
 }
 
@@ -86,8 +85,9 @@ void WorldMap::LoadObjects(vector<tson::Object> objects)
 			int right = GetProperty(obj, "right");
 			int top = GetProperty(obj, "top");
 			int bot = GetProperty(obj, "bot");
+			int scene_id = GetProperty(obj, "scene_id");
 
-			MapNode* node = new MapNode(id, pos.x, pos.y,left,right,top,bot);
+			MapNode* node = new MapNode(id, pos.x, pos.y,left,right,top,bot,scene_id);
 			movingMap[id] = node;
 			continue;
 		}
@@ -162,6 +162,11 @@ void WorldMap::Load()
 {
 	DebugOutTitle(L"Start load");
 
+	Game::GetInstance()->GetCamera()->SetCamPos(5, 0);
+	hud->SetPosition(HUD_POS_X, HUD_POS_Y);
+	MomentumBar::GetInstance()->SetNode(0);
+	hud->ResetTimer();
+	hud->StopTimer();
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 
 	unique_ptr<tson::Map> map;
@@ -201,14 +206,12 @@ void WorldMap::Update(DWORD dt)
 	{
 		player->Update(dt);
 	}
-
+	HUD::GetInstance()->Update(dt,NULL);
 	PurgeDeletedObjects();
 }
 
 void WorldMap::Render()
 {
-	if (this->IsPause()) 
-		return;
 	// Draw background first
 	for (auto& tile : tileMap)
 	{
@@ -216,6 +219,10 @@ void WorldMap::Render()
 		tile->GetBoundingBox(rect.left, rect.top, rect.right, rect.bottom);
 		if (Game::GetInstance()->GetCamera()->IsContain(rect))
 			tile->Render();
+	}
+	for (auto node : movingMap)
+	{
+		node.second->Render();
 	}
 	for (int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Render();
@@ -255,7 +262,8 @@ void WorldMap::Unload()
 	//Sprites::GetInstance()->Clear();
 	//Animations::GetInstance()->Clear();
 	//Textures::GetInstance()->Clear();
-	player = NULL;
+	// // keep mario map?
+	//player = NULL;
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
 }

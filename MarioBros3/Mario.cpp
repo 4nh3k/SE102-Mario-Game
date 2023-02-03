@@ -47,7 +47,6 @@ Mario::Mario(float x, float y) : GameObject(x, y)
 	tail = NULL;
 	untouchable = 0;
 	untouchable_start = -1;
-	coin = 0;
 }
 
 int Mario::IsCollidable() 
@@ -79,20 +78,14 @@ int Mario::GetLevel()
 {
 	return level;
 }
-
-int Mario::GetScore()
+void Mario::AddCoin()
 {
-	return score;
-}
-
-int Mario::GetCoin()
-{
-	return coin;
+	HUD::GetInstance()->AddCoin();
 }
 
 void Mario::AddScore(float Px, float Py, int point)
 {
-	score += point;
+	HUD::GetInstance()->AddScore(point);
 	Game::GetInstance()->GetCurrentScene()->AddSFX(new PointSFX(Px, Py, PointSFX::GetAniId(point)));
 }
 
@@ -159,6 +152,12 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
+		if (state == MARIO_STATE_DIE)
+		{
+			Game::GetInstance()->InitiateSwitchScene(WORLD_MAP_SCENE_ID);
+			Game::GetInstance()->SwitchScene();
+
+		}
 		untouchable_start = 0;
 		untouchable = 0;
 	}
@@ -504,7 +503,7 @@ void Mario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	AddScore(x, y, 50);
 	e->obj->Delete();
-	coin++;
+	AddCoin();
 }
 
 void Mario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
@@ -987,6 +986,7 @@ void Mario::SetState(int state)
 		vx = 0.0f;
 		break;
 	case MARIO_STATE_DIE:
+		StartUntouchable();
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;
 		ax = 0;

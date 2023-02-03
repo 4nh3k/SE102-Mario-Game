@@ -50,6 +50,7 @@ public:
 	bool IsPause() { return pauseUpdate; }
 	void Pause() { pauseUpdate = true; }
 	void Continue() { pauseUpdate = false; }
+	virtual int GetBackGroundColor() = 0;
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
 	virtual void Update(DWORD dt) = 0;

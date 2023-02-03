@@ -266,6 +266,8 @@ void PlayScene::Load()
 
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 
+	HUD::GetInstance()->StartTimer();
+
 	unique_ptr<tson::Map> map;
 	tson::Tileson t;
 	map = t.parse(fs::path(sceneFilePath));
@@ -345,11 +347,11 @@ void PlayScene::Update(DWORD dt)
 	}
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return; 
-	else
+	if(player!=NULL)
 	{
 		player->Update(dt, &coObjects);
 	}
+	if(player == NULL) return; 
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);

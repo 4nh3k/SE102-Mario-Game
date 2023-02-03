@@ -26,29 +26,40 @@ class HUD : public GameObject
 {
 	int currentTime;
 	static HUD* __instance;
+	int life;
+	int coin;
+	int score;
 	DWORD time;
-	Font* life;
-	Font* coin;
-	Font* score;
-	Font* timer;
+	Font* FLife;
+	Font* FCoin;
+	Font* FScore;
+	Font* FTimer;
 	MomentumBar* momentumBar;
 	bool stopTimer;
 public:
 	HUD(float x, float y) : GameObject(x,y)
 	{
 		currentTime = PLAYSCENE_TIME;
-		timer = new Font(x, y, 3);
-		coin = new Font(x, y, 2);
-		life = new Font(x, y, 2);
-		score = new Font(x, y, 7);
+		life = 3;
+		coin = 0;
+		score = 0;
+		FTimer = new Font(x, y, 3);
+		FCoin = new Font(x, y, 2);
+		FLife = new Font(x, y, 2);
+		FScore = new Font(x, y, 7);
 		momentumBar = MomentumBar::GetInstance();
-		time = GetTickCount64();
+		ResetTimer();
 	}
 	static HUD* GetInstance();
 	void SetPosition(float x, float y);
 	void Render();
 	void StopTimer();
 	void StartTimer();
+	void ResetTimer();
+	void AddScore(int point);
+	void AddCoin();
+	void IncreaseLife();
+	void DecreseLife();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom) {}
 };

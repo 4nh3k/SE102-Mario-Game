@@ -1,6 +1,5 @@
 #pragma once
 
-
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_RUNNING_SPEED		0.22f
 

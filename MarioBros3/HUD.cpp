@@ -4,10 +4,10 @@ HUD* HUD::__instance = NULL;
 void HUD::Render()
 {
 	Animations::GetInstance()->Get(ANI_ID_HUD)->Render(x, y);
-	life->Render();
-	coin->Render();
-	score->Render();
-	timer->Render();
+	FLife->Render();
+	FCoin->Render();
+	FScore->Render();
+	FTimer->Render();
 	momentumBar->Render();
 }
 HUD* HUD::GetInstance()
@@ -17,10 +17,10 @@ HUD* HUD::GetInstance()
 }
 void HUD::SetPosition(float x, float y) {
 	this->x = x, this->y = y;
-	coin->SetPos(x + COIN_POS_OFFSET_X, y + COIN_POS_OFFSET_Y);
-	life->SetPos(x + LIFE_POS_OFFSET_X, y + LIFE_POS_OFFSET_Y);
-	score->SetPos(x + SCORE_POS_OFFSET_X, y + SCORE_POS_OFFSET_Y);
-	timer->SetPos(x + TIMER_POS_OFFSET_X, y + TIMER_POS_OFFSET_Y);
+	FCoin->SetPos(x + COIN_POS_OFFSET_X, y + COIN_POS_OFFSET_Y);
+	FLife->SetPos(x + LIFE_POS_OFFSET_X, y + LIFE_POS_OFFSET_Y);
+	FScore->SetPos(x + SCORE_POS_OFFSET_X, y + SCORE_POS_OFFSET_Y);
+	FTimer->SetPos(x + TIMER_POS_OFFSET_X, y + TIMER_POS_OFFSET_Y);
 	momentumBar->SetPos(x + MOMENTUMBAR_POS_OFFSET_X, y + MOMENTUMBAR_POS_OFFSET_Y);
 }
 void HUD::StartTimer()
@@ -35,18 +35,39 @@ void HUD::StopTimer()
 void HUD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	Mario* player = dynamic_cast<Mario*>(Game::GetInstance()->GetCurrentScene()->GetPlayer());
-	life->SetNumber(2);
-	coin->SetNumber(player->GetCoin());
-	score->SetNumber(player->GetScore());
+	FLife->SetNumber(2);
+	FCoin->SetNumber(coin);
+	FScore->SetNumber(score);
 	if (!stopTimer)
 	{
 		int timerNum = PLAYSCENE_TIME - (GetTickCount64() - time) / 1000;
-		timer->SetNumber(timerNum);
+		FTimer->SetNumber(timerNum);
 		currentTime = timerNum;
 	}
 	else
 	{
-		timer->SetNumber(currentTime);
+		FTimer->SetNumber(currentTime);
 	}
 	//momentumBar->SetNode(1);
 } 
+void HUD::ResetTimer()
+{
+	time = GetTickCount64();
+	currentTime = PLAYSCENE_TIME;
+}
+void HUD::AddCoin()
+{
+	coin++;
+}
+void HUD::IncreaseLife()
+{
+	life++;
+}
+void HUD::DecreseLife()
+{
+	life--;
+}
+void HUD::AddScore(int point)
+{
+	score += point;
+}

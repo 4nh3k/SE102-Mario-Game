@@ -13,6 +13,9 @@ using namespace std;
 #include "KeyEventHandler.h"
 #include "Scene.h"
 
+#define BLUE_BACKGROUND_ID 1
+#define BLACK_BACKGROUND_ID 2
+
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
@@ -20,7 +23,6 @@ using namespace std;
 #define INTRO_SCENE_ID 0
 #define WORLD_MAP_SCENE_ID 1
 #define PLAY_SCENE_ID 2
-
 
 
 /*
@@ -88,7 +90,6 @@ public:
 	int IsKeyDown(int KeyCode);
 	void ProcessKeyboard();
 	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
-
 
 	ID3D10Device* GetDirect3DDevice() { return this->pD3DDevice; }
 	IDXGISwapChain* GetSwapChain() { return this->pSwapChain; }

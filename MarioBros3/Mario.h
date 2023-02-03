@@ -41,10 +41,7 @@ class Mario : public GameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG changeFormTimer;
 
-	int life;
-	int coin;
 	int combo;
-	int score;
 	int level; 
 	int untouchable; 
 
@@ -88,7 +85,7 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	void AddScore(float Px, float Py);
 	void AddScore(float Px, float Py, int point);
-	void AddCoin() { coin++; }
+	void AddCoin();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 	BOOLEAN IsGoingPipeLine();
@@ -96,7 +93,5 @@ public:
 	int IsBlocking(float nx, float ny);
 	int IsTanooki();
 	int GetLevel();
-	int GetScore();
-	int GetCoin();
 	int CalcPoint(int combo);
 };

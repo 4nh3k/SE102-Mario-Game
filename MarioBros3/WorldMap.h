@@ -4,6 +4,7 @@
 #include "tileson.hpp"
 #include "Tile.h"
 #include "MapNode.h"
+#include "HUD.h"
 
 #define HUD_HEIGHT 36
 #define HUD_POS_Y (176 + HUD_HEIGHT/2)
@@ -13,7 +14,7 @@ class WorldMap : public Scene
 {
 protected:
 	vector<Tile*> tileMap;
-	LPGAMEOBJECT hud;
+	HUD* hud;
 	map<int, MapNode*> movingMap;
 
 	void LoadObjects(vector < tson::Object> objects);
@@ -30,6 +31,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
+	virtual int GetBackGroundColor() { return BLACK_BACKGROUND_ID; }
 
 	void Clear();
 	void PurgeDeletedObjects(std::deque<LPGAMEOBJECT>& list);
