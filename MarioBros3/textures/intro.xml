@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Texture imagePath="intro.png">
+<Animation aniID="cursor" frameTime="100"><Frame name="intro_cursor0000" x="92" y="0" width="8" height="8" />
+</Animation>
+<Animation aniID="intro_3" frameTime="100"><Frame name="intro_intro_30000" x="0" y="0" width="42" height="42" />
+<Frame name="intro_intro_30001" x="46" y="0" width="42" height="42" />
+<Frame name="intro_intro_30002" x="0" y="45" width="42" height="42" />
+<Frame name="intro_intro_30003" x="46" y="45" width="42" height="42" />
+<Frame name="intro_intro_30004" x="46" y="45" width="42" height="42" />
+</Animation>
+</Texture>

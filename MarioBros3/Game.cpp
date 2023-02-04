@@ -6,6 +6,7 @@
 //
 //#include "Texture.h"
 //#include "Animations.h"
+#include "IntroScene.h"
 #include "WorldMap.h"
 #include "PlayScene.h"
 
@@ -462,12 +463,14 @@ void Game::_ParseSection_SCENES(string line)
 	LPSCENE scene = NULL;
 	switch (type)
 	{
+	case 0: 
+		scene = new IntroScene(id, path);
+		break;
 	case 1:
 		scene = new WorldMap(id, path);
 		break;
 	case 2: 
 		scene = new PlayScene(id, path);
-	default:
 		break;
 	}
 	scenes[id] = scene;
