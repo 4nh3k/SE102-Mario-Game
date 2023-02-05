@@ -5,7 +5,7 @@
 #include "Utils.h"
 #include "Textures.h"
 #include "Sprites.h"
-#include "MapSceneKeyHandler.h"
+#include "IntroSceneKeyHandler.h"
 
 #define START_NODE_ID 1
 
@@ -16,7 +16,8 @@ IntroScene::IntroScene(int id, LPCWSTR filePath) :
 {
 	camY = 0.0f;
 	player = NULL;
-	key_handler = new MapSceneKeyHandler(this);
+	key_handler = new IntroSceneKeyHandler(this);
+	cursorY = CURSOR_POS_Y_1;
 }
 
 
@@ -74,7 +75,6 @@ void IntroScene::LoadObjects(vector<tson::Object> objects)
 			int bot = GetProperty(obj, "bot");
 			int scene_id = GetProperty(obj, "scene_id");
 
-			MapNode* node = new MapNode(id, pos.x, pos.y, left, right, top, bot, scene_id);
 			continue;
 		}
 		gameObjects.push_back(gameObj);
@@ -124,7 +124,6 @@ void IntroScene::Load()
 	DebugOutTitle(L"Start load");
 
 	Game::GetInstance()->GetCamera()->SetCamPos(5, 0);
-	MomentumBar::GetInstance()->SetNode(0);
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 
 	unique_ptr<tson::Map> map;
@@ -163,7 +162,6 @@ void IntroScene::Update(DWORD dt)
 	{
 		player->Update(dt);
 	}
-	HUD::GetInstance()->Update(dt, NULL);
 	PurgeDeletedObjects();
 }
 
@@ -177,14 +175,18 @@ void IntroScene::Render()
 		if (Game::GetInstance()->GetCamera()->IsContain(rect))
 			tile->Render();
 	}
+	Animations::GetInstance()->Get(ID_ANI_NUMBER3)->Render(NUMBER3_POS_X, NUMBER3_POS_Y);
+	Animations::GetInstance()->Get(ID_ANI_CURSOR)->Render(CURSOR_POS_X, cursorY);
 	for (int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Render();
-	if (player != NULL)
-		player->Render();
 	for (auto& sfx : SFXs)
 	{
 		sfx->Render();
 	}
+}
+void IntroScene::MoveCursor()
+{
+	cursorY = (cursorY == CURSOR_POS_Y_1) ? CURSOR_POS_Y_2 : CURSOR_POS_Y_1;
 }
 /*
 *	Clear all objects from this scene

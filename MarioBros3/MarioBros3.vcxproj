@@ -176,6 +176,7 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="IntroSceneKeyHandler.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="GreenVenus.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="IntroSceneKeyHandler.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Laser.h" />

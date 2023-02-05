@@ -7,6 +7,12 @@
          "layers":[],
          "name":"Group 1",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"ani_path",
+                 "type":"string",
+                 "value":"textures\\intro.xml"
+                }],
          "type":"group",
          "visible":true,
          "x":0,
@@ -90,12 +96,6 @@
  "nextlayerid":6,
  "nextobjectid":1,
  "orientation":"orthogonal",
- "properties":[
-        {
-         "name":"ani_path",
-         "type":"string",
-         "value":"textures\\intro.xml"
-        }],
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
  "tileheight":16,

@@ -10,9 +10,9 @@
 void MapSceneKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	MarioMap* mario = (MarioMap*)(Game::GetInstance()->GetCurrentScene())->GetPlayer();
-	MapNode* node = mario->GetCurrentNode();
 	Game* game = Game::GetInstance();
+	MarioMap* mario = (MarioMap*)(game->GetCurrentScene())->GetPlayer();
+	MapNode* node = mario->GetCurrentNode();
 	switch (KeyCode)
 	{
 	case DIK_DOWN:

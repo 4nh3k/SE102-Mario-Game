@@ -220,7 +220,10 @@
       <Filter>Source Files\Game</Filter>
     </ClCompile>
     <ClCompile Include="IntroScene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroSceneKeyHandler.cpp">
+      <Filter>Source Files\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -398,8 +401,11 @@
     <ClInclude Include="MarioMap.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="IntroSceneKeyHandler.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
     <ClInclude Include="IntroScene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

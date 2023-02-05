@@ -154,7 +154,7 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		if (state == MARIO_STATE_DIE)
 		{
-			Game::GetInstance()->InitiateSwitchScene(WORLD_MAP_SCENE_ID);
+			Game::GetInstance()->InitiateSwitchScene(WORLD_MAP_SCENE_TYPE_ID);
 			Game::GetInstance()->SwitchScene();
 
 		}

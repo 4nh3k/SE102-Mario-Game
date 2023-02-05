@@ -20,9 +20,9 @@ using namespace std;
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
 
-#define INTRO_SCENE_ID 0
-#define WORLD_MAP_SCENE_ID 1
-#define PLAY_SCENE_ID 2
+#define INTRO_SCENE_TYPE_ID 0
+#define WORLD_MAP_SCENE_TYPE_ID 1
+#define PLAY_SCENE_TYPE_ID 2
 
 
 /*
