@@ -6,13 +6,14 @@
 /*
 *  Abstract class for a game scene
 */
-
+class TileMap;
 class GameObject;
 typedef GameObject* LPGAMEOBJECT;
 
 class Scene
 {
 protected:
+	TileMap* tileMap;
 	LPKEYEVENTHANDLER key_handler;
 	int id;
 	bool pauseUpdate;

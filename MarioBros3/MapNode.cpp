@@ -18,7 +18,6 @@ MapNode::MapNode(int id, int x, int y, int left, int right, int top, int bot, in
 	Top = NULL;
 }
 int MapNode::GetSceneId()
-
 {
 	return scene_id;
 }

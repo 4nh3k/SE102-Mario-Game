@@ -1,5 +1,7 @@
 #pragma once
 #include <Windows.h>
+#define CAMSPEED 0.02f
+
 
 class Camera
 {
@@ -15,6 +17,7 @@ public:
 		this->heigh = heigh;
 	}
 	RECT GetBound();
+	void Update(DWORD dt);
 	bool IsContain(RECT objectBBox);
 	bool IsContain(float x, float y);
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }

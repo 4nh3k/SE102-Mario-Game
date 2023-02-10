@@ -3,7 +3,6 @@
 #define NULL 0
 
 #define ANI_ID_WORLD_1 "world1"
-#define WORD_1_SCENE_ID 2
 #define ANI_ID_WORLD_CLEAR "world_clear"
 
 class MapNode

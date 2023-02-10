@@ -13,15 +13,11 @@
 class WorldMap : public Scene
 {
 protected:
-	vector<Tile*> tileMap;
 	HUD* hud;
 	map<int, MapNode*> movingMap;
 
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);
-	void LoadTileObjects(map<tuple<int, int>, tson::TileObject> tileObjects, tson::Vector2i tileSize);
-	void LoadTilesets(vector<tson::Tileset> tileSets);
-	void LoadAssets(LPCWSTR assetFile);
 	void InitMap();
 
 public:

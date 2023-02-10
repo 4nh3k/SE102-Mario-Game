@@ -10,6 +10,7 @@ RECT Camera::GetBound()
 	rect.right = cam_x + width + 32;
 	return rect;
 }
+
 bool Camera::IsContain(float x, float y)
 {
     RECT camBBox = GetBound();

@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "IntroSceneKeyHandler.h"
+#include "TileMap.h"
 
 #define START_NODE_ID 1
 
@@ -18,32 +19,7 @@ IntroScene::IntroScene(int id, LPCWSTR filePath) :
 	player = NULL;
 	key_handler = new IntroSceneKeyHandler(this);
 	cursorY = CURSOR_POS_Y_1;
-}
-
-
-#define SCENE_SECTION_UNKNOWN -1
-
-void IntroScene::LoadTilesets(vector<tson::Tileset> tileSets)
-{
-	for (auto& tileSet : tileSets)
-	{
-		string image = tileSet.getImagePath().u8string();
-
-		filesystem::path path = sceneFilePath;
-		// Get directory then append image file name
-		path = path.parent_path() / image;
-		Textures::GetInstance()->Add(image, path.c_str());
-		for (auto& tile : tileSet.getTiles())
-		{
-			tson::Rect drawingRect = tile.getDrawingRect();
-			Sprites::GetInstance()->Add(
-				to_string(tile.getGid()),
-				drawingRect.x, drawingRect.y,
-				drawingRect.x + drawingRect.width, drawingRect.y + drawingRect.height,
-				Textures::GetInstance()->Get(image)
-			);
-		}
-	}
+	tileMap = new TileMap();
 }
 
 void IntroScene::LoadObjects(vector<tson::Object> objects)
@@ -81,19 +57,6 @@ void IntroScene::LoadObjects(vector<tson::Object> objects)
 	}
 }
 
-void IntroScene::LoadTileObjects(map<tuple<int, int>, tson::TileObject> tileObjects, tson::Vector2i tileSize)
-{
-	for (auto& [pos, tileObject] : tileObjects)
-	{
-		tson::Vector2f position = tileObject.getPosition();
-		string tileId = to_string(tileObject.getTile()->getGid());
-		// position + tileSize/2 because the difference between tiled map x, y and this game x,y
-		Tile* tile = new Tile(position.x + tileSize.x / 2, position.y + tileSize.y / 2,
-			tileSize.x, tileSize.y, tileId);
-		tileMap.push_back(tile);
-	}
-}
-
 void IntroScene::LoadLayer(tson::Layer layer, tson::Vector2i tileSize)
 {
 	string aniPath;
@@ -109,7 +72,7 @@ void IntroScene::LoadLayer(tson::Layer layer, tson::Vector2i tileSize)
 		}
 		break;
 	case tson::LayerType::TileLayer:
-		LoadTileObjects(layer.getTileObjects(), tileSize);
+		tileMap->LoadTileObjects(layer.getTileObjects(), tileSize);
 		break;
 	case tson::LayerType::ObjectGroup:
 		LoadObjects(layer.getObjects());
@@ -133,7 +96,7 @@ void IntroScene::Load()
 	if (map->getStatus() == tson::ParseStatus::OK)
 	{
 		DebugOut(L"[INFO] Load map successfully from file: %s \n", sceneFilePath);
-		LoadTilesets(map->getTilesets());
+		tileMap->LoadTilesets(sceneFilePath,map->getTilesets());
 
 		for (auto& layer : map->getLayers())
 		{
@@ -168,13 +131,7 @@ void IntroScene::Update(DWORD dt)
 void IntroScene::Render()
 {
 	// Draw background first
-	for (auto& tile : tileMap)
-	{
-		RECT rect;
-		tile->GetBoundingBox(rect.left, rect.top, rect.right, rect.bottom);
-		if (Game::GetInstance()->GetCamera()->IsContain(rect))
-			tile->Render();
-	}
+	tileMap->Render();
 	Animations::GetInstance()->Get(ID_ANI_NUMBER3)->Render(NUMBER3_POS_X, NUMBER3_POS_Y);
 	Animations::GetInstance()->Get(ID_ANI_CURSOR)->Render(CURSOR_POS_X, cursorY);
 	for (int i = 0; i < gameObjects.size(); i++)
@@ -198,7 +155,7 @@ void IntroScene::Clear()
 		delete (*it);
 	}
 	gameObjects.clear();
-	tileMap.clear();
+	tileMap->Clear();
 }
 
 /*

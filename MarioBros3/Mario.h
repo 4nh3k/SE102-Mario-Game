@@ -38,11 +38,13 @@ class Mario : public GameObject
 	ULONGLONG flyTimer;
 	ULONGLONG tailTimer;
 	ULONGLONG runTimer;
+	ULONGLONG deadTimer;
 	ULONGLONG untouchable_start;
 	ULONGLONG changeFormTimer;
 
 	int combo;
 	int level; 
+	int preLevel;
 	int untouchable; 
 
 	LPGAMEOBJECT holdingObj;
@@ -63,6 +65,8 @@ class Mario : public GameObject
 	void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
 	void OnCollisionWithPSwitch(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithGoal(LPCOLLISIONEVENT e);
+	void OnCollisionWithTheVoid(LPCOLLISIONEVENT e);
 	void OnCollisionWithPipeline(LPCOLLISIONEVENT e);
 
 	void TailUpdate();
@@ -92,6 +96,8 @@ public:
 	int IsCollidable();
 	int IsBlocking(float nx, float ny);
 	int IsTanooki();
+	int IsFlying();
+	int IsOnPlatform();
 	int GetLevel();
 	int CalcPoint(int combo);
 };

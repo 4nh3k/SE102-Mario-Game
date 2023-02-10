@@ -1,7 +1,7 @@
 #include "SFX.h"
 void SFX::Render()
 {
-	if(aniId != "")
+	if(aniId != "" && !this->isDeleted)
 		Animations::GetInstance()->Get(aniId)->Render(x, y, false);
 }
 void SFX::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

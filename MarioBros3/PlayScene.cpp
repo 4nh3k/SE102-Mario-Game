@@ -24,7 +24,10 @@
 #include "PiranhaPlant.h"
 #include "ParaKoopa.h"
 #include "Pipeline.h"
+#include "TheVoid.h"
 #include "HUD.h"
+#include "TileMap.h"
+#include "Goal.h"
 
 using namespace std;
 
@@ -36,33 +39,10 @@ PlayScene::PlayScene(int id, LPCWSTR filePath):
 	key_handler = new PlaySceneKeyHandler(this);
 	hud = HUD::GetInstance();
 	SFXs.push_back(hud);
+	tileMap = new TileMap();
 }
 
 
-#define SCENE_SECTION_UNKNOWN -1
-
-void PlayScene::LoadTilesets(vector<tson::Tileset> tileSets)
-{
-	for (auto& tileSet : tileSets)
-	{
-		string image = tileSet.getImagePath().u8string();
-
-		filesystem::path path = sceneFilePath;
-		// Get directory then append image file name
-		path = path.parent_path() / image;
-		Textures::GetInstance()->Add(image, path.c_str());
-		for (auto& tile : tileSet.getTiles())
-		{
-			tson::Rect drawingRect = tile.getDrawingRect();
-			Sprites::GetInstance()->Add(
-				to_string(tile.getGid()),
-				drawingRect.x, drawingRect.y,
-				drawingRect.x + drawingRect.width, drawingRect.y + drawingRect.height,
-				Textures::GetInstance()->Get(image)
-			);
-		}
-	}
-}
 
 void PlayScene::Spawn(tson::Object obj)
 {
@@ -74,10 +54,10 @@ void PlayScene::Spawn(tson::Object obj)
 	{
 		gameObj = new Koopa(pos.x, pos.y);
 	}
-	/*else if (obj.getName() == "RedKoopa")
+	else if (obj.getName() == "RedKoopa")
 	{
 		gameObj = new RedKoopa(pos.x, pos.y);
-	}*/
+	}
 	else if (obj.getName() == "ParaKoopa")
 	{
 		gameObj = new ParaKoopa(pos.x, pos.y);
@@ -130,18 +110,6 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 		{
 			gameObj = new SpecialPlatform(pos.x, pos.y, size.x, size.y);
 		}
-		//else if (obj.getName() == "Koopa")
-		//{
-		//	gameObj = new Koopa(pos.x, pos.y);
-		//}
-		else if (obj.getName() == "RedKoopa")
-		{
-			gameObj = new RedKoopa(pos.x, pos.y);
-		}
-		//else if (obj.getName() == "ParaKoopa")
-		//{
-		//	gameObj = new ParaKoopa(pos.x, pos.y);
-		//}
 		else if (obj.getName() == "Mario")
 		{
 			if (player != NULL)
@@ -168,34 +136,14 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			int scene_id = GetProperty(obj, PROP_ID_SCENE);
 			gameObj = new Portal(pos.x, pos.y, size.x + pos.x, pos.y + size.y,scene_id);
 		}
-		//else if (obj.getName() == "Goomba")
-		//{
-		//	spawnPoint.push_back({ obj, false });
-		//	//return;
-		//	gameObj = new Goomba(pos.x, pos.y);
-		//}
+		else if (obj.getName() == "Goal")
+		{
+			gameObj = new Goal(pos.x, pos.y, size.x, size.y);
+		}
 		else if (obj.getName() == "Coin")
 		{
 			gameObj = new Coin(pos.x, pos.y);
 		}
-		/*else if (obj.getName() == "Venus")
-		{
-			gameObj = new VenusFireTrap(pos.x, pos.y);
-			lowLayer.push_back(gameObj);
-			continue;
-		}
-		else if (obj.getName() == "GreenVenus")
-		{
-			gameObj = new GreenVenus(pos.x, pos.y);
-			lowLayer.push_back(gameObj);
-			continue;
-		}
-		else if (obj.getName() == "PiranhaPlant")
-		{
-			gameObj = new PiranhaPlant(pos.x, pos.y);
-			lowLayer.push_back(gameObj);
-			continue;
-		}*/
 		else if (obj.getName() == "Reward Brick")
 		{
 			int reward_id = GetProperty(obj, PROP_ID_REWARD);
@@ -209,29 +157,16 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			tmp -= Game::GetInstance()->GetBackBufferHeight();
 			gameObj = new Pipeline(pos.x, pos.y, size.x, size.y, targetX, targetY,camX,tmp);
 		}
-		//else if (obj.getName() == "ParaGoomba")
-		//{
-		//	gameObj = new ParaGoomba(pos.x, pos.y);
-		//}
+		else if (obj.getName() == "TheVoid")
+		{
+			gameObj = new TheVoid(pos.x, pos.y, size.x, size.y);
+		}
 		else {
 			spawnPoint.push_back({ obj, false });
 			continue;
 		}
 		//gameObj->SetPosition(10.0f, 01.0f);
 		gameObjects.push_back(gameObj);
-	}
-}
-
-void PlayScene::LoadTileObjects(map<tuple<int, int>, tson::TileObject> tileObjects, tson::Vector2i tileSize)
-{
-	for (auto& [pos, tileObject] : tileObjects)
-	{
-		tson::Vector2f position = tileObject.getPosition();
-		string tileId = to_string(tileObject.getTile()->getGid());
-		// position + tileSize/2 because the difference between tiled map x, y and this game x,y
-		Tile* tile = new Tile(position.x + tileSize.x / 2, position.y + tileSize.y / 2,
-			tileSize.x, tileSize.y, tileId);
-		tileMap.push_back(tile);
 	}
 }
 
@@ -250,7 +185,7 @@ void PlayScene::LoadLayer(tson::Layer layer, tson::Vector2i tileSize)
 		}
 		break;
 	case tson::LayerType::TileLayer:
-		LoadTileObjects(layer.getTileObjects(), tileSize);
+		tileMap->LoadTileObjects(layer.getTileObjects(), tileSize);
 		break;
 	case tson::LayerType::ObjectGroup:
 		LoadObjects(layer.getObjects());
@@ -285,7 +220,7 @@ void PlayScene::Load()
 			camX -= Game::GetInstance()->GetBackBufferWidth();
 		}
 		DebugOut(L"[INFO] Load map successfully from file: %s \n", sceneFilePath);
-		LoadTilesets(map->getTilesets());
+		tileMap->LoadTilesets(sceneFilePath,map->getTilesets());
 
 		for (auto& layer : map->getLayers())
 		{
@@ -314,7 +249,7 @@ void PlayScene::Update(DWORD dt)
 		if (isContain && !obj.second)
 		{
 			obj.second = true;
-			DebugOutTitle(L"%d, %d",pos.x, pos.y );
+			DebugOutTitle(L"%d, %d", pos.x, pos.y);
 			Spawn(obj.first);
 		}
 	}
@@ -323,7 +258,7 @@ void PlayScene::Update(DWORD dt)
 	{
 		sfx->Update(dt, &coObjects);
 	}
-	if (this->IsPause()) 
+	if (this->IsPause())
 		return;
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
@@ -346,37 +281,39 @@ void PlayScene::Update(DWORD dt)
 		gameObjects[i]->Update(dt, &coObjects);
 	}
 
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if(player!=NULL)
+	if (player != NULL)
 	{
 		player->Update(dt, &coObjects);
 	}
-	if(player == NULL) return; 
+	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+	if (player == NULL) return;
 	// Update camera to follow mario
 	float cx, cy;
+	float py;
 	player->GetPosition(cx, cy);
 	Mario* mario = dynamic_cast<Mario*>(player);
-
-	Game *game = Game::GetInstance();
+	Game* game = Game::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
+	py = cy;
 
 
 	if (cx < 0) cx = 0;
 	// move camY follow mario when flying up
-	if (cy > camY - game->GetBackBufferHeight()/8 || !mario->IsTanooki())
+	if (cy > camY - game->GetBackBufferHeight() / 8 || !mario->IsTanooki())
 	{
 		cy = camY;
 	}
 	else
 	{
 		cy += game->GetBackBufferHeight() / 8;
-	}
 
+	}
 
 	if (cx < camX)
 	{
 		hud->SetPosition(cx + HUD_WIDTH / 2, cy + HUD_HEIGHT / 2 + game->GetBackBufferHeight());
+		preCamY = cy;
 		Game::GetInstance()->GetCamera()->SetCamPos(cx , cy + HUD_HEIGHT);
 	}
 
@@ -397,13 +334,7 @@ void PlayScene::Render()
 		obj->Render();
 	}
 	// Draw background first
-	for (auto& tile : tileMap)
-	{
-		RECT rect;
-		tile->GetBoundingBox(rect.left, rect.top, rect.right, rect.bottom);
-		if(Game::GetInstance()->GetCamera()->IsContain(rect))
-			tile->Render();
-	}
+	tileMap->Render();
 	for (int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Render();
 	if (player != NULL && !teleporting) 
@@ -422,8 +353,14 @@ void PlayScene::Clear()
 	{
 		delete (*it);
 	}
+	for (auto it = lowLayer.begin(); it != lowLayer.end(); it++)
+	{
+		delete (*it);
+	}
+	spawnPoint.clear();
 	gameObjects.clear();
-	tileMap.clear();
+	lowLayer.clear();
+	tileMap->Clear();
 }
 
 /*
@@ -434,10 +371,7 @@ void PlayScene::Clear()
 */
 void PlayScene::Unload()
 {
-	for (int i = 0; i < gameObjects.size(); i++)
-		delete gameObjects[i];
-
-	gameObjects.clear();
+	Clear();
 
 	//Sprites::GetInstance()->Clear();
 	//Animations::GetInstance()->Clear();

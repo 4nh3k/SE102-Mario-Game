@@ -2,22 +2,18 @@
 #include "Game.h"
 #include "Scene.h"
 #include "tileson.hpp"
-#include "Tile.h"
 
+#define SCENE_SECTION_UNKNOWN -1
 
 class PlayScene: public Scene
 {
 protected: 
-	vector<Tile*> tileMap;
+	float preCamY;
 	vector<std::pair<tson::Object, bool>> spawnPoint;
 	LPGAMEOBJECT hud;
 
-
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);
-	void LoadTileObjects(map<tuple<int,int>, tson::TileObject> tileObjects, tson::Vector2i tileSize);
-	void LoadTilesets(vector<tson::Tileset> tileSets);
-	void LoadAssets(LPCWSTR assetFile);
 	void Spawn(tson::Object);
 	
 public: 

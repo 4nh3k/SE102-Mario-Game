@@ -16,6 +16,7 @@ public:
 	Animation(int defaultTime = 100) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void Add(string spriteId, DWORD time = 0);
 	void Render(float x, float y, bool stopMoving = true);
+	int GetCurrentFrame() { return currentFrame; }
 	int GetAniTime() { return frames.size() * defaultTime; }
 };
 

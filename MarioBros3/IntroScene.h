@@ -18,15 +18,10 @@
 class IntroScene : public Scene
 {
 protected:
-	vector<Tile*> tileMap;
-
 	float cursorY;
 
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);
-	void LoadTileObjects(map<tuple<int, int>, tson::TileObject> tileObjects, tson::Vector2i tileSize);
-	void LoadTilesets(vector<tson::Tileset> tileSets);
-	void LoadAssets(LPCWSTR assetFile);
 
 public:
 	IntroScene(int id, LPCWSTR filePath);

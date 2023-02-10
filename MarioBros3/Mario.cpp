@@ -20,6 +20,8 @@
 #include "ParaKoopa.h"
 #include "Pipeline.h"
 #include "MomentumBar.h"
+#include "Goal.h"
+#include "TheVoid.h"
 #include "HUD.h"
 
 Mario::Mario(float x, float y) : GameObject(x, y)
@@ -67,6 +69,16 @@ BOOLEAN Mario::IsGoingPipeLine()
 void Mario::SetUpKey(bool keyDown)
 {
 	this->isPressUp = keyDown;
+}
+
+int Mario::IsFlying()
+{
+	return (level == MARIO_LEVEL_TANOOKI && MomentumBar::GetInstance()->GetNode() == MOMENTUM_NODE_COUNT); 
+}
+
+int Mario::IsOnPlatform()
+{
+	return isOnPlatform;
 }
 
 int Mario::IsTanooki()
@@ -149,15 +161,16 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		isFlying = false;
 		//ay = MARIO_GRAVITY;
 	}
+
+	if (GetTickCount64() - deadTimer > MARIO_DEAD_TIMEOUT && state == MARIO_STATE_DIE)
+	{
+		Game::GetInstance()->InitiateSwitchScene(WORLD_MAP_ID);
+		Game::GetInstance()->SwitchScene();
+	}
+
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
-		if (state == MARIO_STATE_DIE)
-		{
-			Game::GetInstance()->InitiateSwitchScene(WORLD_MAP_SCENE_TYPE_ID);
-			Game::GetInstance()->SwitchScene();
-
-		}
 		untouchable_start = 0;
 		untouchable = 0;
 	}
@@ -287,6 +300,15 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPiranhaPlant(e);
 	else if (dynamic_cast<Pipeline*>(e->obj))
 		OnCollisionWithPipeline(e);
+	else if (dynamic_cast<Goal*>(e->obj))
+		OnCollisionWithGoal(e);
+	else if (dynamic_cast<TheVoid*>(e->obj))
+		OnCollisionWithTheVoid(e);
+}
+
+void Mario::OnCollisionWithTheVoid(LPCOLLISIONEVENT e)
+{
+	SetState(MARIO_STATE_DIE);
 }
 
 void Mario::OnCollisionWithPipeline(LPCOLLISIONEVENT e)
@@ -304,6 +326,12 @@ void Mario::OnCollisionWithPipeline(LPCOLLISIONEVENT e)
 		teleY = y;
 		teleporting = true;
 	}
+}
+
+void Mario::OnCollisionWithGoal(LPCOLLISIONEVENT e)
+{
+	Goal* goal = dynamic_cast<Goal*>(e->obj);
+	DebugOut(L"\n%d", goal->GetReward());
 }
 
 void Mario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
@@ -517,8 +545,13 @@ void Mario::GetHitFromEnemy()
 	if (untouchable != 0) return;
 	if (level > MARIO_LEVEL_SMALL)
 	{
+		Game::GetInstance()->GetCurrentScene()->Pause();
+		this->SetState(MARIO_STATE_CHANGE_FORM);
 		if (level == MARIO_LEVEL_TANOOKI)
 		{
+			flickering = true;
+			LPGAMEOBJECT sfx = new SFX(x, y, ID_ANI_VANISH);
+			Game::GetInstance()->GetCurrentScene()->AddSFX(sfx);
 			SetLevel(MARIO_LEVEL_BIG);
 		}
 		else
@@ -607,6 +640,11 @@ string Mario::GetAniIdSmall()
 	{
 		if (nx > 0) aniId = ID_ANI_MARIO_SMALL_KICK_RIGHT;
 		else aniId = ID_ANI_MARIO_SMALL_KICK_LEFT;
+	}
+	if (state == MARIO_STATE_CHANGE_FORM)
+	{
+		if (nx > 0) aniId = ID_ANI_MARIO_GROW_UP_RIGHT;
+		else aniId = ID_ANI_MARIO_GROW_UP_LEFT;
 	}
 	if (aniId == "1") aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
 
@@ -699,7 +737,7 @@ string Mario::GetAniIdBig()
 		if (nx > 0) aniId = ID_ANI_MARIO_KICK_RIGHT;
 		else aniId = ID_ANI_MARIO_KICK_LEFT;
 	}
-	if (state == MARIO_STATE_GROW_UP)
+	if (state == MARIO_STATE_CHANGE_FORM && preLevel < level)
 	{
 		if (nx > 0) aniId = ID_ANI_MARIO_GROW_UP_RIGHT;
 		else aniId = ID_ANI_MARIO_GROW_UP_LEFT;
@@ -725,7 +763,7 @@ string Mario::GetAniIdTanooki()
 			else
 				aniId = ID_ANI_MARIO_TANOOKI_JUMP_HOLD_LEFT;
 		}
-		else if (node == 6)
+		else if (node == MOMENTUM_NODE_COUNT)
 		{
 			if (isFlying)
 				if (nx >= 0)
@@ -860,10 +898,10 @@ void Mario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return; 
-	if (this->state == MARIO_STATE_GROW_UP && GetTickCount64() - changeFormTimer < MARIO_GROW_UP_TIMEOUT) return;
+	if (this->state == MARIO_STATE_CHANGE_FORM && GetTickCount64() - changeFormTimer < MARIO_GROW_UP_TIMEOUT) return;
 	else
 	{
-		if (this->state == MARIO_STATE_GROW_UP && GetTickCount64() - changeFormTimer > MARIO_GROW_UP_TIMEOUT)
+		if (this->state == MARIO_STATE_CHANGE_FORM && GetTickCount64() - changeFormTimer > MARIO_GROW_UP_TIMEOUT)
 		{
 			Game::GetInstance()->GetCurrentScene()->Continue();
 			flickering = false;
@@ -986,7 +1024,7 @@ void Mario::SetState(int state)
 		vx = 0.0f;
 		break;
 	case MARIO_STATE_DIE:
-		StartUntouchable();
+		deadTimer = GetTickCount64();
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;
 		ax = 0;
@@ -994,7 +1032,7 @@ void Mario::SetState(int state)
 	case MARIO_STATE_RELEASE_RUN:
 		isRunningFast = false;
 		break;
-	case MARIO_STATE_GROW_UP:
+	case MARIO_STATE_CHANGE_FORM:
 		changeFormTimer = GetTickCount64();
 		break;
 	}
@@ -1066,17 +1104,18 @@ int Mario::CalcPoint(int combo)
 
 void Mario::SetLevel(int l)
 {
+	preLevel = level;
 	// Adjust position to avoid falling off platform
 	if (this->level == MARIO_LEVEL_SMALL)
 	{
-		this->SetState(MARIO_STATE_GROW_UP);
+		this->SetState(MARIO_STATE_CHANGE_FORM);
 		Game::GetInstance()->GetCurrentScene()->Pause();
 		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 	}
 	if (l == MARIO_LEVEL_TANOOKI)
 	{
 		flickering = true;
-		this->SetState(MARIO_STATE_GROW_UP);
+		this->SetState(MARIO_STATE_CHANGE_FORM);
 		LPGAMEOBJECT sfx = new SFX(x, y, ID_ANI_VANISH);
 		Game::GetInstance()->GetCurrentScene()->AddSFX(sfx);
 		Game::GetInstance()->GetCurrentScene()->Pause();
