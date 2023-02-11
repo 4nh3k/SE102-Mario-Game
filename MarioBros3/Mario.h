@@ -21,8 +21,9 @@ class Mario : public GameObject
 	BOOLEAN isRunningFast;
 	BOOLEAN flickering;
 	BOOLEAN isPressUp;
-
+	BOOLEAN hasFinish;
 	BOOLEAN teleporting;
+
 	int teleDirection;
 	float oldY;
 	float teleX;
@@ -93,6 +94,7 @@ public:
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 	BOOLEAN IsGoingPipeLine();
+	BOOLEAN HasFinish();
 	int IsCollidable();
 	int IsBlocking(float nx, float ny);
 	int IsTanooki();

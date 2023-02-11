@@ -15,6 +15,7 @@ class WorldMap : public Scene
 protected:
 	HUD* hud;
 	map<int, MapNode*> movingMap;
+	BOOLEAN hasCreate;
 
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);

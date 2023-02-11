@@ -10,7 +10,7 @@ void PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	Mario* mario = (Mario *)((LPPLAYSCENE)Game::GetInstance()->GetCurrentScene())->GetPlayer(); 
-
+	if (mario->HasFinish()) return;
 	switch (KeyCode)
 	{
 	case DIK_DOWN:
@@ -55,6 +55,7 @@ void PlaySceneKeyHandler::OnKeyUp(int KeyCode)
 	//DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 
 	Mario* mario = (Mario*)((LPPLAYSCENE)Game::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->HasFinish()) return;
 	switch (KeyCode)
 	{
 	case DIK_S:
@@ -80,6 +81,7 @@ void PlaySceneKeyHandler::KeyState(BYTE *states)
 {
 	LPGAME game = Game::GetInstance();
 	Mario* mario = (Mario*)((LPPLAYSCENE)Game::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->HasFinish()) return;
 
 	if (game->IsKeyDown(DIK_RIGHT))
 	{

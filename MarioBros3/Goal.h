@@ -26,6 +26,7 @@ public:
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 	int GetReward();
 	void RenderBoundingBox(void);
+	bool HasHit() { return hit; }
 
 	int IsBlocking(float nx, float ny) { return 0; }
 };

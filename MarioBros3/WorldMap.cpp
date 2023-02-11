@@ -23,6 +23,7 @@ WorldMap::WorldMap(int id, LPCWSTR filePath) :
 	key_handler = new MapSceneKeyHandler(this);
 	hud = HUD::GetInstance();
 	SFXs.push_back(hud);
+	hasCreate = false;
 	tileMap = new TileMap();
 }
 
@@ -44,6 +45,7 @@ void WorldMap::LoadObjects(vector<tson::Object> objects)
 		{
 			if (player != NULL)
 			{
+				hasCreate = true;
 				DebugOut(L"[ERROR] MARIO object was created before!\n");
 				continue;
 			}
@@ -61,8 +63,11 @@ void WorldMap::LoadObjects(vector<tson::Object> objects)
 			int bot = GetProperty(obj, "bot");
 			int scene_id = GetProperty(obj, "scene_id");
 
-			MapNode* node = new MapNode(id, pos.x, pos.y,left,right,top,bot,scene_id);
-			movingMap[id] = node;
+			if (!hasCreate)
+			{
+				MapNode* node = new MapNode(id, pos.x, pos.y,left,right,top,bot,scene_id);
+				movingMap[id] = node;
+			}
 			continue;
 		}
 		gameObjects.push_back(gameObj);
@@ -95,34 +100,40 @@ void WorldMap::LoadLayer(tson::Layer layer, tson::Vector2i tileSize)
 }
 void WorldMap::InitMap()
 {
-	for (auto node : movingMap)
+	if (!hasCreate)
 	{
-		int l, r, b, t;
-		node.second->GetNextNode(l,r,t,b);
-		if (movingMap.find(l) != movingMap.end())
+		for (auto node : movingMap)
 		{
-			node.second->Left = movingMap[l];
+			int l, r, b, t;
+			node.second->GetNextNode(l,r,t,b);
+			if (movingMap.find(l) != movingMap.end())
+			{
+				node.second->Left = movingMap[l];
+			}
+			if (movingMap.find(r) != movingMap.end())
+			{
+				node.second->Right = movingMap[r];
+			}
+			if (movingMap.find(t) != movingMap.end())
+			{
+				node.second->Top = movingMap[t];
+			}
+			if (movingMap.find(b) != movingMap.end())
+			{
+				node.second->Bot = movingMap[b];
+			}
 		}
-		if (movingMap.find(r) != movingMap.end())
-		{
-			node.second->Right = movingMap[r];
-		}
-		if (movingMap.find(t) != movingMap.end())
-		{
-			node.second->Top = movingMap[t];
-		}
-		if (movingMap.find(b) != movingMap.end())
-		{
-			node.second->Bot = movingMap[b];
-		}
+		dynamic_cast<MarioMap*>(player)->SetCurrentNode(movingMap[START_NODE_ID]);
 	}
-	dynamic_cast<MarioMap*>(player)->SetCurrentNode(movingMap[START_NODE_ID]);
 }
 
 void WorldMap::Load()
 {
 	DebugOutTitle(L"Start load");
-
+	if (player != NULL)
+	{
+		hasCreate = true;
+	}
 	Game::GetInstance()->GetCamera()->SetCamPos(5, 0);
 	hud->SetPosition(HUD_POS_X, HUD_POS_Y);
 	MomentumBar::GetInstance()->SetNode(0);

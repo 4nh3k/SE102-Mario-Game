@@ -39,6 +39,7 @@ Mario::Mario(float x, float y) : GameObject(x, y)
 	isTailWhack = false;
 	flickering = false;
 	isPressUp = false;
+	hasFinish = false;
 	flyTimer = 0;
 	kickTimer = 0;
 	tailTimer = 0;
@@ -55,7 +56,10 @@ int Mario::IsCollidable()
 {
 	return (state != MARIO_STATE_DIE);
 }
-
+BOOLEAN Mario::HasFinish()
+{
+	return hasFinish;
+}
 int Mario::IsBlocking(float nx, float ny) 
 { 
 	return (state != MARIO_STATE_DIE && untouchable == 0);
@@ -267,6 +271,7 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 			//vy = 0.015f;
 			combo = 0;
 			isOnPlatform = true;
+			if (hasFinish) SetState(MARIO_STATE_WALKING_RIGHT);
 		}
 	}
 	else 
@@ -331,6 +336,13 @@ void Mario::OnCollisionWithPipeline(LPCOLLISIONEVENT e)
 void Mario::OnCollisionWithGoal(LPCOLLISIONEVENT e)
 {
 	Goal* goal = dynamic_cast<Goal*>(e->obj);
+	if (!goal->HasHit())
+	{
+		hasFinish = true;
+		SetState(MARIO_STATE_IDLE);
+		HUD::GetInstance()->AddCard(goal->GetReward());
+		HUD::GetInstance()->FinishScene();
+	}
 	DebugOut(L"\n%d", goal->GetReward());
 }
 
@@ -451,6 +463,7 @@ void Mario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 	if (dynamic_cast<OneUpMushroom*>(e->obj))
 	{
 		AddScore(x, y, 0);
+		HUD::GetInstance()->AddLife(1);
 		mushroom->Delete();
 		return;
 	}
@@ -1024,6 +1037,7 @@ void Mario::SetState(int state)
 		vx = 0.0f;
 		break;
 	case MARIO_STATE_DIE:
+		HUD::GetInstance()->DecreseLife();
 		deadTimer = GetTickCount64();
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;

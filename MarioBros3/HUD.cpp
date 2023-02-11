@@ -1,4 +1,5 @@
 #include "HUD.h"
+#include "MarioMap.h"
 
 HUD* HUD::__instance = NULL;
 void HUD::Render()
@@ -9,6 +10,10 @@ void HUD::Render()
 	FScore->Render();
 	FTimer->Render();
 	momentumBar->Render();
+	for (auto i : cards)
+	{
+		i->Render();
+	}
 }
 HUD* HUD::GetInstance()
 {
@@ -22,6 +27,10 @@ void HUD::SetPosition(float x, float y) {
 	FScore->SetPos(x + SCORE_POS_OFFSET_X, y + SCORE_POS_OFFSET_Y);
 	FTimer->SetPos(x + TIMER_POS_OFFSET_X, y + TIMER_POS_OFFSET_Y);
 	momentumBar->SetPos(x + MOMENTUMBAR_POS_OFFSET_X, y + MOMENTUMBAR_POS_OFFSET_Y);
+	for (int i = 0; i < CARD_COUNT; i++)
+	{
+		cards[i]->SetPos(x + CARD_POS_OFFSET_X + 24 * i, y - CARD_POS_OFFSET_Y);
+	}
 }
 void HUD::StartTimer()
 {
@@ -35,7 +44,7 @@ void HUD::StopTimer()
 void HUD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	Mario* player = dynamic_cast<Mario*>(Game::GetInstance()->GetCurrentScene()->GetPlayer());
-	FLife->SetNumber(2);
+	FLife->SetNumber(life);
 	FCoin->SetNumber(coin);
 	FScore->SetNumber(score);
 	if (!stopTimer)
@@ -48,6 +57,29 @@ void HUD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		FTimer->SetNumber(currentTime);
 	}
+	if (finishScene)
+	{
+		if (currentTime < 3)
+		{
+			AddScore(currentTime * 50);
+			currentTime = 0;
+		}
+		else
+		{
+			AddScore(150);
+			currentTime-=3;
+		}
+		if (currentTime <= 0)
+		{
+			finishScene = false;
+			Game* game = Game::GetInstance();
+			game->InitiateSwitchScene(WORLD_MAP_ID);
+			game->SwitchScene();
+			MarioMap* mario = dynamic_cast<MarioMap*>(game->GetCurrentScene()->GetPlayer());
+			mario->GetCurrentNode()->SetClear(true);
+			ResetTimer();
+		}
+	}
 	//momentumBar->SetNode(1);
 } 
 void HUD::ResetTimer()
@@ -59,9 +91,9 @@ void HUD::AddCoin()
 {
 	coin++;
 }
-void HUD::IncreaseLife()
+void HUD::AddLife(int life)
 {
-	life++;
+	this->life += life;
 }
 void HUD::DecreseLife()
 {
@@ -70,4 +102,18 @@ void HUD::DecreseLife()
 void HUD::AddScore(int point)
 {
 	score += point;
+}
+void HUD::AddCard(int type)
+{
+	cards[cardCount]->SetCardType(type);
+	cardCount++;
+	if (cardCount >= CARD_COUNT)
+	{
+		cardCount = 0;
+	}
+}
+void HUD::FinishScene()
+{
+	StopTimer();
+	finishScene = true;
 }
