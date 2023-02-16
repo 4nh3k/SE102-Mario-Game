@@ -196,6 +196,7 @@
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="PointSFX.cpp" />
+    <ClCompile Include="Popup.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="PSwitch.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="PointSFX.h" />
+    <ClInclude Include="Popup.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="PSwitch.h" />
     <ClInclude Include="QuestionBlock.h" />

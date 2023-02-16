@@ -9,6 +9,7 @@
 #include "MapSceneKeyHandler.h"
 #include "MapBush.h"
 #include "HUD.h"
+#include "Popup.h"
 #include "TileMap.h"
 
 #define START_NODE_ID 1
@@ -23,6 +24,7 @@ WorldMap::WorldMap(int id, LPCWSTR filePath) :
 	key_handler = new MapSceneKeyHandler(this);
 	hud = HUD::GetInstance();
 	SFXs.push_back(hud);
+	popup = NULL;
 	hasCreate = false;
 	tileMap = new TileMap();
 }
@@ -134,9 +136,14 @@ void WorldMap::Load()
 	{
 		hasCreate = true;
 	}
+	else
+	{
+		popup = new Popup(Game::GetInstance()->GetBackBufferWidth() / 2, Game::GetInstance()->GetBackBufferHeight() / 2, 0);
+		SFXs.push_back(popup);
+	}
 	Game::GetInstance()->GetCamera()->SetCamPos(5, 0);
 	hud->SetPosition(HUD_POS_X, HUD_POS_Y);
-	MomentumBar::GetInstance()->SetNode(0);
+	MomentumBar::GetInstance()->Reset();
 	hud->ResetTimer();
 	hud->StopTimer();
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
@@ -173,10 +180,13 @@ void WorldMap::Update(DWORD dt)
 	if (this->IsPause())
 		return;
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return;
-	else
-	{
+	if (player != NULL) 
 		player->Update(dt);
+	if (player == NULL)
+		return;
+	for (auto& sfx : SFXs)
+	{
+		sfx->Update(dt);
 	}
 	HUD::GetInstance()->Update(dt,NULL);
 	PurgeDeletedObjects();

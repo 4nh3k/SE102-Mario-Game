@@ -85,7 +85,7 @@ public:
 	void SetState(int state);
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
-	void SetLevel(int l);
+	void SetLevel(int l, bool pause = true);
 	void SetUpKey(bool);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	void AddScore(float Px, float Py);

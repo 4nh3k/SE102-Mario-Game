@@ -42,7 +42,11 @@ PlayScene::PlayScene(int id, LPCWSTR filePath):
 	tileMap = new TileMap();
 }
 
-
+bool PlayScene::CanControl()
+{
+	Mario* mario = dynamic_cast<Mario*>(player);
+	return (!mario->HasFinish());
+}
 
 void PlayScene::Spawn(tson::Object obj)
 {

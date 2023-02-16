@@ -25,6 +25,7 @@ public:
 	void SetPos(float x, float y) { this->x = x; this->y = y; }
 	void SetNode(int node);
 	int GetNode();
+	void Reset() { nodeFill = 0; }
 	void Render();
 	void StartTimer();
 	void Decrease();

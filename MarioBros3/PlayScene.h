@@ -29,6 +29,8 @@ public:
 	void PurgeDeletedObjects(std::deque<LPGAMEOBJECT> &list);
 	void PurgeDeletedObjects();
 
+	bool CanControl();
+
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 };
 

@@ -13,6 +13,7 @@ void MarioMap::MoveToNextNode()
 }
 MarioMap::MarioMap(float x, float y) : GameObject(x, y) 
 {
+	level = MARIO_LEVEL_SMALL;
 	currentNode = NULL;
 	isMoving = false; 
 	directionX = 0;
@@ -20,7 +21,27 @@ MarioMap::MarioMap(float x, float y) : GameObject(x, y)
 }
 void MarioMap::Render()
 {
-	Animations::GetInstance()->Get(ANI_ID_SMALL_MARIO_MAP)->Render(x, y);
+	string aniId = ANI_ID_SMALL_MARIO_MAP;
+	switch (level)
+	{
+	case MARIO_LEVEL_BIG:
+		aniId = ANI_ID_BIG_MARIO_MAP;
+		break;
+	case MARIO_LEVEL_TANOOKI:
+		aniId = ANI_ID_TANOOKI_MARIO_MAP;
+		break;
+	default:
+		break;
+	}
+	Animations::GetInstance()->Get(aniId)->Render(x, y);
+}
+void MarioMap::SetLevel(int level)
+{
+	this->level = level;
+}
+int MarioMap::GetLevel()
+{
+	return level;
 }
 MapNode* MarioMap::GetCurrentNode()
 {

@@ -9,8 +9,10 @@
 
 void MapSceneKeyHandler::OnKeyDown(int KeyCode)
 {
+	
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	Game* game = Game::GetInstance();
+	if (!game->GetCurrentScene()->CanControl()) return;
 	MarioMap* mario = (MarioMap*)(game->GetCurrentScene())->GetPlayer();
 	MapNode* node = mario->GetCurrentNode();
 	switch (KeyCode)
@@ -47,8 +49,12 @@ void MapSceneKeyHandler::OnKeyDown(int KeyCode)
 		if (!node->HasClear())
 		{
 			//node->SetClear(true);
+			int level = dynamic_cast<MarioMap*>(game->GetCurrentScene()->GetPlayer())->GetLevel();
 			game->InitiateSwitchScene(node->GetSceneId());
 			game->SwitchScene();
+			Mario* mario = dynamic_cast<Mario*>(game->GetCurrentScene()->GetPlayer());
+			mario->SetLevel(level,false);
+			
 		}
 		break;
 	}

@@ -27,7 +27,7 @@ void HUD::SetPosition(float x, float y) {
 	FScore->SetPos(x + SCORE_POS_OFFSET_X, y + SCORE_POS_OFFSET_Y);
 	FTimer->SetPos(x + TIMER_POS_OFFSET_X, y + TIMER_POS_OFFSET_Y);
 	momentumBar->SetPos(x + MOMENTUMBAR_POS_OFFSET_X, y + MOMENTUMBAR_POS_OFFSET_Y);
-	for (int i = 0; i < CARD_COUNT; i++)
+ 	for (int i = 0; i < CARD_COUNT; i++)
 	{
 		cards[i]->SetPos(x + CARD_POS_OFFSET_X + 24 * i, y - CARD_POS_OFFSET_Y);
 	}
@@ -44,9 +44,6 @@ void HUD::StopTimer()
 void HUD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	Mario* player = dynamic_cast<Mario*>(Game::GetInstance()->GetCurrentScene()->GetPlayer());
-	FLife->SetNumber(life);
-	FCoin->SetNumber(coin);
-	FScore->SetNumber(score);
 	if (!stopTimer)
 	{
 		int timerNum = PLAYSCENE_TIME - (GetTickCount64() - time) / 1000;
@@ -73,10 +70,12 @@ void HUD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			finishScene = false;
 			Game* game = Game::GetInstance();
+			int level = dynamic_cast<Mario*>(game->GetCurrentScene()->GetPlayer())->GetLevel();
 			game->InitiateSwitchScene(WORLD_MAP_ID);
 			game->SwitchScene();
 			MarioMap* mario = dynamic_cast<MarioMap*>(game->GetCurrentScene()->GetPlayer());
 			mario->GetCurrentNode()->SetClear(true);
+			mario->SetLevel(level);
 			ResetTimer();
 		}
 	}
@@ -90,18 +89,27 @@ void HUD::ResetTimer()
 void HUD::AddCoin()
 {
 	coin++;
+	FCoin->SetNumber(coin);
+
 }
 void HUD::AddLife(int life)
 {
 	this->life += life;
+	FLife->SetNumber(life);
 }
 void HUD::DecreseLife()
 {
 	life--;
+	FLife->SetNumber(life);
+	if (life == 0)
+	{
+
+	}
 }
 void HUD::AddScore(int point)
 {
 	score += point;
+	FScore->SetNumber(score);
 }
 void HUD::AddCard(int type)
 {

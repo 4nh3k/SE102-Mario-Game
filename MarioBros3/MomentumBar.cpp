@@ -62,6 +62,7 @@ void MomentumBar::SetNode(int node)
 	if (node > nodeFill + 1) node = nodeFill + 1;
 	nodeFill = node;
 }
+
 void MomentumBar::Render()
 {
 	for (int i = 0; i < MOMENTUM_NODE_COUNT; i++)

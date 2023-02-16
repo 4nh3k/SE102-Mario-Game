@@ -46,6 +46,7 @@ class HUD : public GameObject
 	MomentumBar* momentumBar;
 	vector<Card*> cards;
 	bool stopTimer;
+	bool isGameOver;
 public:
 	HUD(float x, float y) : GameObject(x,y)
 	{
@@ -62,6 +63,9 @@ public:
 		tmp = new Card(x, y, -1);
 		cards.push_back(tmp);
 		tmp = new Card(x, y, -1);
+		FCoin->SetNumber(coin);
+		FLife->SetNumber(life);
+		FScore->SetNumber(score);
 		cards.push_back(tmp);
 		finishScene = false;
 		momentumBar = MomentumBar::GetInstance();

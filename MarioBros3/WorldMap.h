@@ -16,6 +16,7 @@ protected:
 	HUD* hud;
 	map<int, MapNode*> movingMap;
 	BOOLEAN hasCreate;
+	LPGAMEOBJECT popup;
 
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);
@@ -33,6 +34,10 @@ public:
 	void Clear();
 	void PurgeDeletedObjects(std::deque<LPGAMEOBJECT>& list);
 	void PurgeDeletedObjects();
+
+	bool CanControl() {
+		return true;
+	}
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 };

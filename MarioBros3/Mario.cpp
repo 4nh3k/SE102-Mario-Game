@@ -1116,17 +1116,20 @@ int Mario::CalcPoint(int combo)
 	return point;
 }
 
-void Mario::SetLevel(int l)
+void Mario::SetLevel(int l, bool pause)
 {
 	preLevel = level;
 	// Adjust position to avoid falling off platform
 	if (this->level == MARIO_LEVEL_SMALL)
 	{
-		this->SetState(MARIO_STATE_CHANGE_FORM);
-		Game::GetInstance()->GetCurrentScene()->Pause();
+		if (pause)
+		{
+			this->SetState(MARIO_STATE_CHANGE_FORM);
+			Game::GetInstance()->GetCurrentScene()->Pause();
+		}
 		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 	}
-	if (l == MARIO_LEVEL_TANOOKI)
+	if (l == MARIO_LEVEL_TANOOKI && pause)
 	{
 		flickering = true;
 		this->SetState(MARIO_STATE_CHANGE_FORM);

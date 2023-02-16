@@ -1,44 +1,102 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Texture imagePath="HUD.png">
-<Animation aniID="momentum_indicator_idle" frameTime="100"><Frame name="momentum_indicator_idle0000" x="175" y="39" width="16" height="8" />
+<Animation aniID="r" frameTime="100"><Frame name="r0000" x="160" y="119" width="8" height="8" />
 </Animation>
-<Animation aniID="4" frameTime="100"><Frame name="40000" x="240" y="39" width="8" height="8" />
+<Animation aniID="momentum_node_idle" frameTime="100"><Frame name="momentum_node_idle0000" x="44" y="139" width="8" height="8" />
 </Animation>
-<Animation aniID="star_card" frameTime="100"><Frame name="star_card0000" x="84" y="39" width="24" height="28" />
+<Animation aniID="4" frameTime="100"><Frame name="40000" x="130" y="139" width="8" height="8" />
 </Animation>
-<Animation aniID="empty_card" frameTime="100"><Frame name="empty_card0000" x="0" y="39" width="24" height="28" />
+<Animation aniID="5" frameTime="100"><Frame name="50000" x="142" y="139" width="8" height="8" />
 </Animation>
-<Animation aniID="mushroom_card" frameTime="100"><Frame name="mushroom_card0000" x="28" y="39" width="24" height="28" />
+<Animation aniID="h" frameTime="100"><Frame name="h0000" x="196" y="107" width="8" height="8" />
 </Animation>
-<Animation aniID="6" frameTime="100"><Frame name="60000" x="124" y="50" width="8" height="8" />
+<Animation aniID="j" frameTime="100"><Frame name="j0000" x="208" y="107" width="8" height="8" />
 </Animation>
-<Animation aniID="0" frameTime="100"><Frame name="00000" x="194" y="39" width="8" height="8" />
+<Animation aniID="i" frameTime="100"><Frame name="i0000" x="254" y="68" width="4" height="8" />
 </Animation>
-<Animation aniID="1" frameTime="100"><Frame name="10000" x="206" y="39" width="6" height="8" />
+<Animation aniID="m" frameTime="100"><Frame name="m0000" x="244" y="107" width="8" height="8" />
 </Animation>
-<Animation aniID="2" frameTime="100"><Frame name="20000" x="216" y="39" width="8" height="8" />
+<Animation aniID="o" frameTime="100"><Frame name="o0000" x="124" y="119" width="8" height="8" />
 </Animation>
-<Animation aniID="3" frameTime="100"><Frame name="30000" x="228" y="39" width="8" height="8" />
+<Animation aniID="0" frameTime="100"><Frame name="00000" x="94" y="139" width="8" height="8" />
 </Animation>
-<Animation aniID="5" frameTime="100"><Frame name="50000" x="112" y="50" width="8" height="8" />
+<Animation aniID="f" frameTime="100"><Frame name="f0000" x="172" y="107" width="8" height="8" />
 </Animation>
-<Animation aniID="momentum_node_idle" frameTime="100"><Frame name="momentum_node_idle0000" x="144" y="39" width="8" height="8" />
+<Animation aniID="t" frameTime="100"><Frame name="t0000" x="184" y="119" width="8" height="8" />
 </Animation>
-<Animation aniID="HUD" frameTime="100"><Frame name="HUD0000" x="0" y="0" width="250" height="36" />
+<Animation aniID="y" frameTime="100"><Frame name="y0000" x="244" y="119" width="8" height="8" />
 </Animation>
-<Animation aniID="mario_player" frameTime="100"><Frame name="mario_player0000" x="112" y="39" width="16" height="8" />
+<Animation aniID="mushroom_card" frameTime="100"><Frame name="mushroom_card0000" x="28" y="107" width="24" height="28" />
 </Animation>
-<Animation aniID="9" frameTime="100"><Frame name="90000" x="160" y="50" width="8" height="8" />
+<Animation aniID="momentum_indicator_idle" frameTime="100"><Frame name="momentum_indicator_idle0000" x="75" y="139" width="16" height="8" />
 </Animation>
-<Animation aniID="flower_card" frameTime="100"><Frame name="flower_card0000" x="56" y="39" width="24" height="28" />
+<Animation aniID="flower_card" frameTime="100"><Frame name="flower_card0000" x="56" y="107" width="24" height="28" />
 </Animation>
-<Animation aniID="7" frameTime="100"><Frame name="70000" x="136" y="50" width="8" height="8" />
+<Animation aniID="a" frameTime="100"><Frame name="a0000" x="112" y="107" width="8" height="8" />
 </Animation>
-<Animation aniID="momentum_node_run" frameTime="100"><Frame name="momentum_node_run0000" x="132" y="39" width="8" height="8" />
+<Animation aniID="popup_game_over" frameTime="100"><Frame name="popup_game_over0000" x="132" y="0" width="128" height="64" />
 </Animation>
-<Animation aniID="8" frameTime="100"><Frame name="80000" x="148" y="50" width="8" height="8" />
+<Animation aniID="mario_player" frameTime="100"><Frame name="mario_player0000" x="12" y="139" width="16" height="8" />
 </Animation>
-<Animation aniID="momentum_indicator_full" frameTime="100"><Frame name="momentum_indicator_full0000" x="156" y="39" width="16" height="8" />
-<Frame name="momentum_indicator_full0001" x="175" y="39" width="16" height="8" />
+<Animation aniID="star_card" frameTime="100"><Frame name="star_card0000" x="84" y="107" width="24" height="28" />
+</Animation>
+<Animation aniID="1" frameTime="100"><Frame name="10000" x="254" y="80" width="6" height="8" />
+</Animation>
+<Animation aniID="d" frameTime="100"><Frame name="d0000" x="148" y="107" width="8" height="8" />
+</Animation>
+<Animation aniID="s" frameTime="100"><Frame name="s0000" x="172" y="119" width="8" height="8" />
+</Animation>
+<Animation aniID="n" frameTime="100"><Frame name="n0000" x="112" y="119" width="8" height="8" />
+</Animation>
+<Animation aniID="momentum_indicator_full" frameTime="100"><Frame name="momentum_indicator_full0000" x="56" y="139" width="16" height="8" />
+<Frame name="momentum_indicator_full0001" x="75" y="139" width="16" height="8" />
+</Animation>
+<Animation aniID="3" frameTime="100"><Frame name="30000" x="118" y="139" width="8" height="8" />
+</Animation>
+<Animation aniID="b" frameTime="100"><Frame name="b0000" x="124" y="107" width="8" height="8" />
+</Animation>
+<Animation aniID="x" frameTime="100"><Frame name="x0000" x="232" y="119" width="8" height="8" />
+</Animation>
+<Animation aniID="popup_start" frameTime="100"><Frame name="popup_start0000" x="0" y="0" width="128" height="64" />
+</Animation>
+<Animation aniID="p" frameTime="100"><Frame name="p0000" x="136" y="119" width="8" height="8" />
+</Animation>
+<Animation aniID="7" frameTime="100"><Frame name="70000" x="166" y="139" width="8" height="8" />
+</Animation>
+<Animation aniID="HUD" frameTime="100"><Frame name="HUD0000" x="0" y="68" width="250" height="36" />
+</Animation>
+<Animation aniID="2" frameTime="100"><Frame name="20000" x="106" y="139" width="8" height="8" />
+</Animation>
+<Animation aniID="l" frameTime="100"><Frame name="l0000" x="232" y="107" width="8" height="8" />
+</Animation>
+<Animation aniID="9" frameTime="100"><Frame name="90000" x="190" y="139" width="8" height="8" />
+</Animation>
+<Animation aniID="g" frameTime="100"><Frame name="g0000" x="184" y="107" width="8" height="8" />
+</Animation>
+<Animation aniID="w" frameTime="100"><Frame name="w0000" x="220" y="119" width="8" height="8" />
+</Animation>
+<Animation aniID="8" frameTime="100"><Frame name="80000" x="178" y="139" width="8" height="8" />
+</Animation>
+<Animation aniID="momentum_node_run" frameTime="100"><Frame name="momentum_node_run0000" x="32" y="139" width="8" height="8" />
+</Animation>
+<Animation aniID="u" frameTime="100"><Frame name="u0000" x="196" y="119" width="8" height="8" />
+</Animation>
+<Animation aniID="q" frameTime="100"><Frame name="q0000" x="148" y="119" width="8" height="8" />
+</Animation>
+<Animation aniID="cursor" frameTime="100"><Frame name="cursor0000" x="202" y="139" width="8" height="8" />
+</Animation>
+<Animation aniID="6" frameTime="100"><Frame name="60000" x="154" y="139" width="8" height="8" />
+</Animation>
+<Animation aniID="c" frameTime="100"><Frame name="c0000" x="136" y="107" width="8" height="8" />
+</Animation>
+<Animation aniID="z" frameTime="100"><Frame name="z0000" x="0" y="139" width="8" height="8" />
+</Animation>
+<Animation aniID="empty_card" frameTime="100"><Frame name="empty_card0000" x="0" y="107" width="24" height="28" />
+</Animation>
+<Animation aniID="v" frameTime="100"><Frame name="v0000" x="208" y="119" width="8" height="8" />
+</Animation>
+<Animation aniID="e" frameTime="100"><Frame name="e0000" x="160" y="107" width="8" height="8" />
+</Animation>
+<Animation aniID="k" frameTime="100"><Frame name="k0000" x="220" y="107" width="8" height="8" />
 </Animation>
 </Texture>

@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
-#include <stack>
+#include <deque>
 
 #define FONT_WIDTH 8
-#define FONT_HEIGHT 7
+#define FONT_HEIGHT 8
 #define ID_ANI_0 "0"
 #define ID_ANI_1 "1"
 #define ID_ANI_2 "2"
@@ -19,7 +19,7 @@ class Font
 {
 	float x, y;
 	int charCount;
-	std::stack<std::string> Number;
+	std::deque<std::string> String;
 public:
 	Font(float x, float y, int charCount)
 	{
@@ -27,6 +27,7 @@ public:
 		this->y = y;
 		this->charCount = charCount;
 	}
+	void SetString(std::string line);
 	void SetPos(float x, float y) { this->x = x; this->y = y; }
 	void SetNumber(int num);
 	void Render();
