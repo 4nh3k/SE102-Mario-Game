@@ -52,6 +52,7 @@ public:
 	void Pause() { pauseUpdate = true; }
 	void Continue() { pauseUpdate = false; }
 	virtual bool CanControl() { return true; }
+	virtual void SetBackGroundColor(int colorId) {}
 	virtual int GetBackGroundColor() = 0;
 	virtual void Load() = 0;
 	virtual void Unload() = 0;

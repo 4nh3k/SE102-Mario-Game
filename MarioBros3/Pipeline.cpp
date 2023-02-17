@@ -1,5 +1,5 @@
 #include "Pipeline.h"
-Pipeline::Pipeline(float x, float y, float width, float height, float targetX, float targetY, float camX, float camY)
+Pipeline::Pipeline(float x, float y, float width, float height, float targetX, float targetY, float camX, float camY, int backgroundId)
 {
 	this->x = x;
 	this->y = y;
@@ -9,6 +9,7 @@ Pipeline::Pipeline(float x, float y, float width, float height, float targetX, f
 	this->targetY = targetY;
 	this->camX = camX;
 	this->camY = camY;
+	this->backgroundId = backgroundId;
 }
 
 void Pipeline::RenderBoundingBox()
@@ -40,6 +41,11 @@ void Pipeline::GetTelePos(float& x, float& y)
 {
 	x = this->targetX;
 	y = this->targetY;
+}
+
+int Pipeline::GetBackGroundColor()
+{
+	return this->backgroundId;
 }
 
 void Pipeline::GetCamPos(float& camX, float& camY)

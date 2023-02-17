@@ -30,6 +30,8 @@
 #include "TileMap.h"
 #include "Goal.h"
 
+#define CAM_SPEED_Y 0.2f
+
 using namespace std;
 
 PlayScene::PlayScene(int id, LPCWSTR filePath):
@@ -39,6 +41,8 @@ PlayScene::PlayScene(int id, LPCWSTR filePath):
 	player = NULL;
 	key_handler = new PlaySceneKeyHandler(this);
 	tileMap = new TileMap();
+	startMoving = false;
+	backgroundColor = BLUE_BACKGROUND_ID;
 }
 
 bool PlayScene::CanControl()
@@ -157,8 +161,9 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			int targetX = GetProperty(obj, "x");
 			int targetY = GetProperty(obj, "y");
 			int tmp = GetProperty(obj, "camY");
+			int colorId = GetProperty(obj, "colorId");
 			tmp -= Game::GetInstance()->GetBackBufferHeight();
-			gameObj = new Pipeline(pos.x, pos.y, size.x, size.y, targetX, targetY,camX,tmp);
+			gameObj = new Pipeline(pos.x, pos.y, size.x, size.y, targetX, targetY,camX,tmp,colorId);
 		}
 		else if (obj.getName() == "TheVoid")
 		{
@@ -219,6 +224,8 @@ void PlayScene::Load()
 		{
 			camY = any_cast<int>(map->getProp("cam_y")->getValue());
 			camY -= Game::GetInstance()->GetBackBufferHeight();
+			preCamY = camY;
+
 		}
 		if (map->getProperties().hasProperty("cam_x"))
 		{
@@ -323,6 +330,9 @@ void PlayScene::Update(DWORD dt)
 
 
 	if (cx < 0) cx = 0;
+
+
+	DebugOutTitle(L"cy: %f, camY: %f", cy, camY);
 	// move camY follow mario when flying up
 	if (cy > camY - game->GetBackBufferHeight() / 8 || !mario->IsTanooki())
 	{
@@ -331,13 +341,12 @@ void PlayScene::Update(DWORD dt)
 	else
 	{
 		cy += game->GetBackBufferHeight() / 8;
-
 	}
 
 	if (cx < camX)
 	{
-		hud->SetPosition(cx + HUD_WIDTH / 2, cy + HUD_HEIGHT / 2 + game->GetBackBufferHeight());
 		preCamY = cy;
+		hud->SetPosition(cx + HUD_WIDTH / 2, cy + HUD_HEIGHT / 2 + game->GetBackBufferHeight());
 		Game::GetInstance()->GetCamera()->SetCamPos(cx , cy + HUD_HEIGHT);
 	}
 

@@ -120,18 +120,22 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
 	if (teleporting)
 	{
-
 		// if mario issitting then go down?
 		vy = MARIO_GO_DOWN_SPEED_Y * teleDirection;
 		y += vy * dt;
 		DebugOutTitle(L"x: %f,y: %f,vx: %f,vy: %f,ax: %f,ay: %f, isRunningFast: %d, isFlying: %d, isSitting: %d, isPressUp: %d", x, y, vx, vy, ax, ay, isRunningFast, isFlying, isSitting, isPressUp);
 
-		if (abs(oldY - y) > MARIO_BIG_BBOX_HEIGHT)
+		if (abs(oldY - y) > MARIO_BIG_BBOX_HEIGHT && oldY != teleY)
 		{
-			teleporting = false;
+			Game::GetInstance()->GetCurrentScene()->SetBackGroundColor(teleColor);
 			Game::GetInstance()->GetCurrentScene()->SetCamLimitPos(teleCamX, teleCamY);
 			x = teleX;
 			y = teleY;
+			oldY = y;
+		}
+		if (oldY == teleY && abs(oldY - y) > MARIO_BIG_BBOX_HEIGHT)
+		{
+			teleporting = false;
 		}
 	}
 
@@ -321,6 +325,7 @@ void Mario::OnCollisionWithPipeline(LPCOLLISIONEVENT e)
 	Pipeline* pipe = dynamic_cast<Pipeline*>(e->obj);
 	if ((e->ny < 0 && (this->state == MARIO_STATE_SIT || isSitting)) || (e->ny > 0 && isPressUp))
 	{
+		teleColor = pipe->GetBackGroundColor();
 		HUD::GetInstance()->StopTimer();
 		teleDirection = (isPressUp) ? -1 : 1;
 		// do it like this because collision push back set it back to old pos

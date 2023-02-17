@@ -432,7 +432,7 @@
       <Filter>Header Files\Platform</Filter>
     </ClInclude>
     <ClInclude Include="Popup.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

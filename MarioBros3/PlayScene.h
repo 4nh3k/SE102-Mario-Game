@@ -8,7 +8,9 @@
 class PlayScene: public Scene
 {
 protected: 
+	int backgroundColor;
 	float preCamY;
+	bool startMoving;
 	vector<std::pair<tson::Object, bool>> spawnPoint;
 	LPGAMEOBJECT hud;
 
@@ -23,7 +25,10 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
-	virtual int GetBackGroundColor() { return BLUE_BACKGROUND_ID; }
+	virtual int GetBackGroundColor() { return backgroundColor; }
+	virtual void SetBackGroundColor(int colorId) {
+		backgroundColor = colorId;
+	}
 
 	void Clear();
 	void PurgeDeletedObjects(std::deque<LPGAMEOBJECT> &list);

@@ -30,6 +30,7 @@ class Mario : public GameObject
 	float teleY;
 	float teleCamX;
 	float teleCamY;
+	int teleColor;
 
 	float maxVx;
 	float ax;				// acceleration on x 
