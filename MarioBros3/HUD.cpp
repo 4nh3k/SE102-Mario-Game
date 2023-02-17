@@ -1,5 +1,6 @@
 #include "HUD.h"
 #include "MarioMap.h"
+#include "PointSFX.h"
 
 HUD* HUD::__instance = NULL;
 void HUD::Render()
@@ -17,19 +18,20 @@ void HUD::Render()
 }
 HUD* HUD::GetInstance()
 {
-	if (__instance == NULL) __instance = new HUD(0,0);
+	if (__instance == NULL) 
+		__instance = new HUD(0,0);
 	return HUD::__instance;
 }
 void HUD::SetPosition(float x, float y) {
 	this->x = x, this->y = y;
-	FCoin->SetPos(x + COIN_POS_OFFSET_X, y + COIN_POS_OFFSET_Y);
-	FLife->SetPos(x + LIFE_POS_OFFSET_X, y + LIFE_POS_OFFSET_Y);
-	FScore->SetPos(x + SCORE_POS_OFFSET_X, y + SCORE_POS_OFFSET_Y);
-	FTimer->SetPos(x + TIMER_POS_OFFSET_X, y + TIMER_POS_OFFSET_Y);
+	FCoin->SetPosition(x + COIN_POS_OFFSET_X, y + COIN_POS_OFFSET_Y);
+	FLife->SetPosition(x + LIFE_POS_OFFSET_X, y + LIFE_POS_OFFSET_Y);
+	FScore->SetPosition(x + SCORE_POS_OFFSET_X, y + SCORE_POS_OFFSET_Y);
+	FTimer->SetPosition(x + TIMER_POS_OFFSET_X, y + TIMER_POS_OFFSET_Y);
 	momentumBar->SetPos(x + MOMENTUMBAR_POS_OFFSET_X, y + MOMENTUMBAR_POS_OFFSET_Y);
  	for (int i = 0; i < CARD_COUNT; i++)
 	{
-		cards[i]->SetPos(x + CARD_POS_OFFSET_X + 24 * i, y - CARD_POS_OFFSET_Y);
+		cards[i]->SetPosition(x + CARD_POS_OFFSET_X + 24 * i, y - CARD_POS_OFFSET_Y);
 	}
 }
 void HUD::StartTimer()
@@ -69,14 +71,7 @@ void HUD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (currentTime <= 0)
 		{
 			finishScene = false;
-			Game* game = Game::GetInstance();
-			int level = dynamic_cast<Mario*>(game->GetCurrentScene()->GetPlayer())->GetLevel();
-			game->InitiateSwitchScene(WORLD_MAP_ID);
-			game->SwitchScene();
-			MarioMap* mario = dynamic_cast<MarioMap*>(game->GetCurrentScene()->GetPlayer());
-			mario->GetCurrentNode()->SetClear(true);
-			mario->SetLevel(level);
-			ResetTimer();
+			hasFinish = true;
 		}
 	}
 	//momentumBar->SetNode(1);
@@ -95,16 +90,17 @@ void HUD::AddCoin()
 void HUD::AddLife(int life)
 {
 	this->life += life;
-	FLife->SetNumber(life);
+	FLife->SetNumber(this->life);
 }
 void HUD::DecreseLife()
 {
-	life--;
-	FLife->SetNumber(life);
 	if (life == 0)
 	{
-
+		isGameOver = true;
+		return;
 	}
+	life--;
+	FLife->SetNumber(life);
 }
 void HUD::AddScore(int point)
 {
@@ -117,6 +113,36 @@ void HUD::AddCard(int type)
 	cardCount++;
 	if (cardCount >= CARD_COUNT)
 	{
+		string aniId = ID_ANI_GOAL_1UP;
+		if (cards[0]->GetCardType() != cards[1]->GetCardType() || cards[0]->GetCardType() != cards[2]->GetCardType() || cards[1]->GetCardType() != cards[2]->GetCardType())
+		{
+			AddLife(1);
+		}
+		if (cards[0]->GetCardType() == cards[1]->GetCardType() && cards[1]->GetCardType() == cards[2]->GetCardType())
+		{
+			switch (cards[0]->GetCardType())
+			{
+			case CARD_MUSHROOM_ID:
+				aniId = ID_ANI_GOAL_2UP;
+				AddLife(2);
+				break;
+			case CARD_FLOWER_ID:
+				aniId = ID_ANI_GOAL_3UP;
+				AddLife(3);
+				break;
+			case CARD_STAR_ID:
+				aniId = ID_ANI_GOAL_5UP;
+				AddLife(5);
+				break;
+			default:
+				break;
+			}
+		}
+		Game::GetInstance()->GetCurrentScene()->AddSFX(new PointSFX(x, y, aniId, true));
+		for (int i = 0; i < CARD_COUNT; i++)
+		{
+			cards[i]->SetCardType(-1);
+		}
 		cardCount = 0;
 	}
 }

@@ -541,6 +541,20 @@ void Game::SwitchScene()
 	s->Load();
 }
 
+void Game::Reset()
+{
+	DebugOut(L"[INFO] Reset scene %d\n", next_scene);
+
+	scenes[current_scene]->Unload();
+
+	Sprites::GetInstance()->Clear();
+	Animations::GetInstance()->Clear();
+
+	LPSCENE s = scenes[current_scene];
+	this->SetKeyHandler(s->GetKeyEventHandler());
+	s->Load();
+}
+
 void Game::InitiateSwitchScene(int scene_id)
 {
 	next_scene = scene_id;

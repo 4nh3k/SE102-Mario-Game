@@ -338,6 +338,18 @@ void Mario::OnCollisionWithGoal(LPCOLLISIONEVENT e)
 	Goal* goal = dynamic_cast<Goal*>(e->obj);
 	if (!goal->HasHit())
 	{
+		float msgX, msgY;
+		goal->GetPosition(msgX, msgY);
+		string tmp = "course clear !";
+		LPGAMEOBJECT mssg = new Font(msgX - (tmp.size()*FONT_WIDTH/2), msgY - COURSE_CLEAR_OFFSET_Y, -1);
+		dynamic_cast<Font*>(mssg)->SetString(tmp);
+		Game::GetInstance()->GetCurrentScene()->AddSFX(mssg);
+		tmp = "you got a card  ";
+		mssg = new Font(msgX - (tmp.size() * FONT_WIDTH / 2), msgY - GOT_A_CARD_OFFSET_Y, -1);
+		dynamic_cast<Font*>(mssg)->SetString(tmp);
+		Game::GetInstance()->GetCurrentScene()->AddSFX(mssg);
+		mssg = new Card(msgX + (tmp.size() * FONT_WIDTH / 2), msgY - GOT_A_CARD_OFFSET_Y, goal->GetReward());
+		Game::GetInstance()->GetCurrentScene()->AddSFX(mssg);
 		hasFinish = true;
 		SetState(MARIO_STATE_IDLE);
 		HUD::GetInstance()->AddCard(goal->GetReward());

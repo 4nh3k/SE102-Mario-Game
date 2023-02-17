@@ -1,4 +1,5 @@
 #pragma once
+#include "GameObject.h"
 #include "Animations.h"
 
 #define CARD_EMPTY_ID -1
@@ -14,21 +15,22 @@
 #define ANI_ID_STAR_CARD "star_card"
 #define ANI_ID_MUSHROOM_CARD "mushroom_card"
 
-class Card
+class Card : public GameObject
 {
 	int cardType;
-	float x, y;
 public:
-	Card(float x, float y, int cardType)
+	Card(float x, float y, int cardType) : GameObject(x,y)
 	{
-		this->x = x;
-		this->y = y;
 		this->cardType = cardType;
 	}
-	void SetPos(float x, float y) { this->x = x; this->y = y; }
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {}
 	void SetCardType(int type)
 	{
 		this->cardType = type;
+	}
+	int GetCardType()
+	{
+		return cardType;
 	}
 	void Render()
 	{
@@ -49,5 +51,7 @@ public:
 		}
 		Animations::GetInstance()->Get(aniId)->Render(x, y);
 	}
+	void GetBoundingBox(float& left, float& top, float& right, float& bottom) {}
+
 };
 

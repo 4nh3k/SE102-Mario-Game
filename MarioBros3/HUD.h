@@ -25,6 +25,8 @@
 #define CARD_POS_OFFSET_Y 1
 #define CARD_POS_OFFSET_X 52
 
+#define MARIO_INIT_LIFE 4 
+
 #define PLAYSCENE_TIME 300
 
 #define ANI_ID_HUD "HUD"
@@ -47,11 +49,12 @@ class HUD : public GameObject
 	vector<Card*> cards;
 	bool stopTimer;
 	bool isGameOver;
+	bool hasFinish; 
 public:
 	HUD(float x, float y) : GameObject(x,y)
 	{
 		currentTime = PLAYSCENE_TIME;
-		life = 3;
+		life = MARIO_INIT_LIFE;
 		coin = 0;
 		score = 0;
 		FTimer = new Font(x, y, 3);
@@ -68,6 +71,7 @@ public:
 		FScore->SetNumber(score);
 		cards.push_back(tmp);
 		finishScene = false;
+		hasFinish = false;
 		momentumBar = MomentumBar::GetInstance();
 		cardCount = 0;
 		ResetTimer();
@@ -84,6 +88,22 @@ public:
 	void AddCard(int type);
 	void AddLife(int life);
 	void DecreseLife();
+	bool HasFinishScene()
+	{
+		return hasFinish;
+	}
+	void SetHasFinishScene(bool hasFinish = false)
+	{
+		this->hasFinish = hasFinish;
+	}
+	static void Delete()
+	{
+		__instance->isDeleted = true;
+		__instance = NULL;
+	}
+	bool IsGameOver() {
+		return isGameOver;
+	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom) {}
 };

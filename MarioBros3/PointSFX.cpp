@@ -3,7 +3,7 @@ void PointSFX::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	x += vx * dt;
 	y += vy * dt;
-	if (GetTickCount64() - timer >= DELETE_TIME)
+	if (GetTickCount64() - timer >= timeout)
 	{
 		this->Delete();
 	}

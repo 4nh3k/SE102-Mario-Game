@@ -1,4 +1,5 @@
 #pragma once
+#include "GameObject.h"
 #include <string>
 #include <deque>
 
@@ -15,21 +16,19 @@
 #define ID_ANI_8 "8"
 #define ID_ANI_9 "9"
 
-class Font 
+class Font : public GameObject
 {
-	float x, y;
 	int charCount;
 	std::deque<std::string> String;
 public:
-	Font(float x, float y, int charCount)
+	Font(float x, float y, int charCount) : GameObject(x,y)
 	{
-		this->x = x;
-		this->y = y;
 		this->charCount = charCount;
 	}
 	void SetString(std::string line);
-	void SetPos(float x, float y) { this->x = x; this->y = y; }
 	void SetNumber(int num);
 	void Render();
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {}
+	void GetBoundingBox(float& left, float& top, float& right, float& bottom) {}
 };
 

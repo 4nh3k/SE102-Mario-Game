@@ -23,7 +23,7 @@ void Font::Render()
 	while (!tmp.empty())
 	{
 		char c = tmp.front()[0];
-		if(( c>= 'a' && c <= 'z') || (c >= '0' && c <= '9'))
+		if(( c>= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '!')
 			Animations::GetInstance()->Get(tmp.front())->Render(x + count * FONT_WIDTH, y);
 		count++;
 		tmp.pop_front();

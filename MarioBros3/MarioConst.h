@@ -198,4 +198,7 @@
 
 #define WORLD_MAP_ID 2
 
+#define COURSE_CLEAR_OFFSET_Y 60
+#define GOT_A_CARD_OFFSET_Y 40
+
 #pragma endregion

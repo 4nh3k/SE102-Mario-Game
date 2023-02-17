@@ -22,9 +22,10 @@ WorldMap::WorldMap(int id, LPCWSTR filePath) :
 	camY = 0.0f;
 	player = NULL;
 	key_handler = new MapSceneKeyHandler(this);
-	hud = HUD::GetInstance();
-	SFXs.push_back(hud);
+	//hud = HUD::GetInstance();
+	//SFXs.push_back(hud);
 	popup = NULL;
+	cursorY = CURSOR_POS_Y;
 	hasCreate = false;
 	tileMap = new TileMap();
 }
@@ -129,6 +130,19 @@ void WorldMap::InitMap()
 	}
 }
 
+void WorldMap::ExecuteOption()
+{
+	if (cursorY == CURSOR_POS_Y)
+	{
+		Game::GetInstance()->Reset();
+	}
+	else
+	{
+		Game::GetInstance()->InitiateSwitchScene(1);
+		Game::GetInstance()->SwitchScene();
+	}
+}
+
 void WorldMap::Load()
 {
 	DebugOutTitle(L"Start load");
@@ -138,7 +152,9 @@ void WorldMap::Load()
 	}
 	else
 	{
-		popup = new Popup(Game::GetInstance()->GetBackBufferWidth() / 2, Game::GetInstance()->GetBackBufferHeight() / 2, 0);
+		hud = HUD::GetInstance();
+		SFXs.push_back(hud);
+		popup = new Popup(Game::GetInstance()->GetBackBufferWidth() / 2 + POPUP_OFFSET_X, Game::GetInstance()->GetBackBufferHeight() / 2 - POPUP_OFFSET_Y, POPUP_TYPE_START);
 		SFXs.push_back(popup);
 	}
 	Game::GetInstance()->GetCamera()->SetCamPos(5, 0);
@@ -189,7 +205,17 @@ void WorldMap::Update(DWORD dt)
 		sfx->Update(dt);
 	}
 	HUD::GetInstance()->Update(dt,NULL);
+	if (HUD::GetInstance()->IsGameOver())
+	{
+		GameOver();
+	}
 	PurgeDeletedObjects();
+}
+
+void WorldMap::GameOver()
+{
+	popup = new Popup(Game::GetInstance()->GetBackBufferWidth() / 2 + POPUP_OFFSET_X, Game::GetInstance()->GetBackBufferHeight() / 2 - POPUP_OFFSET_Y, POPUP_TYPE_GAME_OVER);
+	SFXs.push_back(popup);
 }
 
 void WorldMap::Render()
@@ -208,6 +234,10 @@ void WorldMap::Render()
 	{
 		sfx->Render();
 	}
+	if (HUD::GetInstance()->IsGameOver())
+	{
+		Animations::GetInstance()->Get(ID_ANI_CURSOR)->Render(Game::GetInstance()->GetBackBufferWidth() / 2 - CURSOR_POS_X_OFFSET, cursorY);
+	}
 }
 /*
 *	Clear all objects from this scene
@@ -218,8 +248,29 @@ void WorldMap::Clear()
 	{
 		delete (*it);
 	}
+	if (HUD::GetInstance()->IsGameOver())
+	{
+		hasCreate = false;
+		player = NULL;
+		for (auto node : movingMap)
+		{
+			delete (node.second);
+		}
+		for (auto it = SFXs.begin(); it != SFXs.end(); it++)
+		{
+			delete (*it);
+		}
+		HUD::Delete();
+		movingMap.clear();
+		SFXs.clear();
+	}
 	gameObjects.clear();
 	tileMap->Clear();
+}
+
+void WorldMap::MoveCursor()
+{
+	cursorY = (cursorY > CURSOR_POS_Y) ? CURSOR_POS_Y : CURSOR_POS_Y + 8;
 }
 
 /*
@@ -230,6 +281,7 @@ void WorldMap::Clear()
 */
 void WorldMap::Unload()
 {
+	Clear();
 	for (int i = 0; i < gameObjects.size(); i++)
 		delete gameObjects[i];
 

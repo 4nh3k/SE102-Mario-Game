@@ -25,6 +25,7 @@
 #include "ParaKoopa.h"
 #include "Pipeline.h"
 #include "TheVoid.h"
+#include "MarioMap.h"
 #include "HUD.h"
 #include "TileMap.h"
 #include "Goal.h"
@@ -37,8 +38,6 @@ PlayScene::PlayScene(int id, LPCWSTR filePath):
 	camY = 0.0f;
 	player = NULL;
 	key_handler = new PlaySceneKeyHandler(this);
-	hud = HUD::GetInstance();
-	SFXs.push_back(hud);
 	tileMap = new TileMap();
 }
 
@@ -205,6 +204,9 @@ void PlayScene::Load()
 
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 
+	hud = HUD::GetInstance();
+	SFXs.push_back(hud);
+
 	HUD::GetInstance()->StartTimer();
 
 	unique_ptr<tson::Map> map;
@@ -245,6 +247,7 @@ void PlayScene::Load()
 
 void PlayScene::Update(DWORD dt)
 {
+
 	for (auto& obj : spawnPoint)
 	{
 		tson::Vector2i pos = obj.first.getPosition();
@@ -258,10 +261,6 @@ void PlayScene::Update(DWORD dt)
 		}
 	}
 	vector<LPGAMEOBJECT> coObjects;
-	for (auto& sfx : SFXs)
-	{
-		sfx->Update(dt, &coObjects);
-	}
 	if (this->IsPause())
 		return;
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
@@ -275,7 +274,20 @@ void PlayScene::Update(DWORD dt)
 		//if(dynamic_cast<Mario*>(gameObjects[i]))
 		coObjects.push_back(gameObjects[i]);
 	}
+	if (player != NULL)
+	{
+		player->Update(dt, &coObjects);
+	}
+	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+	if (player == NULL) return;
+	if (SFXs.size() > 0)
+	{
+		for (auto& sfx : SFXs)
+		{
+			sfx->Update(dt, &coObjects);
+		}
 
+	}
 	for (auto& obj : lowLayer)
 	{
 		obj->Update(dt, &coObjects);
@@ -285,12 +297,20 @@ void PlayScene::Update(DWORD dt)
 		gameObjects[i]->Update(dt, &coObjects);
 	}
 
-	if (player != NULL)
+	if (HUD::GetInstance()->HasFinishScene())
 	{
-		player->Update(dt, &coObjects);
+		Game* game = Game::GetInstance();
+		int level = dynamic_cast<Mario*>(player)->GetLevel();
+		game->InitiateSwitchScene(WORLD_MAP_ID);
+		game->SwitchScene();
+		MarioMap* mario = dynamic_cast<MarioMap*>(game->GetCurrentScene()->GetPlayer());
+		mario->GetCurrentNode()->SetClear(true);
+		mario->SetLevel(level);
+		HUD::GetInstance()->ResetTimer();
+		HUD::GetInstance()->SetHasFinishScene();
+		return;
 	}
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return;
+
 	// Update camera to follow mario
 	float cx, cy;
 	float py;
@@ -361,6 +381,7 @@ void PlayScene::Clear()
 	{
 		delete (*it);
 	}
+	SFXs.clear();
 	spawnPoint.clear();
 	gameObjects.clear();
 	lowLayer.clear();
