@@ -11,7 +11,7 @@
             21, 1, 1, 1, 7, 19, 4, 19, 40, 1, 1, 12, 10, 11, 1, 22,
             21, 1, 1, 1, 20, 1, 1, 1, 1, 12, 10, 14, 2, 9, 1, 22,
             21, 1, 1, 16, 7, 16, 17, 19, 6, 13, 6, 19, 3, 9, 1, 22,
-            21, 1, 16, 16, 20, 16, 16, 1, 20, 9, 0, 0, 0, 9, 1, 22,
+            21, 1, 16, 16, 20, 16, 16, 1, 20, 9, 1, 1, 1, 9, 1, 22,
             21, 1, 16, 16, 38, 19, 6, 19, 39, 15, 10, 10, 10, 14, 1, 22,
             31, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 32,
             28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28,
@@ -87,6 +87,41 @@
         {
          "id":5,
          "layers":[
+                {
+                 "draworder":"topdown",
+                 "id":8,
+                 "name":"",
+                 "objects":[
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":149,
+                         "name":"Turtle",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":166,
+                         "y":119.25
+                        }, 
+                        {
+                         "class":"",
+                         "height":0,
+                         "id":151,
+                         "name":"Help",
+                         "point":true,
+                         "rotation":0,
+                         "visible":true,
+                         "width":0,
+                         "x":216,
+                         "y":102.75
+                        }],
+                 "opacity":1,
+                 "type":"objectgroup",
+                 "visible":true,
+                 "x":0,
+                 "y":0
+                }, 
                 {
                  "draworder":"topdown",
                  "id":7,
@@ -581,6 +616,11 @@
                                  "value":16
                                 }, 
                                 {
+                                 "name":"scene_id",
+                                 "type":"int",
+                                 "value":3
+                                }, 
+                                {
                                  "name":"top",
                                  "type":"int",
                                  "value":-1
@@ -617,6 +657,11 @@
                                  "name":"right",
                                  "type":"int",
                                  "value":-1
+                                }, 
+                                {
+                                 "name":"scene_id",
+                                 "type":"int",
+                                 "value":3
                                 }, 
                                 {
                                  "name":"top",
@@ -737,6 +782,11 @@
                                  "name":"right",
                                  "type":"int",
                                  "value":-1
+                                }, 
+                                {
+                                 "name":"scene_id",
+                                 "type":"int",
+                                 "value":3
                                 }, 
                                 {
                                  "name":"top",
@@ -1539,8 +1589,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":8,
- "nextobjectid":149,
+ "nextlayerid":9,
+ "nextobjectid":152,
  "orientation":"orthogonal",
  "properties":[
         {

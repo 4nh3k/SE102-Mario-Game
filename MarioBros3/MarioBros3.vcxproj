@@ -183,6 +183,7 @@
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapBush.cpp" />
+    <ClCompile Include="MapHelp.cpp" />
     <ClCompile Include="MapNode.cpp" />
     <ClCompile Include="MapSceneKeyHandler.cpp" />
     <ClCompile Include="Mario.cpp" />
@@ -245,8 +246,10 @@
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="MapBush.h" />
+    <ClInclude Include="MapHelp.h" />
     <ClInclude Include="MapNode.h" />
     <ClInclude Include="MapSceneKeyHandler.h" />
+    <ClInclude Include="MapTurtle.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioConst.h" />
     <ClInclude Include="MarioMap.h" />

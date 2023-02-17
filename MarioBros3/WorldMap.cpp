@@ -9,6 +9,8 @@
 #include "MapSceneKeyHandler.h"
 #include "MapBush.h"
 #include "HUD.h"
+#include "MapTurtle.h"
+#include "MapHelp.h"
 #include "Popup.h"
 #include "TileMap.h"
 
@@ -43,6 +45,14 @@ void WorldMap::LoadObjects(vector<tson::Object> objects)
 		if (obj.getName() == "Bush")
 		{
 			gameObj = new MapBush(pos.x, pos.y);
+		}
+		else if (obj.getName() == "Turtle")
+		{
+			gameObj = new MapTurtle(pos.x, pos.y);
+		}
+		else if (obj.getName() == "Help")
+		{
+			gameObj = new MapHelp(pos.x, pos.y);
 		}
 		else if (obj.getName() == "Mario")
 		{
@@ -200,6 +210,10 @@ void WorldMap::Update(DWORD dt)
 		player->Update(dt);
 	if (player == NULL)
 		return;
+	for (auto& obj : gameObjects)
+	{
+		obj->Update(dt);
+	}
 	for (auto& sfx : SFXs)
 	{
 		sfx->Update(dt);
