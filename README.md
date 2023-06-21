@@ -71,13 +71,16 @@ This project is inspired by the original Super Mario Bros 3 game developed by Ni
 
 ## Screenshots
 
-![Main Menu Screenshot](screenshot/gameplay_1.png)
+![Main Menu Screenshot](screenshots/gameplay_1.png)
 
-![Map Scene Screenshot](screenshot/gameplay_2.png)
+![Map Scene Screenshot](screenshots/gameplay_2.png)
 
-![Play Scene Screenshot 3](screenshot/gameplay_3.png)
+![Play Scene Screenshot](screenshots/gameplay_3.png)
 
-![Hidden Spot Screenshot 3](screenshot/gameplay_4.png)
+![Hidden Spot Screenshot 1](screenshots/gameplay_4.png)
+
+![Hidden Spot Screenshot 2](screenshots/gameplay_5.png)
+
 
 ## References
 
