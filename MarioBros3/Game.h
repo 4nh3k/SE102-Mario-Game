@@ -12,6 +12,7 @@ using namespace std;
 #include "Texture.h"
 #include "KeyEventHandler.h"
 #include "Scene.h"
+#include <string>
 
 #define BLUE_BACKGROUND_ID 1
 #define BLACK_BACKGROUND_ID 2

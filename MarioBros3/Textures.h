@@ -3,7 +3,7 @@
 #include <d3dx10.h>
 
 #include "Texture.h"
-
+#include <string>
 using namespace std;
 
 /*
