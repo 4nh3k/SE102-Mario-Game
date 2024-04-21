@@ -22,6 +22,9 @@ public:
 	virtual int IsCollidable() {	return 1;}
 	virtual int IsBlocking(float nx, float ny) { return (state == PSWITCH_STATE_IDLE);}
 	void TurnBrickIntoCoin();
+	void Accept(CollisionVisitor* visitor) {
+		visitor->VisitPSwitch();
+	}
 	void SetState(int state);
 };
 

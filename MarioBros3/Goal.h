@@ -27,7 +27,9 @@ public:
 	int GetReward();
 	void RenderBoundingBox(void);
 	bool HasHit() { return hit; }
-
+	void Accept(CollisionVisitor* visitor) {
+		visitor->VisitGoal();
+	}
 	int IsBlocking(float nx, float ny) { return 0; }
 };
 

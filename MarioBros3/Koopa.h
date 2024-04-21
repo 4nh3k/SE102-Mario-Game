@@ -63,13 +63,6 @@ protected:
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
-	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
-	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
-	void OnCollisionWithVenus(LPCOLLISIONEVENT e);
-	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
-	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
-	void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
-
 	void AddScore();
 
 public:
@@ -77,6 +70,15 @@ public:
 	virtual void SetState(int state);
 	virtual string GetAniId();
 	virtual string GetAniIdUpsideDown();
+	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
+	void OnCollisionWithVenus(LPCOLLISIONEVENT e);
+	void OnCollisionWithQuestionBlock(LPCOLLISIONEVENT e);
+	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
 	bool IsUpsideDown() { return isUpsideDown; }
 	void SetDirection(int nx) { this->nx = nx; }
+	void Accept(CollisionVisitor* visitor) {
+		visitor->VisitKoopa();
+	}
 };

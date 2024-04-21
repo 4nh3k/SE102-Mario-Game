@@ -28,5 +28,8 @@ public:
 	virtual int IsBlocking(float nx, float ny) { return 0; }
 	void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	void Accept(CollisionVisitor* visitor) {
+		visitor->VisitMushroom();
+	}
 };
 

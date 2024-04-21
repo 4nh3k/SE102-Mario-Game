@@ -54,5 +54,8 @@ public:
 		return (moving || !isDown);
 	};
 	virtual int IsBlocking(float nx, float ny) { return 0; }
+	void Accept(CollisionVisitor* visitor) {
+		visitor->VisitVenusFireTrap();
+	}
 };
 

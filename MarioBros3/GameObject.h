@@ -8,6 +8,7 @@
 #include "Animations.h"
 #include "Sprites.h"
 #include "Collision.h"
+#include "CollisionVisitor.h"
 
 using namespace std;
 
@@ -41,6 +42,9 @@ public:
 
 	void RenderBoundingBox();
 
+	float GetX() { return x; }
+	float GetY() { return y; }
+
 	GameObject();
 	GameObject(float x, float y) :GameObject() { this->x = x; this->y = y; }
 
@@ -49,7 +53,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {};
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
-
+	virtual void Accept(CollisionVisitor* visitor) {}
 	//
 	// Collision ON or OFF ? This can change depending on object's state. For example: die
 	//

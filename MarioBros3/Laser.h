@@ -17,5 +17,8 @@ public:
 	}
 	virtual int IsGoThrough() { return 1; }
 	virtual int IsBlocking(float nx, float ny) { return 0; }
+	void Accept(CollisionVisitor* visitor) {
+		visitor->VisitLaser();
+	}
 };
 

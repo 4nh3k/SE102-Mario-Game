@@ -23,7 +23,9 @@ public:
 		r = x + width / 2;
 		b = y + height / 2;
 	}
-
+	void Accept(CollisionVisitor* visitor) {
+		visitor->VisitTheVoid();
+	}
 	int IsBlocking(float nx, float ny) { return 0; }	
 };
 

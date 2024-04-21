@@ -180,6 +180,7 @@
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="IntroSceneKeyHandler.cpp" />
     <ClCompile Include="Koopa.cpp" />
+    <ClCompile Include="KoopaCollisionVisitor.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapBush.cpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="MapNode.cpp" />
     <ClCompile Include="MapSceneKeyHandler.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MarioCollisionVisitor.cpp" />
     <ClCompile Include="MarioMap.cpp" />
     <ClCompile Include="MomentumBar.cpp" />
     <ClCompile Include="Mushroom.cpp" />
@@ -231,6 +233,7 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CollisionVisitor.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
@@ -244,6 +247,7 @@
     <ClInclude Include="IntroSceneKeyHandler.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
+    <ClInclude Include="KoopaCollisionVisitor.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="MapBush.h" />
     <ClInclude Include="MapHelp.h" />
@@ -251,6 +255,7 @@
     <ClInclude Include="MapSceneKeyHandler.h" />
     <ClInclude Include="MapTurtle.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="MarioCollisionVisitor.h" />
     <ClInclude Include="MarioConst.h" />
     <ClInclude Include="MarioMap.h" />
     <ClInclude Include="MomentumBar.h" />

@@ -20,4 +20,7 @@ public:
 	
 	int GetSceneId() { return scene_id;  }
 	int IsBlocking(float nx, float ny) { return 0; }
+	void Accept(CollisionVisitor* visitor) {
+		visitor->VisitPortal();
+	}
 };
