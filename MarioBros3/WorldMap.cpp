@@ -13,6 +13,7 @@
 #include "MapHelp.h"
 #include "Popup.h"
 #include "TileMap.h"
+#include "MapObjFactory.h"
 
 #define START_NODE_ID 1
 
@@ -30,6 +31,7 @@ WorldMap::WorldMap(int id, LPCWSTR filePath) :
 	cursorY = CURSOR_POS_Y;
 	hasCreate = false;
 	tileMap = new TileMap();
+	factory = new MapObjFactory();
 }
 
 void WorldMap::LoadObjects(vector<tson::Object> objects)
@@ -42,19 +44,8 @@ void WorldMap::LoadObjects(vector<tson::Object> objects)
 		tson::Vector2f pos = ToInGamePos(obj);
 		tson::Vector2i size = obj.getSize();
 
-		if (obj.getName() == "Bush")
-		{
-			gameObj = new MapBush(pos.x, pos.y);
-		}
-		else if (obj.getName() == "Turtle")
-		{
-			gameObj = new MapTurtle(pos.x, pos.y);
-		}
-		else if (obj.getName() == "Help")
-		{
-			gameObj = new MapHelp(pos.x, pos.y);
-		}
-		else if (obj.getName() == "Mario")
+		
+		if (obj.getName() == "Mario")
 		{
 			if (player != NULL)
 			{
@@ -78,11 +69,12 @@ void WorldMap::LoadObjects(vector<tson::Object> objects)
 
 			if (!hasCreate)
 			{
-				MapNode* node = new MapNode(id, pos.x, pos.y,left,right,top,bot,scene_id);
+				MapNode* node = new MapNode(id, pos.x, pos.y, left, right, top, bot, scene_id);
 				movingMap[id] = node;
 			}
 			continue;
 		}
+		else gameObj = factory->CreateGameObject(obj.getName(), pos);
 		gameObjects.push_back(gameObj);
 	}
 }

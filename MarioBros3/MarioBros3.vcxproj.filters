@@ -61,9 +61,16 @@
     <Filter Include="Header Files\Mario">
       <UniqueIdentifier>{52c92810-42f8-4afe-ade5-5d5d39495632}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\GameObjFactory">
+      <UniqueIdentifier>{e515e3bb-44d9-44c7-8ed0-a3742a7e5f9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjFactory">
+      <UniqueIdentifier>{7be0c911-cd17-4c25-819e-805970187c06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -239,6 +246,18 @@
     </ClCompile>
     <ClCompile Include="MapHelp.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyObjFactory.cpp">
+      <Filter>Source Files\Game\GameObjFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObjFactory.cpp">
+      <Filter>Source Files\Game\GameObjFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformObjFactory.h">
+      <Filter>Header Files\Game\GameObjFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformObjFactory.cpp">
+      <Filter>Source Files\Game\GameObjFactory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +461,15 @@
     </ClInclude>
     <ClInclude Include="MapHelp.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjFactory.h">
+      <Filter>Header Files\Game\GameObjFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyObjFactory.h">
+      <Filter>Header Files\Game\GameObjFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObjFactory.h">
+      <Filter>Header Files\Game\GameObjFactory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include "Tile.h"
 #include "MapNode.h"
 #include "HUD.h"
+#include "MapObjFactory.h"
 
 #define HUD_HEIGHT 36
 #define HUD_POS_Y (176 + HUD_HEIGHT/2)
@@ -27,6 +28,7 @@ protected:
 	map<int, MapNode*> movingMap;
 	BOOLEAN hasCreate;
 	LPGAMEOBJECT popup;
+	MapObjFactory* factory;
 
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);

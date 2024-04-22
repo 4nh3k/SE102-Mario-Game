@@ -29,6 +29,8 @@
 #include "HUD.h"
 #include "TileMap.h"
 #include "Goal.h"
+#include "EnemyObjFactory.h"
+#include "PlatformObjFactory.h"
 
 #define CAM_SPEED_Y 0.2f
 
@@ -43,6 +45,8 @@ PlayScene::PlayScene(int id, LPCWSTR filePath):
 	tileMap = new TileMap();
 	startMoving = false;
 	backgroundColor = BLUE_BACKGROUND_ID;
+	enemyFactory = new EnemyObjFactory();
+	platformFactory = new PlatformObjFactory();
 }
 
 bool PlayScene::CanControl()
@@ -57,46 +61,15 @@ void PlayScene::Spawn(tson::Object obj)
 
 	tson::Vector2f pos = ToInGamePos(obj);
 	tson::Vector2i size = obj.getSize();
-	if (obj.getName() == "Koopa")
-	{
-		gameObj = new Koopa(pos.x, pos.y);
-	}
-	else if (obj.getName() == "RedKoopa")
-	{
-		gameObj = new RedKoopa(pos.x, pos.y);
-	}
-	else if (obj.getName() == "ParaKoopa")
-	{
-		gameObj = new ParaKoopa(pos.x, pos.y);
-	}
-	else if (obj.getName() == "Goomba")
-	{
-		gameObj = new Goomba(pos.x, pos.y);
-	}
-	else if (obj.getName() == "Venus")
-	{
-		gameObj = new VenusFireTrap(pos.x, pos.y);
+	string enemy = obj.getName();
+	gameObj = enemyFactory->CreateGameObject(obj.getName(), pos);
+	if (enemy == "Venus" || enemy == "GreenVenus" || enemy == "PiranhaPlant") {
 		lowLayer.push_back(gameObj);
-		return;
 	}
-	else if (obj.getName() == "GreenVenus")
-	{
-		gameObj = new GreenVenus(pos.x, pos.y);
-		lowLayer.push_back(gameObj);
-		return;
-	}
-	else if (obj.getName() == "PiranhaPlant")
-	{
-		gameObj = new PiranhaPlant(pos.x, pos.y);
-		lowLayer.push_back(gameObj);
-		return;
-	}
-	else if (obj.getName() == "ParaGoomba")
-	{
-		gameObj = new ParaGoomba(pos.x, pos.y);
-	}
+	else {
+		gameObjects.push_back(gameObj);
+	}	
 	//gameObj->SetPosition(10.0f, 01.0f);
-	gameObjects.push_back(gameObj);
 }
 
 void PlayScene::LoadObjects(vector<tson::Object> objects)
@@ -108,16 +81,11 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 
 		tson::Vector2f pos = ToInGamePos(obj);
 		tson::Vector2i size = obj.getSize();
-
-		if (obj.getName() == "Platform")
-		{
-			gameObj = new Platform(pos.x, pos.y, size.x, size.y);
+		if (obj.getName() == "Platform" || obj.getName() == "Special_Platform"
+			|| obj.getName() == "The Void") {
+			gameObj = platformFactory->CreateGameObject(obj.getName(), pos, &size);
 		}
-		else if (obj.getName() == "Special_Platform")
-		{
-			gameObj = new SpecialPlatform(pos.x, pos.y, size.x, size.y);
-		}
-		else if (obj.getName() == "Mario")
+	    else if (obj.getName() == "Mario")
 		{
 			if (player != NULL)
 			{
@@ -164,10 +132,6 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			int colorId = GetProperty(obj, "colorId");
 			tmp -= Game::GetInstance()->GetBackBufferHeight();
 			gameObj = new Pipeline(pos.x, pos.y, size.x, size.y, targetX, targetY,camX,tmp,colorId);
-		}
-		else if (obj.getName() == "TheVoid")
-		{
-			gameObj = new TheVoid(pos.x, pos.y, size.x, size.y);
 		}
 		else {
 			spawnPoint.push_back({ obj, false });

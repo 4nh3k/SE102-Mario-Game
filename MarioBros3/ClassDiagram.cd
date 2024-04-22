@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MapHelp" Collapsed="true">
+    <Position X="63.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIAAAAAAAAAAAAAAAgAAAAAAAAABAAAAAQAAA=</HashCode>
+      <FileName>MapHelp.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapTurtle" Collapsed="true">
+    <Position X="34.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAACAgAAAAAgAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>MapTurtle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Animations" Collapsed="true">
+    <Position X="91" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAAAAAAAAAgBAAAAAAAAABAAAEAAAAAAAAABAAAA=</HashCode>
+      <FileName>Animations.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera" Collapsed="true">
+    <Position X="92.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARCAAAAgAgAAAQAQAAAACACIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collision" Collapsed="true">
+    <Position X="94.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAAAAAAAAAAAgAAAAAABBAAAAAAIAAAAEAAAAA=</HashCode>
+      <FileName>Collision.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject" Collapsed="true">
+    <Position X="18" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBwABFAAACAAIAAAAgAAABAgAAEAAgEFABBiQQIAABA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyEventHandler" Collapsed="true">
+    <Position X="10" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAACAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>KeyEventHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene" Collapsed="true">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgrgCADABABJAAgAFAAAAgBQAAAAABAJIAQAAMAgA=</HashCode>
+      <FileName>Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSceneKeyHandler" Collapsed="true">
+    <Position X="20" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAASAAAIAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sprites" Collapsed="true">
+    <Position X="92.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAAAAAAAAAABAAAAAAAAABAAAAAAAAAAAAADAAAA=</HashCode>
+      <FileName>Sprites.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Textures" Collapsed="true">
+    <Position X="94.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAAAAAEAAAABAAAAAAAAABAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Textures.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tile" Collapsed="true">
+    <Position X="59" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAgAAAAQAQAAAAAAgAAAAAAAAABAAAAAAAQA=</HashCode>
+      <FileName>Tile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TileMap" Collapsed="true">
+    <Position X="96.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAABIAAADCAAA=</HashCode>
+      <FileName>TileMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlAttribute" Collapsed="true">
+    <Position X="14.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQggAAAgAAQggAEAABAAQQAAAIEAGQAAABgQAIEEAA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Brick" Collapsed="true">
+    <Position X="61.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAFAAAgAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Brick.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BrickParticle" Collapsed="true">
+    <Position X="68" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BrickParticle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coin" Collapsed="true">
+    <Position X="79.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAAAAAAAAAABAAgAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Coin.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Goal" Collapsed="true">
+    <Position X="84" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAABAAABAAIgQAQAAABAAgAAAAAAAAABAAAAAACAA=</HashCode>
+      <FileName>Goal.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laser" Collapsed="true">
+    <Position X="23" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAAAAAAAAAAAAAgAAAAAAAEABACQAAAAAA=</HashCode>
+      <FileName>Laser.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapBush" Collapsed="true">
+    <Position X="29.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAAAAAAAAAAAAAgAAAAAAAAABCAAAAAAAA=</HashCode>
+      <FileName>MapBush.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pipeline" Collapsed="true">
+    <Position X="36.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAhACDAAAIAQAQAAAQAAiAAAAAAAAABAAAAAwgAA=</HashCode>
+      <FileName>Pipeline.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PointSFX" Collapsed="true">
+    <Position X="65.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAABAAAAAgAAAAAAACAAAAAAA=</HashCode>
+      <FileName>PointSFX.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Popup" Collapsed="true">
+    <Position X="50" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAAAAAAAAAAAAAAAAAAAAgAAABAAAAABAAAgAAAAA=</HashCode>
+      <FileName>Popup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Portal" Collapsed="true">
+    <Position X="54.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAABAAIAQAQAAAAAAgAAAAAAAAABAAAAABGAI=</HashCode>
+      <FileName>Portal.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SFX" Collapsed="true">
+    <Position X="65.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAACAgAAAAAAAAABEAAAAAAAA=</HashCode>
+      <FileName>SFX.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mushroom" Collapsed="true">
+    <Position X="70.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAABAAAAAAAIAEAQABAAAgAAAAAAEAABAAQAAAAAA=</HashCode>
+      <FileName>Mushroom.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OneUpMushroom" Collapsed="true">
+    <Position X="70.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAABAAAAAAAAA=</HashCode>
+      <FileName>OneUpMushroom.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PSwitch" Collapsed="true">
+    <Position X="86.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABBAAAAgAAAAAAAAAAAAgAEAAIAAAABAAQAIAAAA=</HashCode>
+      <FileName>PSwitch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuestionBlock" Collapsed="true">
+    <Position X="25.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBBAAAABAAAAAAAQEAAAAgAAAAAAAAABAAAAAACAA=</HashCode>
+      <FileName>QuestionBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RewardBrick" Collapsed="true">
+    <Position X="25.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>RewardBrick.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RewardCoin" Collapsed="true">
+    <Position X="79.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAAABAAAQAAAAAgAAEAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>RewardCoin.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuperLeaf" Collapsed="true">
+    <Position X="43.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAAAAAAAwAAAAAgAAAAAAEAABACQAAAAAg=</HashCode>
+      <FileName>SuperLeaf.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GhostBlock" Collapsed="true">
+    <Position X="52.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAABAQAAAAAAAAAAAAAEAgAAAAAAEAEBAAQAAAAAA=</HashCode>
+      <FileName>GhostBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Goomba" Collapsed="true">
+    <Position X="56.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwABBAAAAAAEAAAAAABAAAgAAAAAgEAABAAQAEAIBA=</HashCode>
+      <FileName>Goomba.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GreenVenus" Collapsed="true">
+    <Position X="38.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>GreenVenus.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Koopa" Collapsed="true">
+    <Position X="74" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwCBBAAAAgIUABAAAABABAgAEAAgEEDABDAxAEIIBA=</HashCode>
+      <FileName>Koopa.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParaGoomba" Collapsed="true">
+    <Position X="56.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAQAAAAgAAAAAAAAAAAAQAABAAAABBAAAAAgAAA=</HashCode>
+      <FileName>ParaGoomba.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParaKoopa" Collapsed="true">
+    <Position X="75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAQAAAAAAAAAAAAAAAAAQAAAAAAABBBAAAAgAAA=</HashCode>
+      <FileName>ParaKoopa.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiranhaPlant" Collapsed="true">
+    <Position X="27.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgABAAAAAAAEAAARAAAAAoAAAAAAAAABAAQAEBAAI=</HashCode>
+      <FileName>PiranhaPlant.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedKoopa" Collapsed="true">
+    <Position X="72.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAABAAAAAAQAABAAAAABAAAAA=</HashCode>
+      <FileName>RedKoopa.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VenusFireTrap" Collapsed="true">
+    <Position X="38.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgABAAQAAAAEAAARAAAAAoAAAAAAAAABIAQBABAAI=</HashCode>
+      <FileName>VenusFireTrap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IntroScene" Collapsed="true">
+    <Position X="17" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAggCIAAAAAAAAAAAAAAiAAAAAAAAgABAAAgBAAAA=</HashCode>
+      <FileName>IntroScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IntroSceneKeyHandler" Collapsed="true">
+    <Position X="20" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAACAAAAAAAAAAAAABAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IntroSceneKeyHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapNode" Collapsed="true">
+    <Position X="96.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAACAAwAAAIIAAAADRThAAIAEgY=</HashCode>
+      <FileName>MapNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapSceneKeyHandler" Collapsed="true">
+    <Position X="22.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAACAAAAAACAAAAAAAAIAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>MapSceneKeyHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayScene" Collapsed="true">
+    <Position X="4.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAogiIAABAAIAAAAEAAAgwCAAAAAgAABAAAgBAAAA=</HashCode>
+      <FileName>PlayScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlaySceneKeyHandler" Collapsed="true">
+    <Position X="17.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAQAAACAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlaySceneKeyHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorldMap" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAggyIAABAAAAAAAAAAAiAIABAAAAAABAAAgRAAAg=</HashCode>
+      <FileName>WorldMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Platform" Collapsed="true">
+    <Position X="45.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAQAQAAAAAAgAAAAAAAACBAAAAAAAAA=</HashCode>
+      <FileName>Platform.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpecialPlatform" Collapsed="true">
+    <Position X="45.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SpecialPlatform.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TheVoid" Collapsed="true">
+    <Position X="68.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAQAQAAAAAAgAAAAAAAAABAAAAAACAA=</HashCode>
+      <FileName>TheVoid.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Card" Collapsed="true">
+    <Position X="77.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIRAAAAAAAAAAAAAAAAACAAgAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Card.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Font" Collapsed="true">
+    <Position X="81.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAQEBAgAAgAAAAAAAAABAAAAACAAA=</HashCode>
+      <FileName>Font.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HUD" Collapsed="true">
+    <Position X="88.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AG0BIAADAIABAAAgAAgIAAGoFjVAAgCBABAAAgDAEAA=</HashCode>
+      <FileName>HUD.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MomentumBar" Collapsed="true">
+    <Position X="91" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKQAAAAAAAEBBAAAAQAAQAAAFAAACQAAABBgAgAAAAA=</HashCode>
+      <FileName>MomentumBar.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mario" Collapsed="true">
+    <Position X="32" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMyyRHBRAIAJdBYiCQAZExAxQtEAkcUBiBEk7AABIgA=</HashCode>
+      <FileName>Mario.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MarioMap" Collapsed="true">
+    <Position X="41" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAABARAAAAQAAghAAEAAAEAwBgBAAAAAAA=</HashCode>
+      <FileName>MarioMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tail" Collapsed="true">
+    <Position X="47.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCABAAAAgAQAAAAAACAAAgAEAAgAEAABACxAAAAAA=</HashCode>
+      <FileName>Tail.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlParsingData" Collapsed="true">
+    <Position X="112.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAQABAAEAAAAAAAAAAEEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>tinyxmlparser.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Animation" Collapsed="true">
+    <Position X="9.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAIgAAAAAAAgAAAAAAAAAAAAAgAABAAAQAgAAA=</HashCode>
+      <FileName>Animation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnimationFrame" Collapsed="true">
+    <Position X="5.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABCAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnimationFrame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sprite" Collapsed="true">
+    <Position X="9.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAhAAAABAAAgAABAIAgAQAAAAAAAAggA=</HashCode>
+      <FileName>Sprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Texture" Collapsed="true">
+    <Position X="5.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAACAggIAAAAAAAAAABAAQAgAAAIAAAAAAAA=</HashCode>
+      <FileName>Texture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlString" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAIAAAAEAAAlAsICAQACAAEAAIIAiQExCAABAAA=</HashCode>
+      <FileName>tinystr.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlOutStream" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>tinystr.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlVisitor" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAgAA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlBase" Collapsed="true">
+    <Position X="11" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAgggBQAEAgEAAAQAgBhABASADAQAiAIAAAiAAAkAAA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlNode" Collapsed="true">
+    <Position X="104" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAgAAAIAEAEiiBAhEAAYQAEAAqBgCECAYtgAAtAIDA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlAttributeSet" Collapsed="true">
+    <Position X="112.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAQAAQAAABAAAAAAJAAAAACAiQAAAAAA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlElement" Collapsed="true">
+    <Position X="98.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAAAACACQAAJAAAAIIEAgQSAAA0BCBAgAAAEIFE=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlComment" Collapsed="true">
+    <Position X="100.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAIAAAAAAAAAAAAAAAQAAAAAAAAEIAAAgAAAEIBA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlText" Collapsed="true">
+    <Position X="103" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAgAAAABAAAAAAAAEAAAABAAAABgAEAAAAgAAAEIBQ=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlDeclaration" Collapsed="true">
+    <Position X="105.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAgACCAAAQAAAAAAAAAAAAAgAAAAIEAAAIoAAAEKBA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlUnknown" Collapsed="true">
+    <Position X="107.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAAAAEAAAAAAAAAAAAACAAAAAAEAAAAgAIAEIBA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlDocument" Collapsed="true">
+    <Position X="109.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAAABBAQAQABAgEICAAAAAEQBAEBFAAgAEgUJBA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlHandle" Collapsed="true">
+    <Position X="114" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEAAAAEAAAIAAAEgAIAABAAAAAAAAAIEoCAEAABA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlPrinter" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAEABEhAQgBAAQAAAAMAAAAAAAAABQIBQAwAA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game" Collapsed="true">
+    <Position X="1.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hKAMhAAIAWAIHoEgBJBEIICiBACAAAICAIoKQAAAAIo=</HashCode>
+      <FileName>Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="CollisionEvent" Collapsed="true">
+    <Position X="1.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAIAAAAAIIAAAAQAAAAAAJAAQAAAAARBA=</HashCode>
+      <FileName>Collision.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TiXmlCursor" Collapsed="true">
+    <Position X="112.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQACAAAAAAAAAAAABABAAAA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="LPGAMEOBJECT" Collapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collision.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPKEYEVENTHANDLER" Collapsed="true">
+    <Position X="10" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>KeyEventHandler.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPSCENE" Collapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPSCENEKEYHANDLER" Collapsed="true">
+    <Position X="20" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPPLAYSCENE" Collapsed="true">
+    <Position X="4.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlayScene.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPPLATFORM" Collapsed="true">
+    <Position X="45.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Platform.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPANIMATION" Collapsed="true">
+    <Position X="9.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Animation.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPANIMATION_FRAME" Collapsed="true">
+    <Position X="5.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnimationFrame.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPCOLLISIONEVENT" Collapsed="true">
+    <Position X="1.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collision.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPSPRITE" Collapsed="true">
+    <Position X="9.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sprite.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPTEXTURE" Collapsed="true">
+    <Position X="5.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Texture.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPGAME" Collapsed="true">
+    <Position X="1.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="__unnamed_enum_0477_1" Collapsed="true">
+    <Position X="112.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAACABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TiXmlEncoding" Collapsed="true">
+    <Position X="114" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAABAAAAAAAABAAAA=</HashCode>
+      <FileName>tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

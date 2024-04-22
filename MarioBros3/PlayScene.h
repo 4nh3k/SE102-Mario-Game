@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "Scene.h"
 #include "tileson.hpp"
+#include "EnemyObjFactory.h"
+#include "PlatformObjFactory.h"
 
 #define SCENE_SECTION_UNKNOWN -1
 
@@ -13,6 +15,8 @@ protected:
 	bool startMoving;
 	vector<std::pair<tson::Object, bool>> spawnPoint;
 	LPGAMEOBJECT hud;
+	EnemyObjFactory* enemyFactory;
+	PlatformObjFactory* platformFactory;
 
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);
