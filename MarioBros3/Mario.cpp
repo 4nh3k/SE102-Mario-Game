@@ -23,6 +23,7 @@
 #include "Goal.h"
 #include "TheVoid.h"
 #include "HUD.h"
+#include "MarioCollisionVisitor.h"
 
 Mario::Mario(float x, float y) : GameObject(x, y)
 {
@@ -283,36 +284,8 @@ void Mario::OnCollisionWith(LPCOLLISIONEVENT e)
 		{
 			vx = 0;
 		}
-	if (dynamic_cast<Goomba*>(e->obj))
-		OnCollisionWithGoomba(e);
-	else if (dynamic_cast<Coin*>(e->obj))
-		OnCollisionWithCoin(e);
-	else if (dynamic_cast<Portal*>(e->obj))
-		OnCollisionWithPortal(e);
-	else if (dynamic_cast<QuestionBlock*>(e->obj))
-		OnCollisionWithQuestionBlock(e);
-	else if (dynamic_cast<Mushroom*>(e->obj))
-		OnCollisionWithMushroom(e);
-	else if (dynamic_cast<Koopa*>(e->obj))
-		OnCollisionWithKoopa(e);
-	else if (dynamic_cast<SuperLeaf*>(e->obj))
-		OnCollisionWithSuperLeaf(e);
-	else if (dynamic_cast<Laser*>(e->obj))
-		OnCollisionWithLaser(e);
-	else if (dynamic_cast<VenusFireTrap*>(e->obj))
-		OnCollisionWithVenus(e);
-	else if (dynamic_cast<PSwitch*>(e->obj))
-		OnCollisionWithPSwitch(e);
-	else if (dynamic_cast<Brick*>(e->obj))
-		OnCollisionWithBrick(e);
-	else if (dynamic_cast<PiranhaPlant*>(e->obj))
-		OnCollisionWithPiranhaPlant(e);
-	else if (dynamic_cast<Pipeline*>(e->obj))
-		OnCollisionWithPipeline(e);
-	else if (dynamic_cast<Goal*>(e->obj))
-		OnCollisionWithGoal(e);
-	else if (dynamic_cast<TheVoid*>(e->obj))
-		OnCollisionWithTheVoid(e);
+	CollisionVisitor* visitor = new MarioCollisionVisitor(this, e);
+	e->obj->Accept(visitor);
 }
 
 void Mario::OnCollisionWithTheVoid(LPCOLLISIONEVENT e)

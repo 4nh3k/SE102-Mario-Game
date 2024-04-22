@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="MapHelp" Collapsed="true">
     <Position X="63.5" Y="5.25" Width="1.5" />
@@ -660,3 +661,6 @@
   </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
+=======
+<ClassDiagram /> 
+>>>>>>> cf591f9a685bd53883d3e0c069471f57741c2a75

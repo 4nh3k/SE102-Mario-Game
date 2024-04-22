@@ -39,6 +39,10 @@ protected:
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	void Accept(CollisionVisitor* visitor) {
+		visitor->VisitGoomba();
+	}
+
 
 public:
 	float nx;

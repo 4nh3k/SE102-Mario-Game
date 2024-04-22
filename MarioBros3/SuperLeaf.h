@@ -32,5 +32,8 @@ public:
 		return 1;
 	};
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	void Accept(CollisionVisitor* visitor) {
+		visitor->VisitSuperLeaf();
+	}
 };
 

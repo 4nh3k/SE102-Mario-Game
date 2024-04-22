@@ -18,6 +18,10 @@ public:
 	void GetCamPos(float& camX, float& camY);
 	int GetBackGroundColor();
 	void RenderBoundingBox();
+	void Accept(CollisionVisitor* visitor)
+	{
+		visitor->VisitPipeline();
+	}
 	int IsBlocking(float nx, float ny) { return 1; }
 };
 

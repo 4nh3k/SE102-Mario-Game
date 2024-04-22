@@ -5,6 +5,8 @@
 #include "PiranhaPlant.h"
 #include "Mario.h"
 #include "Brick.h"
+#include "CollisionVisitor.h"
+#include "KoopaCollisionVisitor.h"
 
 Koopa::Koopa(float x, float y) :GameObject(x, y)
 {
@@ -53,12 +55,8 @@ void Koopa::OnCollisionWith(LPCOLLISIONEVENT e)
 	
 	if (state == KOOPA_STATE_KICKED || state == KOOPA_STATE_PICKED_UP)
 	{
-		if (dynamic_cast<Koopa*>(e->obj)) OnCollisionWithKoopa(e);
-		else if (dynamic_cast<Goomba*>(e->obj)) OnCollisionWithGoomba(e);
-		else if (dynamic_cast<VenusFireTrap*>(e->obj)) OnCollisionWithVenus(e);
-		else if (dynamic_cast<QuestionBlock*>(e->obj)) OnCollisionWithQuestionBlock(e);
-		else if (dynamic_cast<Brick*>(e->obj)) OnCollisionWithBrick(e);
-		else if (dynamic_cast<PiranhaPlant*>(e->obj)) OnCollisionWithPiranhaPlant(e);
+		CollisionVisitor* visitor = new KoopaCollisionVisitor(this, e);
+		e->obj->Accept(visitor);
 	}
 
 	if (!e->obj->IsBlocking(e->nx, e->ny)) return;
