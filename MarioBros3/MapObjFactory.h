@@ -8,6 +8,6 @@ class MapObjFactory : public GameObjFactory
 {
 public:
 	MapObjFactory(){}
-	virtual GameObject* CreateGameObject(string enemy, tson::Vector2f position, tson::Vector2i* size = nullptr);
+	GameObject* CreateGameObject(string enemy, tson::Vector2f position, tson::Vector2i* size = nullptr) override;
 };
 

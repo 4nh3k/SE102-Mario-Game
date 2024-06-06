@@ -15,8 +15,8 @@ protected:
 	bool startMoving;
 	vector<std::pair<tson::Object, bool>> spawnPoint;
 	LPGAMEOBJECT hud;
-	EnemyObjFactory* enemyFactory;
-	PlatformObjFactory* platformFactory;
+	GameObjFactory* enemyFactory;
+	GameObjFactory* platformFactory;
 
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);

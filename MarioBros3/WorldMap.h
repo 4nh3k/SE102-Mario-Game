@@ -28,7 +28,7 @@ protected:
 	map<int, MapNode*> movingMap;
 	BOOLEAN hasCreate;
 	LPGAMEOBJECT popup;
-	MapObjFactory* factory;
+	GameObjFactory* factory;
 
 	void LoadObjects(vector < tson::Object> objects);
 	void LoadLayer(tson::Layer layer, tson::Vector2i tileSize);

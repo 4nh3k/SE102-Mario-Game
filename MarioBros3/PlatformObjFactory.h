@@ -8,6 +8,6 @@ class PlatformObjFactory : public GameObjFactory
 {
 public:
 	PlatformObjFactory() {}
-	virtual GameObject* CreateGameObject(string enemy, tson::Vector2f position, tson::Vector2i* size);
+	GameObject* CreateGameObject(string enemy, tson::Vector2f position, tson::Vector2i* size) override;
 };
 

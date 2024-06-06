@@ -14,4 +14,6 @@ GameObject* PlatformObjFactory::CreateGameObject(string enemy, tson::Vector2f po
 	else if (enemy == "TheVoid") {
 		return new TheVoid(position.x, position.y, size->x, size->y);
 	}
+
+	return nullptr;
 }

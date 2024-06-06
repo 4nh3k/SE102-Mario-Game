@@ -44,4 +44,6 @@ GameObject* EnemyObjFactory::CreateGameObject(string enemy, tson::Vector2f posit
 	{
 		return new ParaGoomba(position.x, position.y);
 	}
+
+	return nullptr;
 }

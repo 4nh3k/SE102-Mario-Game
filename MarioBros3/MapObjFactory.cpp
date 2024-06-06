@@ -13,4 +13,6 @@ GameObject* MapObjFactory::CreateGameObject(string enemy, tson::Vector2f positio
 	else if (enemy == "Help") {
 		return new MapHelp(position.x, position.y);
 	}
+
+	return nullptr;
 }
