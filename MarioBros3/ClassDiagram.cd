@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="TiXmlParsingData" Collapsed="true">
-    <Position X="94.5" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAEAAQABAAEAAAAAAAAAAEEAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>tinyxmlparser.cpp</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="MapHelp" Collapsed="true">
     <Position X="65.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
@@ -124,111 +117,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAABIAAADCAAA=</HashCode>
       <FileName>TileMap.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlString" Collapsed="true">
-    <Position X="0.5" Y="11.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AEAAAAIAAAAEAAAlAsICAQACAAEAAIIAiQExCAABAAA=</HashCode>
-      <FileName>tinystr.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlOutStream" Collapsed="true">
-    <Position X="0.5" Y="13" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>tinystr.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlVisitor" Collapsed="true">
-    <Position X="0.5" Y="3.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAQAAAAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAgAA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlBase" Collapsed="true">
-    <Position X="7.75" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>JAgggBQAEAgEAAAQAgBhABASADAQAiAIAAAiAAAkAAA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlNode" Collapsed="true">
-    <Position X="6.75" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AKAgAAAIAEAEiiBAhEAAYQAEAAqBgCECAYtgAAtAIDA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlAttribute" Collapsed="true">
-    <Position X="14.5" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AgQggAAAgAAQggAEAABAAQQAAAIEAGQAAABgQAIEEAA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlAttributeSet" Collapsed="true">
-    <Position X="91" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAQAAQAAABAAAAAAJAAAAACAiQAAAAAA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlElement" Collapsed="true">
-    <Position X="10" Y="7.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AIAgAAAAACACQAAJAAAAIIEAgQSAAA0BCBAgAAAEIFE=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlComment" Collapsed="true">
-    <Position X="12.25" Y="7.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AIAgAIAAAAAAAAAAAAAAAQAAAAAAAAEIAAAgAAAEIBA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlText" Collapsed="true">
-    <Position X="1" Y="7.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AKAgAAAABAAAAAAAAEAAAABAAAABgAEAAAAgAAAEIBQ=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlDeclaration" Collapsed="true">
-    <Position X="3.25" Y="7.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>IIAgACCAAAQAAAAAAAAAAAAAgAAAAIEAAAIoAAAEKBA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlUnknown" Collapsed="true">
-    <Position X="5.5" Y="7.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AIAgAAAAAEAAAAAAAAAAAAACAAAAAAEAAAAgAIAEIBA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlDocument" Collapsed="true">
-    <Position X="7.75" Y="7.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AIAgAAAABBAQAQABAgEICAAAAAEQBAEBFAAgAEgUJBA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlHandle" Collapsed="true">
-    <Position X="92.75" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQAAEAAAAEAAAIAAAEgAIAABAAAAAAAAAIEoCAEAABA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TiXmlPrinter" Collapsed="true">
-    <Position X="0.5" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAQAAAEABEhAQgBAAQAAAAMAAAAAAAAABQIBQAwAA=</HashCode>
-      <FileName>tinyxml.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Brick" Collapsed="true">
@@ -581,13 +469,6 @@
       <FileName>Collision.h</FileName>
     </TypeIdentifier>
   </Struct>
-  <Struct Name="TiXmlCursor" Collapsed="true">
-    <Position X="91" Y="3.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAQACAAAAAAAAAAAABABAAAA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Struct>
   <Typedef Name="LPANIMATION" Collapsed="true">
     <Position X="1.5" Y="17.5" Width="1.5" />
     <TypeIdentifier>
@@ -672,19 +553,5 @@
       <FileName>Platform.h</FileName>
     </TypeIdentifier>
   </Typedef>
-  <Enum Name="__unnamed_enum_0477_1" Collapsed="true">
-    <Position X="91" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAAAAAAAAAACABAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="TiXmlEncoding" Collapsed="true">
-    <Position X="92.75" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAABAAAAAAAABAAAA=</HashCode>
-      <FileName>tinyxml.h</FileName>
-    </TypeIdentifier>
-  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
