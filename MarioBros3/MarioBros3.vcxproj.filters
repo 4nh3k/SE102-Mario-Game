@@ -67,9 +67,25 @@
     <Filter Include="Header Files\Game\GameObjFactory">
       <UniqueIdentifier>{7be0c911-cd17-4c25-819e-805970187c06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Memento">
+      <UniqueIdentifier>{361375cf-d72c-459c-be38-b6cb24b7a3da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Command">
+      <UniqueIdentifier>{656e9d6c-94fa-4cfd-a62b-856c82e8d58d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Visitor">
+      <UniqueIdentifier>{317547ba-68e4-40c7-b5bb-96603ca98386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Memento">
+      <UniqueIdentifier>{d61cc9bf-c942-43f4-96f2-d98a5bc320af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Visitor">
+      <UniqueIdentifier>{364c0644-ac96-4ba6-99e8-901bde0db6ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -240,12 +256,6 @@
     <ClCompile Include="Goal.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="Popup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapHelp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyObjFactory.cpp">
       <Filter>Source Files\Game\GameObjFactory</Filter>
     </ClCompile>
@@ -257,6 +267,27 @@
     </ClCompile>
     <ClCompile Include="PlatformObjFactory.cpp">
       <Filter>Source Files\Game\GameObjFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMemento.h">
+      <Filter>Header Files\Game\Memento</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopaCollisionVisitor.cpp">
+      <Filter>Source Files\Game\Visitor</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioCollisionVisitor.cpp">
+      <Filter>Source Files\Game\Visitor</Filter>
+    </ClCompile>
+    <ClCompile Include="Popup.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="MapHelp.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveSnapshotCommand.cpp">
+      <Filter>Source Files\Game\Memento</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMemento.cpp">
+      <Filter>Source Files\Game\Memento</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -455,12 +486,6 @@
     <ClInclude Include="Popup.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="MapTurtle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapHelp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjFactory.h">
       <Filter>Header Files\Game\GameObjFactory</Filter>
     </ClInclude>
@@ -469,6 +494,30 @@
     </ClInclude>
     <ClInclude Include="MapObjFactory.h">
       <Filter>Header Files\Game\GameObjFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\Game\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandManager.h">
+      <Filter>Header Files\Game\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveSnapshot.h">
+      <Filter>Header Files\Game\Memento</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionVisitor.h">
+      <Filter>Header Files\Game\Visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaCollisionVisitor.h">
+      <Filter>Header Files\Game\Visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioCollisionVisitor.h">
+      <Filter>Header Files\Game\Visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="MapHelp.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTurtle.h">
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

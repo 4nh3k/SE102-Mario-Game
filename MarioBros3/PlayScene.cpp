@@ -67,6 +67,10 @@ void PlayScene::Spawn(tson::Object obj)
 		lowLayer.push_back(gameObj);
 	}
 	else {
+		if (gameObj == nullptr)
+		{
+			return;
+		}
 		gameObjects.push_back(gameObj);
 	}	
 	//gameObj->SetPosition(10.0f, 01.0f);
@@ -94,6 +98,7 @@ void PlayScene::LoadObjects(vector<tson::Object> objects)
 			}
 			gameObj = new Mario(pos.x, pos.y);
 			player = (Mario*)gameObj;
+			this->SaveSnapshot();
 			DebugOut(L"[INFO] Player object has been created!\n");
 			continue;
 		}

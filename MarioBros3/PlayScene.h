@@ -4,6 +4,7 @@
 #include "tileson.hpp"
 #include "EnemyObjFactory.h"
 #include "PlatformObjFactory.h"
+#include "SaveSnapshot.h"
 
 #define SCENE_SECTION_UNKNOWN -1
 

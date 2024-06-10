@@ -24,6 +24,7 @@
 #include "TheVoid.h"
 #include "HUD.h"
 #include "MarioCollisionVisitor.h"
+#include "PlayScene.h"
 
 Mario::Mario(float x, float y) : GameObject(x, y)
 {
@@ -51,6 +52,50 @@ Mario::Mario(float x, float y) : GameObject(x, y)
 	tail = NULL;
 	untouchable = 0;
 	untouchable_start = -1;
+}
+// Copy Constructor
+Mario::Mario(const Mario& other)
+	: GameObject(other), // Call base class copy constructor if needed
+	isSitting(other.isSitting),
+	isOnPlatform(other.isOnPlatform),
+	isHolding(other.isHolding),
+	isKicking(other.isKicking),
+	isTailWhack(other.isTailWhack),
+	isFlying(other.isFlying),
+	isRunningFast(other.isRunningFast),
+	flickering(other.flickering),
+	isPressUp(other.isPressUp),
+	hasFinish(other.hasFinish),
+	teleporting(other.teleporting),
+	teleDirection(other.teleDirection),
+	oldY(other.oldY),
+	teleX(other.teleX),
+	teleY(other.teleY),
+	teleCamX(other.teleCamX),
+	teleCamY(other.teleCamY),
+	teleColor(other.teleColor),
+	maxVx(other.maxVx),
+	ax(other.ax),
+	ay(other.ay),
+	kickTimer(other.kickTimer),
+	flyTimer(other.flyTimer),
+	tailTimer(other.tailTimer),
+	runTimer(other.runTimer),
+	deadTimer(other.deadTimer),
+	untouchable_start(other.untouchable_start),
+	changeFormTimer(other.changeFormTimer),
+	combo(other.combo),
+	level(other.level),
+	preLevel(other.preLevel),
+	untouchable(other.untouchable),
+	holdingObj(other.holdingObj ? other.holdingObj->Clone() : nullptr),
+	tail(other.tail ? other.tail->Clone() : nullptr) {
+	// Deep copy any dynamically allocated members if needed
+}
+
+// Clone method
+GameObject* Mario::Clone() {
+	return new Mario(*this); // Use the copy constructor
 }
 
 int Mario::IsCollidable() 
@@ -173,8 +218,16 @@ void Mario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	if (GetTickCount64() - deadTimer > MARIO_DEAD_TIMEOUT && state == MARIO_STATE_DIE)
 	{
-		Game::GetInstance()->InitiateSwitchScene(WORLD_MAP_ID);
-		Game::GetInstance()->SwitchScene();
+		PlayScene* scene = dynamic_cast<PlayScene*>(Game::GetInstance()->GetCurrentScene());
+		if (scene != nullptr) {
+			// The cast was successful and you can now work with the PlayScene object.
+			scene->Undo();
+		}
+		else {
+			// The cast failed, handle the error accordingly.
+			Game::GetInstance()->InitiateSwitchScene(WORLD_MAP_ID);
+			Game::GetInstance()->SwitchScene();
+		}
 	}
 
 	// reset untouchable timer if untouchable time has passed

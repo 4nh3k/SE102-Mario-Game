@@ -54,6 +54,8 @@ public:
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
 	virtual void Accept(CollisionVisitor* visitor) {}
+	virtual GameObject* Clone() { return this; };
+
 	//
 	// Collision ON or OFF ? This can change depending on object's state. For example: die
 	//

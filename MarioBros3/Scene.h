@@ -2,6 +2,9 @@
 
 #include "KeyEventHandler.h"
 #include <queue>
+#include "SceneMemento.h"
+#include "CommandManager.h"
+#include "SaveSnapshot.h"
 //#include "GameObject.h"
 /*
 *  Abstract class for a game scene
@@ -21,6 +24,7 @@ protected:
 	LPGAMEOBJECT player;
 	float camY;
 	float camX;
+	CommandManager commandManager;
 	std::deque<LPGAMEOBJECT> SFXs;
 	std::deque<LPGAMEOBJECT> gameObjects;
 	std::deque<LPGAMEOBJECT> lowLayer;
@@ -33,6 +37,27 @@ public:
 		this->key_handler = NULL;
 		this->pauseUpdate = false;
 	}
+	SceneMemento* SaveState() {
+		return new SceneMemento(player,camX, camY, gameObjects, SFXs);
+	}
+	void RestoreState(SceneMemento* memento) {
+		this->player = memento->GetPlayer();
+		this->camX = memento->GetCamX();
+		this->camY = memento->GetCamY();
+		this->gameObjects = memento->GetGameObjects();
+		this->SFXs = memento->GetSFXs();
+	}
+
+	void SaveSnapshot() {
+		SaveSnapshotCommand* command = new SaveSnapshotCommand(this);
+		commandManager.ExecuteCommand(command);
+	}
+
+	void Undo() {
+		commandManager.Undo();
+	}
+
+
 	LPKEYEVENTHANDLER GetKeyEventHandler() { return key_handler; }
 	void AddObject(LPGAMEOBJECT obj) {
 		gameObjects.push_front(obj);

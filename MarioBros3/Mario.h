@@ -63,6 +63,7 @@ class Mario : public GameObject
 	string GetAniIdTanooki();
 public:
 	Mario(float x, float y);
+	Mario(const Mario& other);
 	BOOLEAN IsHolding();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -76,6 +77,7 @@ public:
 	void AddScore(float Px, float Py, int point);
 	void AddCoin();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	GameObject* Clone();
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithParaGoomba(LPCOLLISIONEVENT e);

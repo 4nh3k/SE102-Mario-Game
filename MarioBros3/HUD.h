@@ -92,6 +92,7 @@ public:
 	{
 		return hasFinish;
 	}
+	int GetLife() { return life; };
 	void SetHasFinishScene(bool hasFinish = false)
 	{
 		this->hasFinish = hasFinish;

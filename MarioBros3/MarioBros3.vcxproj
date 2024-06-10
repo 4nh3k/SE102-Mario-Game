@@ -203,6 +203,9 @@
     <ClCompile Include="PlatformObjFactory.cpp" />
     <ClCompile Include="PlatformObjFactory.h" />
     <ClCompile Include="PlayScene.cpp" />
+    <ClCompile Include="SaveSnapshotCommand.cpp" />
+    <ClCompile Include="SceneMemento.cpp" />
+    <ClCompile Include="SceneMemento.h" />
     <ClCompile Include="PointSFX.cpp" />
     <ClCompile Include="Popup.cpp" />
     <ClCompile Include="Portal.cpp" />
@@ -239,6 +242,8 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionVisitor.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="CommandManager.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
@@ -284,6 +289,7 @@
     <ClInclude Include="RewardBrick.h" />
     <ClInclude Include="RewardCoin.h" />
     <ClInclude Include="PlaySceneKeyHandler.h" />
+    <ClInclude Include="SaveSnapshot.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SFX.h" />
     <ClInclude Include="SpecialPlatform.h" />
